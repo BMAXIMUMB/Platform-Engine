@@ -88,7 +88,9 @@ void CGame::LoadSprites()
 	app->spriteManager->Load("resources\\sprites\\smoke.sprite", "s_smoke");
 	app->spriteManager->Load("resources\\sprites\\background.sprite", "s_bg");
 	app->spriteManager->Load("resources\\sprites\\loading.sprite", "s_loading");
-	
+	app->spriteManager->Load("resources\\sprites\\gl.sprite", "s_gl");
+	app->spriteManager->Load("resources\\sprites\\column.sprite", COLUMN_SPRITE_NAME);
+
 	// gui sprites
 	app->spriteManager->Load("resources\\sprites\\gui\\button_play.sprite", "mm_button_play");
 	app->spriteManager->Load("resources\\sprites\\gui\\logo.sprite", "mm_logo");

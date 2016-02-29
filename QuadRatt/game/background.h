@@ -5,35 +5,57 @@
 
 #include "../main.h"
 
+class CColumnManager;
+
+struct ColumnSettings
+{
+	int depth;
+	float posX;
+	float sizeX;
+	float sizeY;
+};
+
 class CBackgroundElement
 {
-private:
+
+protected:
 
 	PE::CLayerObject *layerObject;
 	PE::CWorld *world;
 
 public:
+
+	CBackgroundElement();
+	~CBackgroundElement();
+
 	void Create(PE::CWorld *world, LayerObjectSettings los);
 	void Delete();
 	void GetPosition(float &x, float &y);
 	void GetSize(float &x, float &y);
 	void SetPosition(float x, float y);
+
 };
 
 class CBackground
 {
+
 private:
 
-	std::vector<CBackgroundElement*> elementList;
+	std::vector<CBackgroundElement*> groundElementList;
+	CColumnManager *ColumnManager;
+
 	CBackgroundElement *sky;
 
 	PE::CWorld *world;
 
 	bool create;
 
-	void CreateGround(PE::CApplication *App);
-	void CreateSky(PE::CApplication *App);
-	void CheckGround(PE::CCamera *Cam, PE::CApplication *App);
+	void CreateColumn(void);
+	void CreateGround(void);
+	void CreateSky(void);
+
+	void CheckGround(void);
+	void CheckColumn(void);
 
 	bool isCreate(void){ return create; }
 	void setCreate(bool val){ create = val; }
@@ -45,9 +67,10 @@ public:
 
 	CBackgroundElement* CreateElement(LayerObjectSettings los);
 	void DestroyElement(CBackgroundElement *bElem);
-	void Create(PE::CApplication *App);				
+	void Create(void);
 
-	void Check(PE::CCamera *Cam, PE::CApplication *App);											
+	void Check(void);
+
 };	
 
 #endif /*_BACKGROUND_H_*/

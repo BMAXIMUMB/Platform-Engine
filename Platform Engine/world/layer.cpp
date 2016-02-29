@@ -10,6 +10,7 @@ namespace PlatformEngine
 		posY = LOSettings.posY;
 		sizeX = LOSettings.sizeX;
 		sizeY = LOSettings.sizeY;
+		depth = LOSettings.depth;
 		pset = LOSettings.positionSet;
 		sprite = LOSettings.sprite;
 		moveFactor = LOSettings.moveFactor;
@@ -40,11 +41,25 @@ namespace PlatformEngine
 		posY = y;
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	void CLayer::Sort()
+	{
+		CLayerObjectSort cos;
+		std::sort(lObjectList.begin(), lObjectList.end(), cos);
+	}
+
 	CLayerObject* CLayer::CreateElement(LayerObjectSettings LOSettings)
 	{
 		CLayerObject *lo = new PlatformEngine::CLayerObject(LOSettings);
 
 		AddElementToList(lo);
+		Sort();
+
 		return lo;
 	}
 
@@ -120,10 +135,10 @@ namespace PlatformEngine
 					sds.posY = lObjectList[i]->posY;
 					sds.sizeX = lObjectList[i]->sizeX;
 					sds.sizeY = lObjectList[i]->sizeY;
-					sds.cmultiple[0] = 1.0f;
-					sds.cmultiple[1] = 1.0f;
-					sds.cmultiple[2] = 1.0f;
-					sds.cmultiple[3] = 1.0f;
+					sds.cmultiple[0] = lObjectList[i]->color.r;
+					sds.cmultiple[1] = lObjectList[i]->color.g;
+					sds.cmultiple[2] = lObjectList[i]->color.b;
+					sds.cmultiple[3] = lObjectList[i]->color.a;
 
 					if(lObjectList[i]->moveMode == LAYER_MOVE_MODE_1)
 					{

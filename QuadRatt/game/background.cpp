@@ -1,10 +1,14 @@
 // background.cpp
 
 #include "background.h"
+#include "column_manager.h"
 
 CBackground::CBackground(PE::CWorld *world)
 {
 	this->world = world;
+
+	ColumnManager = new CColumnManager(world);
+
 	setCreate(false);
 }
 
@@ -24,7 +28,11 @@ void CBackground::DestroyElement(CBackgroundElement *bElem)
 	delete bElem;
 }
 
-void CBackground::CreateGround(PE::CApplication *App)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void CBackground::CreateGround()
 {
 	LayerObjectSettings los;
 
@@ -32,7 +40,7 @@ void CBackground::CreateGround(PE::CApplication *App)
 	los.moveMode = LAYER_MOVE_MODE_1;
 	los.sizeX = GROUND_ELEMENT_SIZE_X;
 	los.sizeY = GROUND_ELEMENT_SIZE_Y;
-	los.sprite = App->spriteManager->Get("s_ground");
+	los.sprite = world->GetApp()->spriteManager->Get("s_ground");
 	los.color = {1, 1, 1, 1};
 
 	// create ground
@@ -40,11 +48,60 @@ void CBackground::CreateGround(PE::CApplication *App)
 	{
 		los.posX = (float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*i) + START_ELEMENT_POS;
 		los.posY = (float)150 / 2;
-		elementList.push_back(CreateElement(los));
+		groundElementList.push_back(CreateElement(los));
 	}
 }
 
-void CBackground::CreateSky(PE::CApplication *App)
+
+
+void CBackground::CheckGround()
+{
+	float elempos[2], elemsize[2];
+	float campos[2];
+	int wsize[2];
+
+	world->camera->GetPosition(campos[0], campos[1]);
+	world->GetApp()->GetWindowSize(wsize[0], wsize[1]);
+
+	groundElementList[0]->GetPosition(elempos[0], elempos[1]);
+	groundElementList[0]->GetSize(elemsize[0], elemsize[1]);
+
+	/*if(elempos[0] - (elemsize[0] / 2) + (wsize[0]*1.5) - campos[0] > 1280){
+
+	printf("SPARTA\n");
+	}*/
+
+	for(unsigned int i = 0; i < groundElementList.size(); i++)
+	{
+		groundElementList[i]->GetPosition(elempos[0], elempos[1]);
+		groundElementList[i]->GetSize(elemsize[0], elemsize[1]);
+
+		// Если объект ушел за левую часть экрана
+		if(elempos[0] + (elemsize[0] / 2) + (wsize[0] / 2) - campos[0] + world->camera->offsetX < 0)
+		{
+			// Переместим его в конец списка
+			auto it = groundElementList.begin();
+			//Ground[i]->Delete();
+			//delete Ground[i];
+			float np[2];
+
+			groundElementList.back()->GetPosition(np[0], np[1]);
+			groundElementList[i]->SetPosition(np[0] + elemsize[0], np[1]);
+
+			CBackgroundElement *bge = groundElementList[i];	// Есть другой способ это сделать?
+
+			groundElementList.erase(it + i);
+			groundElementList.push_back(bge);
+			//return;
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void CBackground::CreateSky()
 {
 	LayerObjectSettings los;
 
@@ -53,73 +110,64 @@ void CBackground::CreateSky(PE::CApplication *App)
 	los.moveMode = LAYER_MOVE_MODE_1;
 	los.sizeX = 1280;
 	los.sizeY = 720;
-	los.sprite = App->spriteManager->Get("s_bg");
-	los.color = {1, 1, 1, 1.0};
+	los.sprite = world->GetApp()->spriteManager->Get("s_bg");
+	los.color = 0xffffffff;
 	los.posX = 1280 / 2;
 	los.posY = 720 / 2;
+	los.depth = -200;
 	sky = CreateElement(los);
 }
 
-void CBackground::Create(PE::CApplication *App)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+void CBackground::CreateColumn()
 {
-	CreateSky(App);
-	CreateGround(App);
+	ColumnManager->Create();
+}
+
+void CBackground::CheckColumn()
+{
+	ColumnManager->Check();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void CBackground::Create()
+{
+	CreateSky();
+	CreateGround();
+	CreateColumn();
 	setCreate(true);
 }
 
-void CBackground::Check(PE::CCamera *Cam, PE::CApplication *App)
+void CBackground::Check()
 {
 	if(isCreate())
 	{
-		CheckGround(Cam, App);
+		CheckGround();
+		CheckColumn();
 	}
 	
 }
 
-void CBackground::CheckGround(PE::CCamera *Cam, PE::CApplication *App)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+CBackgroundElement::CBackgroundElement()
 {
-	float elempos[2], elemsize[2];
-	float campos[2];
-	int wsize[2];
-
-	Cam->GetPosition(campos[0], campos[1]);
-	App->GetWindowSize(wsize[0], wsize[1]);
-
-	elementList[0]->GetPosition(elempos[0], elempos[1]);
-	elementList[0]->GetSize(elemsize[0], elemsize[1]);
-
-	/*if(elempos[0] - (elemsize[0] / 2) + (wsize[0]*1.5) - campos[0] > 1280){
-
-		printf("SPARTA\n");
-	}*/
-
-	for(unsigned int i = 0; i < elementList.size(); i++)
-	{
-		elementList[i]->GetPosition(elempos[0], elempos[1]);
-		elementList[i]->GetSize(elemsize[0], elemsize[1]);
-
-		// Если объект ушел за левую часть экрана
-		if(elempos[0] + (elemsize[0] / 2) +  (wsize[0] / 2) - campos[0]+Cam->offsetX < 0)
-		{	
-			// Переместим его в конец списка
-			auto it = elementList.begin();
-			//Ground[i]->Delete();
-			//delete Ground[i];
-			float np[2];
-
-			elementList.back()->GetPosition(np[0], np[1]);
-			elementList[i]->SetPosition(np[0] + elemsize[0] , np[1]);
-
-			CBackgroundElement *bge = elementList[i];	// Есть другой способ это сделать?
-
-			elementList.erase(it + i);
-			elementList.push_back(bge);
-			//return;
-		}
-	}
+	layerObject = nullptr;
 }
 
-////////////////////////////////////////////////////////////////////////////
+CBackgroundElement::~CBackgroundElement()
+{
+	if(layerObject != nullptr) delete layerObject;
+}
 
 void CBackgroundElement::Create(PE::CWorld *world, LayerObjectSettings los)
 {
@@ -146,3 +194,7 @@ void CBackgroundElement::SetPosition(float x, float y)
 {
 	layerObject->SetPosition(x, y);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////

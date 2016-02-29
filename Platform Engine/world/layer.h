@@ -6,6 +6,7 @@
 #include "../graphics/sprite/sprite.h"
 #include "../application/application.h"
 #include <vector>
+#include <algorithm>
 
 #define LAYER_POSITION_FIXED				(0x0)
 #define LAYER_POSITION_UNFIXED				(0x1)
@@ -19,6 +20,7 @@ struct LayerObjectSettings
 	float posY						= NULL;
 	float sizeX						= NULL;
 	float sizeY						= NULL;
+	float depth						= 0.0f;
 
 	unsigned int positionSet		= LAYER_POSITION_FIXED;
 	unsigned int moveMode			= LAYER_MOVE_MODE_1;
@@ -35,6 +37,7 @@ namespace PlatformEngine
 	{
 		friend class CLayer;
 		friend class СLayerScroll;
+		friend class CLayerObjectSort;
 
 	private:
 
@@ -42,6 +45,7 @@ namespace PlatformEngine
 		float posY;
 		float sizeX;
 		float sizeY;
+		float depth;
 
 		unsigned int pset;
 		unsigned int moveMode;
@@ -61,6 +65,8 @@ namespace PlatformEngine
 		PLATFORMENGINE_API void SetPosition(float x, float y);
 	};
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	class CLayer
 	{
 	protected:
@@ -73,6 +79,8 @@ namespace PlatformEngine
 		void AddElementToList(CLayerObject *lo);
 		bool DeleteElementToList(CLayerObject *lo);
 
+		void Sort(void);
+
 	public:
 
 		PLATFORMENGINE_API	CLayer();
@@ -82,6 +90,19 @@ namespace PlatformEngine
 		PLATFORMENGINE_API	void DestroyElement(CLayerObject *lo);
 
 		PLATFORMENGINE_API	void Draw(CApplication *App, CCamera *Cam);
+	};
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// Класс сортировки объектов слоя по глубине
+	class CLayerObjectSort
+	{
+	public:
+
+		bool operator() (CLayerObject *i, CLayerObject *j)
+		{
+			return (i->depth < j->depth);
+		}
 	};
 };
 

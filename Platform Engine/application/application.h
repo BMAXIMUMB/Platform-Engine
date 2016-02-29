@@ -10,6 +10,7 @@
 #include "../object/quad.h"
 #include "../world/world.h"
 #include "../graphics/render/render.h"
+#include "../graphics/color/color.h"
 
 namespace Gui
 {

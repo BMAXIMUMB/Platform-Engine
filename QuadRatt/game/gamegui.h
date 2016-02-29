@@ -41,6 +41,7 @@ public:
 	//CALLBACKS
 	void onLoadingImageShowed(void);
 	void onLoadingImageHided(void);
+
 	void onActionStop(Gui::CGuiElement *elem, int actiontype);
 	void onElementClick(Gui::CGuiElement*, int);
 	void onElementRelease(Gui::CGuiElement*);

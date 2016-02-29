@@ -2,14 +2,20 @@
 #pragma once
 
 #include "main.h"
+#include "ginterface.h"
 
 class CProgram
 {
 private:
 	PE::CApplication *app;
-	Gui::CBox *mainBox;
+
+	CGInterface *programInterface;
 
 public:
+	CProgram();
+	~CProgram();
+
 	void Start(PE::CApplication *App);
-	void InterfaceCreate(void);
+
+	CGInterface* GetGui(void) { return programInterface; }
 };

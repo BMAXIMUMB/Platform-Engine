@@ -30,7 +30,7 @@ CPlayer* CLevel::GetPlayer(void)
 
 void CLevel::CreateBackground()
 {
-	background->Create(app);
+	background->Create();
 }
 
 void CLevel::LoadBarrierInfo()
@@ -120,7 +120,7 @@ void CLevel::BarrierCheck()
 
 void CLevel::CheckBackground()
 {
-	background->Check(world->camera, app);
+	background->Check();
 }
 
 void CLevel::PlayerCreate()
@@ -132,7 +132,7 @@ void CLevel::PlayerCreate()
 	es.sizeX = 64.0f;
 	es.sizeY = 64.0f;
 	es.sprite = app->spriteManager->Get("s_player");
-	es.color = {RGB256(255), RGB256(255), RGB256(255), RGB256(255)};
+	es.color = 0xffffffff;
 	
 	GetPlayer()->Create(world, es);
 	GetPlayer()->Spawn();

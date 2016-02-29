@@ -19,7 +19,7 @@ void CDebug::ShowDebugInfo()
 
 	ts.font = app->fontManager->Load("resources\\fonts\\arial.ttf", "Arial");
 	ts.posX = 0.0;
-	ts.posY = 190.0;
+	ts.posY = 690.0;
 	ts.color = {1, 1, 1, 1};
 	ts.text = L"FPS:";
 	ts.name = "t1";
@@ -31,7 +31,7 @@ void CDebug::ShowDebugInfo()
 
 	ts.font = app->fontManager->Load("resources\\fonts\\arial.ttf", "Arial");
 	ts.posX = 0.0;
-	ts.posY = 170.0;
+	ts.posY = 670.0;
 	ts.color = {1, 1, 1, 1};
 	ts.text = L"PCount:";
 	ts.name = "t2";

@@ -4,6 +4,7 @@
 #define _PARTICLES_H_
 
 #include "../graphics/sprite/sprite.h"
+#include "../graphics/color/color.h"
 #include <vector>
 
 #define E_DESTROY_WAIT				(0x1)
@@ -12,30 +13,6 @@
 struct pvec2
 {
 	float a, b;
-};
-
-struct color4
-{
-	float r, g, b, a;
-	color4 operator *(float value)
-	{
-		color4 c;
-		c.r = r*value;
-		c.g = g*value;
-		c.b = b*value;
-		c.a = a*value;
-		return c;
-	}
-
-	color4 operator +=(color4 c)
-	{
-		r += c.r;
-		g += c.g;
-		b += c.b;
-		a += c.a;
-
-		return *this;
-	}
 };
 
 struct ParticleSettings

@@ -5,6 +5,7 @@
 
 #include "../../platform_engine.h"
 #include "../../object/particles.h"
+#include "../color/color.h"
 #include <string>
 #include <iostream>
 

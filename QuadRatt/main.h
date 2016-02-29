@@ -31,6 +31,14 @@
 #define GROUND_ELEMENT_COUNT							7
 #define START_ELEMENT_POS								-610
 
+// COLUMN SETTINGS
+#define COLUMN_COLOR									0x1aee42ff
+#define COLUMN_POS_Y									200
+#define COLUMN_SIZE_Y									350
+#define COLUMN_DEPTH_MULTIPLE							1.04
+#define COLUMN_START_COUNT								20
+#define COLUMN_SPRITE_NAME								"s_column"
+
 // BARRIER SETTINGS
 #define BINFO_PATH										"resources\\bpatterns\\"
 #define BINFO_MASK										"*.ini"

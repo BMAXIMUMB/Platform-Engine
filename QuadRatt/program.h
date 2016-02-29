@@ -20,10 +20,14 @@ private:
 public:
 	CProgram(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 	~CProgram();
+
 	int Main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
+
 	void InitGL(void);
 	bool Start(void);
+
 	bool LoadShaders(void);
+
 	CGame* GetGame(void) { return game; }
 
 	// CALLBACKS

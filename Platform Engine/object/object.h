@@ -4,6 +4,7 @@
 #define _OBJECT_H_
 
 #include "../graphics/sprite/sprite.h"
+#include "../graphics/color/color.h"
 #include "particles.h"
 
 // OBJECT_TYPES
