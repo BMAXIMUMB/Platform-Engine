@@ -13,8 +13,13 @@ private:
 	std::vector<CColumn*> columnElementList;
 	PE::CWorld *world;
 
+	bool isStarted;
+
 	// Создает колонну
 	CColumn* CreateColumn(ColumnSettings cs);
+
+	// Удаляет колонну
+	void DeleteColumn(CColumn* column);
 
 	// Генерирует настройки для колонн по специальному алгоритму
 	ColumnSettings ColumnSettingsGenerate(void);

@@ -166,7 +166,7 @@ CBackgroundElement::CBackgroundElement()
 
 CBackgroundElement::~CBackgroundElement()
 {
-	if(layerObject != nullptr) delete layerObject;
+	if(layerObject != nullptr) world->background->DestroyElement(layerObject);
 }
 
 void CBackgroundElement::Create(PE::CWorld *world, LayerObjectSettings los)

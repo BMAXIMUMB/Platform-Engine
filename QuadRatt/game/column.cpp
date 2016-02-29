@@ -38,7 +38,7 @@ color4 CColumn::CalculateColor()
 	maskColor = mask;
 	maskColor -= ((float)info.depth * COLUMN_DEPTH_MULTIPLE / 255);
 	// Альфу ставим 1
-	maskColor.a = 1.0f;
+	maskColor.a = 1;
 
 	color = COLUMN_COLOR;
 
@@ -58,7 +58,7 @@ float CColumn::CalculateSizeY()
 
 float CColumn::CalculateMoveFactor()
 {
-	const float multiple = 8.0f;
+	const float multiple = 16.0f;
 	float moveFactor = multiple / info.depth;
 
 	return moveFactor;

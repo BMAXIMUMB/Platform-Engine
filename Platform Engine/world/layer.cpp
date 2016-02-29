@@ -49,8 +49,8 @@ namespace PlatformEngine
 
 	void CLayer::Sort()
 	{
-		CLayerObjectSort cos;
-		std::sort(lObjectList.begin(), lObjectList.end(), cos);
+		CLayerObjectSort los;
+		std::sort(lObjectList.begin(), lObjectList.end(), los);
 	}
 
 	CLayerObject* CLayer::CreateElement(LayerObjectSettings LOSettings)
@@ -85,7 +85,7 @@ namespace PlatformEngine
 
 	bool CLayer::DeleteElementToList(CLayerObject *lo)
 	{
-		for(auto it = lObjectList.begin(); it != lObjectList.end();)
+		for(auto it = lObjectList.begin(); it != lObjectList.end(); it++)
 		{
 			if(*it == lo)
 			{

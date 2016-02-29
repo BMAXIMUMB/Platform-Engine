@@ -36,7 +36,7 @@
 #define COLUMN_POS_Y									200
 #define COLUMN_SIZE_Y									350
 #define COLUMN_DEPTH_MULTIPLE							1.04
-#define COLUMN_START_COUNT								20
+#define COLUMN_COUNT									15
 #define COLUMN_SPRITE_NAME								"s_column"
 
 // BARRIER SETTINGS
