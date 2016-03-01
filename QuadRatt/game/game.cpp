@@ -12,22 +12,21 @@ CGame::CGame(PE::CApplication *App)
 	ws.collision	= true;
 	ws.groundLevel	= 150.f;
 
-	world			= new PE::CWorld(App, ws);
+	world			= new PE::CWorld(app, ws);
+	level			= new CLevel(this);
 	gInterface		= new CInterface(this);
-	debugInfo		= new CDebug(App);
+	debugInfo		= new CDebug(app);
 
 
 	world->physics->SetGravity(GRAVITY_DEFAULT);
 	world->SetCollisionFunction(OnObjCollision);
-	SetState(GAME_STATE_LOADING_IMAGE);
 
-	level = nullptr;
+	SetState(GAME_STATE_LOADING_IMAGE);
 }
 
 CGame::~CGame()
 {
-	if(level != nullptr) delete level;
-
+	delete level;
 	delete world;
 	delete gInterface;
 	delete debugInfo;
@@ -62,8 +61,6 @@ void CGame::DownState()
 void CGame::Start()
 {
 	SetState(GAME_STATE_GAME);
-
-	level->Start();
 }
 
 void CGame::DebugInfoUpdate()
@@ -95,6 +92,13 @@ void CGame::LoadSprites()
 	app->spriteManager->Load("resources\\sprites\\gui\\button_play.sprite", "mm_button_play");
 	app->spriteManager->Load("resources\\sprites\\gui\\logo.sprite", "mm_logo");
 	app->spriteManager->Load("resources\\sprites\\gui\\mm_bg.sprite", "mm_background");
+
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_off.sprite", "g_icon_sound_off");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_on.sprite", "g_icon_sound_on");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_star.sprite", "g_icon_star");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_stats.sprite", "g_icon_stats");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_logo.sprite", "g_mm_logo");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_play.sprite", "g_mm_play");
 }
 
 void CGame::LoadFonts()
@@ -115,12 +119,8 @@ void CGame::onGameStateChange(gamestate newgs, gamestate oldgs)
 {
 	if(newgs == GAME_STATE_GAME)
 	{
-		level = new::CLevel(world, app);
-
 		level->Start();
-
 		ShowDebugInfo();
-
 		gInterface->ShowGameHUD();
 	}
 	else if(newgs == GAME_STATE_LOAD_RESOURCES)
@@ -135,6 +135,7 @@ void CGame::onGameStateChange(gamestate newgs, gamestate oldgs)
 	else if(newgs == GAME_STATE_MAIN_MENU)
 	{
 		gInterface->ShowMainMenu(oldgs);
+		level->Create();
 	}
 	else if(newgs == GAME_STATE_STARTING)
 	{
@@ -157,10 +158,13 @@ void CGame::LoopFunction()
 {
 	if(GetState() == GAME_STATE_GAME)
 	{
-		level->Update();
 		DebugInfoUpdate();
 		level->GetPlayer()->UpdateScore();
 		gInterface->UpdatePlayerScore();
+	}
+	if(GetState() == GAME_STATE_GAME || GetState() == GAME_STATE_MAIN_MENU || GetState() == GAME_STATE_STARTING)
+	{
+		level->Update();
 	}
 }
 

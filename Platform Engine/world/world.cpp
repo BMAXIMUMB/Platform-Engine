@@ -195,7 +195,7 @@ namespace PlatformEngine
 
 		UpdateParticle(dTime);
 
-		camera->Update();
+		camera->Update(dTime);
 	}
 
 	void CWorld::CollisionUpdate()

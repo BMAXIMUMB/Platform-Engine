@@ -2,11 +2,13 @@
 
 #include "level.h"
 #include "entity.h"
+#include "game.h"
 
-CLevel::CLevel(PE::CWorld *world, PE::CApplication *app)
+CLevel::CLevel(CGame *game)
 {
-	this->world = world;
-	this->app = app;
+	this->game = game;
+	this->world = game->GetWorld();
+	this->app = game->GetApp();
 
 	background = new CBackground(world);
 	player = new CPlayer;
@@ -63,6 +65,14 @@ CBarrierInfo* CLevel::LoadBarrierInfoFromFile(const char *filename)
 	binfo->LoadFromFile(path, app->spriteManager);
 
 	return binfo;
+}
+
+void CLevel::StartBarrierGenerate(void)
+{
+	float pos[2];
+	player->GetPosition(pos[0], pos[1]);
+
+	BarrierGenerate(START_BARRIER_OFFSET + pos[0]);
 }
 
 void CLevel::BarrierGenerate(float offset)
@@ -131,7 +141,7 @@ void CLevel::PlayerCreate()
 	es.spawnPosY = START_PLAYER_POSY;
 	es.sizeX = 64.0f;
 	es.sizeY = 64.0f;
-	es.sprite = app->spriteManager->Get("s_player");
+	es.sprite = app->spriteManager->Get("g_icon_stats");
 	es.color = 0xffffffff;
 	
 	GetPlayer()->Create(world, es);
@@ -141,16 +151,31 @@ void CLevel::PlayerCreate()
 	world->camera->AttachToObject(GetPlayer()->GetObjectID(), -200.0f, 0.0f, 0.0f, 376.0f);
 }
 
+void CLevel::Create()
+{
+	// Создаем уровень
+	// Загружаем инфу о препядствиях
+	LoadBarrierInfo();
+
+	// Создаем фон 
+	CreateBackground();
+
+	// Создаем игрока
+	PlayerCreate();
+}
+
 void CLevel::Start()
 {
-	LoadBarrierInfo();
-	PlayerCreate();
-	CreateBackground();
-	BarrierGenerate(START_BARRIER_OFFSET);
+	StartBarrierGenerate();
+	player->SetStartPos();
 }
 
 void CLevel::Update()
 {
 	CheckBackground();
-	BarrierCheck();
+
+	if(game->GetState() == GAME_STATE_GAME)
+	{
+		BarrierCheck();
+	}
 }

@@ -8,12 +8,15 @@
 #include "barrier.h"
 
 class CPlayer;
+class CGame;
+
 class CLevel
 {
 private:
 
 	CBackground *background;
 	CPlayer *player;
+	CGame *game;
 
 	PE::CWorld *world;
 	PE::CApplication *app;
@@ -24,15 +27,17 @@ private:
 
 public:
 
-	CLevel(PE::CWorld *world, PE::CApplication *app);
+	CLevel(CGame *game);
 	~CLevel();
 
+	void Create(void);
 	void Start(void);
 
 	void PlayerCreate(void);
 	void Update(void);
 
 	void BarrierGenerate(float offset);
+	void StartBarrierGenerate(void);
 	void BarrierDelete(CBarrier *Barrier);
 	void LoadBarrierInfo(void);
 	void BarrierCheck(void);

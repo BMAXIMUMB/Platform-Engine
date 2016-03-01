@@ -14,7 +14,7 @@ void CColumn::Create(PE::CWorld *world, ColumnSettings cs)
 	los.posY = COLUMN_POS_Y;
 	los.sizeX = info.sizeX;
 	los.sizeY = info.sizeY;
-	los.depth = -info.depth;
+	los.depth = (float)-info.depth;
 
 	los.positionSet = LAYER_POSITION_UNFIXED;
 	los.moveMode = LAYER_MOVE_MODE_2;

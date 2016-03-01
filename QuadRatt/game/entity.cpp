@@ -47,6 +47,8 @@ void CEntity::SetColor(color4 color)
 
 CPlayer::CPlayer()
 {
+	startPosX = 0.0f;
+
 	score = new CScore;
 	score->LoadBestScoreFromFile();
 }
@@ -99,6 +101,19 @@ void CPlayer::Move(float speed_x, float speed_y)
 void CPlayer::GetSpeed(float &x, float &y)
 {
 	object->GetSpeed(x, y);
+}
+
+void CPlayer::SetStartPos(float value)
+{
+	startPosX = value;
+}
+
+void CPlayer::SetStartPos()
+{
+	float pos[2];
+
+	object->GetPosition(pos[0], pos[1]);
+	startPosX = pos[0];
 }
 
 void CPlayer::Jump()

@@ -42,6 +42,7 @@ public:
 	~CGame();
 
 	PE::CApplication* GetApp(void){ return app; }
+	PE::CWorld* GetWorld(void){ return world; }
 
 	CInterface* GetInterface(void){ return gInterface; }
 	CLevel* GetLevel(void){ return level; }

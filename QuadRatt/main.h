@@ -35,14 +35,14 @@
 #define COLUMN_COLOR									0x1aee42ff
 #define COLUMN_POS_Y									200
 #define COLUMN_SIZE_Y									350
-#define COLUMN_DEPTH_MULTIPLE							1.04
+#define COLUMN_DEPTH_MULTIPLE							1.04f
 #define COLUMN_COUNT									15
 #define COLUMN_SPRITE_NAME								"s_column"
 
 // BARRIER SETTINGS
 #define BINFO_PATH										"resources\\bpatterns\\"
 #define BINFO_MASK										"*.ini"
-#define START_BARRIER_OFFSET							2000.0f
+#define START_BARRIER_OFFSET							1200.0f
 
 // PLAYER SETTINGS
 #define PLAYER_JUMP_SPEED								730.0f

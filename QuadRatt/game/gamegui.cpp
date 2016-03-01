@@ -1,5 +1,8 @@
 // gameguigui.cpp (QuadRatt)
 
+// Тут хуёвая реализация архитектуры
+// Нужно переделать, а то сам нихуя не понимаю
+
 #include "gamegui.h"
 #include "game.h"
 #include "../program.h"
@@ -32,7 +35,7 @@ void CInterface::CreateGUIMainMenu()
 	ges.sizeY = 720;
 	ges.sprite = app->spriteManager->Get("mm_background");
 	ges.name = "mm_box";
-	ges.color = {1, 1, 1, 1.0};
+	ges.color = {1, 1, 1, 0.5};
 	app->GUI->CreateBox(ges);
 
 	//logo
@@ -42,7 +45,7 @@ void CInterface::CreateGUIMainMenu()
 	ges.sizeY = 180;
 	ges.sprite = app->spriteManager->Get("mm_logo");
 	ges.name = "mm_logo";
-	ges.color = {1, 1, 1, 1.0};
+	ges.color = {1, 1, 1, 0.5};
 	app->GUI->CreateImage(ges);
 
 	// button "play"
@@ -52,7 +55,7 @@ void CInterface::CreateGUIMainMenu()
 	ges.sizeY = 235;
 	ges.sprite = app->spriteManager->Get("mm_button_play");
 	ges.name = "mm_button_play";
-	ges.color = {1, 1, 1, 1.0};
+	ges.color = {1, 1, 1, 0.5};
 	app->GUI->CreateButton(ges);
 
 	app->GUI->GetBox("mm_box")->AttachElement("mm_button_play");
@@ -100,6 +103,7 @@ void CInterface::HideMainMenu()
 void CInterface::ShowLoadingImage(void)
 {
 	GuiElementSettings ges;
+
 	ges.posX = 640;
 	ges.posY = 360;
 	ges.sizeX = 1280;
@@ -120,11 +124,17 @@ void CInterface::HideLoadingImage()
 void CInterface::UpdatePlayerScore()
 {
 	char str[12];
+
 	sprintf(str, "%d/%d", game->GetLevel()->GetPlayer()->GetScore(), game->GetLevel()->GetPlayer()->GetBestScore());
 	app->GUI->GetText("player_score")->SetText(str);
 }
 
+
 //CALLBACKS
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+
 void CInterface::onLoadingImageShowed()
 {
 	game->SetState(GAME_STATE_LOAD_RESOURCES);
@@ -133,8 +143,9 @@ void CInterface::onLoadingImageShowed()
 void CInterface::onLoadingImageHided()
 {
 	app->GUI->Hide("img_loading");
+
 	app->GUI->GetElement("mm_box")->SetAlpha(0.0);
-	app->GUI->GetElement("mm_box")->SetAlphaSmooth(1.0, 0.5);
+	app->GUI->GetElement("mm_box")->SetAlphaSmooth(0.5, 0.5);
 	app->GUI->Show("mm_box");
 }
 
@@ -164,6 +175,10 @@ void CInterface::onActionStop(Gui::CGuiElement *elem, int actiontype)
 	}
 }
 
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+
 void CInterface::onElementClick(Gui::CGuiElement *elem, int button)
 {
 	if(elem->GetName() == "mm_button_play" && button == PE_MOUSE_LBUTTON)
@@ -176,6 +191,8 @@ void CInterface::onElementRelease(Gui::CGuiElement *elem)
 {
 
 }
+
+///////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////
 

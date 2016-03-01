@@ -61,8 +61,10 @@ class CPlayer :public CEntity
 {
 private:
 
-	float spawnPosX,
-		spawnPosY;
+	float spawnPosX;
+	float spawnPosY;
+
+	float startPosX;
 
 	CScore *score;
 
@@ -78,6 +80,10 @@ public:
 	void Spawn(void);
 	void Move(float speed_x, float speed_y);
 	void Jump(void);
+
+	float GetStartPos(void){ return startPosX; }
+	void SetStartPos(float value);
+	void SetStartPos(void);
 
 	int GetScore(void);
 	int GetBestScore(void);
