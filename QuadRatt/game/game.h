@@ -4,21 +4,13 @@
 #define _GAME_H_
 
 #include "../main.h"
-#include "level.h"
 #include "../debug.h"
+#include "level.h"
+#include "gamestate.h"
 
 #include <stack>
 
 // Состояния игры
-enum gamestate
-{
-	GAME_STATE_NO,
-	GAME_STATE_LOADING_IMAGE,
-	GAME_STATE_LOAD_RESOURCES,
-	GAME_STATE_MAIN_MENU,
-	GAME_STATE_GAME,
-	GAME_STATE_STARTING,
-};
 
 class CInterface;
 
@@ -26,10 +18,9 @@ class CGame
 {
 private:
 
-	std::stack<gamestate> state;
-
 	CLevel *level;
 	CInterface *gInterface;
+	CGameState *state;
 
 	PE::CWorld *world;
 	PE::CApplication	*app;
@@ -48,10 +39,9 @@ public:
 	CLevel* GetLevel(void){ return level; }
 
 
-	gamestate GetState(void);
+	enGameState GetState(void);
+	void SetState(enGameState gameState);
 
-	void SetState(gamestate _gamestate);
-	void DownState(void);
 	void ShowDebugInfo(void);
 	void DebugInfoUpdate(void);
 
@@ -73,7 +63,7 @@ public:
 	void onMouseDown(int, int, int);
 	void onMouseUp(int, int, int);
 	void onMouseMove(int, int);
-	void onGameStateChange(gamestate newgs, gamestate oldgs);
+	void onGameStateChange(enGameState newgs, enGameState oldgs);
 };
 
 #endif /*_GAME_H_*/

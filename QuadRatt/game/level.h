@@ -32,6 +32,7 @@ public:
 
 	void Create(void);
 	void Start(void);
+	void Restart(void);
 
 	void PlayerCreate(void);
 	void Update(void);

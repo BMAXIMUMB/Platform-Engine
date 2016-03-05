@@ -170,6 +170,11 @@ void CLevel::Start()
 	player->SetStartPos();
 }
 
+void CLevel::Restart()
+{
+
+}
+
 void CLevel::Update()
 {
 	CheckBackground();

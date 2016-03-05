@@ -88,11 +88,21 @@ void CInterface::CreateIcons()
 	ges.color = {1, 1, 1, 1.0};
 	app->GUI->CreateImage(ges);
 
+	// icon pause
+	ges.posX = 1250;
+	ges.posY = 690;
+	ges.sizeX = 32;
+	ges.sizeY = 32;
+	ges.sprite = app->spriteManager->Get("g_icon_pause");
+	ges.name = "g_icon_pause";
+	ges.color = {1, 1, 1, 1.0};
+	app->GUI->CreateImage(ges);
 }
 
 void CInterface::CreateGUIFailMenu()
 {
-	GuiElementSettings ges;
+	GuiElementSettings	ges;
+	TextSettings		ts;
 
 	// box
 	ges.posX = 640;
@@ -113,11 +123,35 @@ void CInterface::CreateGUIFailMenu()
 	ges.color = {1, 1, 1, 1.0};
 	app->GUI->CreateImage(ges);
 
+	// current score
+	ts.color = {1.0, 1.0, 1.0, 1.0};
+	ts.font = app->fontManager->Get("Utsaah2");
+	ts.fontsize = 72;
+	ts.name = "cur_score";
+	ts.posX = 640;
+	ts.posY = 414;
+	ts.text = L"0";
+	ts.align = ALIGN_CENTER;
+	app->GUI->CreateText(ts);
+
+	// best score
+	ts.color = {1.0, 1.0, 1.0, 1.0};
+	ts.font = app->fontManager->Get("Utsaah3");
+	ts.fontsize = 72;
+	ts.name = "best_score";
+	ts.posX = 640;
+	ts.posY = 346;
+	ts.text = L"0";
+	ts.align = ALIGN_CENTER;
+	app->GUI->CreateText(ts);
+
 	// attach elemens
 	app->GUI->GetBox("fail_box")->AttachElement("g_fail_logo");
 	app->GUI->GetBox("fail_box")->AttachElement("g_icon_retry");
 	app->GUI->GetBox("fail_box")->AttachElement("g_icon_house");
 	app->GUI->GetBox("fail_box")->AttachElement("g_icon_starfail");
+	app->GUI->GetBox("fail_box")->AttachElement("cur_score");
+	app->GUI->GetBox("fail_box")->AttachElement("best_score");
 }
 
 void CInterface::CreateGUIMainMenu()
@@ -163,10 +197,12 @@ void CInterface::CreateGUIMainMenu()
 
 void CInterface::CreateGameHUD()
 {
-	TextSettings ts;
-	ts.color = {0.0, 0.0, 0.0, 1.0};
-	ts.font = app->fontManager->Get("Arial2");
-	ts.fontsize = 35;
+	GuiElementSettings	ges;
+	TextSettings		ts;
+
+	ts.color = {1.0, 1.0, 1.0, 1.0};
+	ts.font = app->fontManager->Get("Utsaah1");
+	ts.fontsize = 50;
 	ts.name = "player_score";
 	ts.posX = 640;
 	ts.posY = 680;
@@ -174,21 +210,42 @@ void CInterface::CreateGameHUD()
 	ts.align = ALIGN_CENTER;
 
 	app->GUI->CreateText(ts);
+
+	ges.posX = 640;
+	ges.posY = 360;
+	ges.sizeX = 1280;
+	ges.sizeY = 720;
+	ges.name = "white_quad";
+	ges.sprite = app->spriteManager->Get("g_white");
+	ges.color = {1, 1, 1, 1.0};
+	app->GUI->CreateImage(ges);
 }
 
-void CInterface::CreateGUI(void)
+void CInterface::CreateGUI()
 {
 	CreateIcons();
 	CreateGUIMainMenu();
+	CreateGUIFailMenu();
 	CreateGameHUD();
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CInterface::ShowGameHUD()
 {
 	app->GUI->Show("player_score");
+	app->GUI->Show("g_icon_pause");
 }
 
-void CInterface::ShowMainMenu(gamestate oldgs)
+void CInterface::HideGameHUD()
+{
+	app->GUI->Hide("player_score");
+	app->GUI->Hide("g_icon_pause");
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CInterface::ShowMainMenu(enGameState oldgs)
 {
 	if(oldgs == GAME_STATE_LOAD_RESOURCES)
 	{
@@ -201,7 +258,39 @@ void CInterface::HideMainMenu()
 	app->GUI->GetElement("mm_box")->SetAlphaSmooth(0.0, 0.5);
 }
 
-void CInterface::ShowLoadingImage(void)
+/////////////////////////////////////////////////////////////////////////////
+
+void CInterface::ShowFailMenu()
+{
+	char str[32];
+
+	sprintf(str, "SCORE   %d", game->GetLevel()->GetPlayer()->GetScore());
+	app->GUI->GetText("cur_score")->SetText(str);
+
+	sprintf(str, "BEST   %d", game->GetLevel()->GetPlayer()->GetBestScore());
+	app->GUI->GetText("best_score")->SetText(str);
+
+
+	app->GUI->Show("fail_box");
+	app->GUI->GetElement("fail_box")->SetAlpha(0.0f);
+	app->GUI->GetElement("fail_box")->SetAlphaSmooth(1.0f, 1.0f);
+}
+
+void CInterface::HideFailMenu()
+{
+	//ShowWhiteScreen();
+	//app->GUI->GetElement("fail_box")->SetAlphaSmooth(0.0f, 1.0f);
+}
+
+void CInterface::ShowWhiteScreen()
+{
+	app->GUI->GetElement("white_quad")->SetAlpha(0.0f);
+	app->GUI->GetElement("white_quad")->SetAlphaSmooth(1.0f, 1.0f);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CInterface::ShowLoadingImage()
 {
 	GuiElementSettings ges;
 
@@ -222,11 +311,13 @@ void CInterface::HideLoadingImage()
 	app->GUI->GetElement("img_loading")->SetAlphaSmooth(0.0f, 1.1f);
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CInterface::UpdatePlayerScore()
 {
 	char str[12];
 
-	sprintf(str, "%d/%d", game->GetLevel()->GetPlayer()->GetScore(), game->GetLevel()->GetPlayer()->GetBestScore());
+	sprintf(str, "%d", game->GetLevel()->GetPlayer()->GetScore());
 	app->GUI->GetText("player_score")->SetText(str);
 }
 
@@ -274,6 +365,10 @@ void CInterface::onActionStop(Gui::CGuiElement *elem, int actiontype)
 			game->SetState(GAME_STATE_GAME);
 		}
 	}
+	else if(elem->GetName() == "fail_box")
+	{
+		//app->GUI->Hide("fail_box");
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -285,6 +380,14 @@ void CInterface::onElementClick(Gui::CGuiElement *elem, int button)
 	if(elem->GetName() == "mm_box" && button == PE_MOUSE_LBUTTON)
 	{
 		game->SetState(GAME_STATE_STARTING);
+	}
+
+	if(game->GetState() == GAME_STATE_FAIL)
+	{
+		if(elem->GetName() == "g_icon_retry")
+		{
+			game->SetState(GAME_STATE_GAME);
+		}
 	}
 }
 

@@ -16,6 +16,7 @@ CGame::CGame(PE::CApplication *App)
 	level			= new CLevel(this);
 	gInterface		= new CInterface(this);
 	debugInfo		= new CDebug(app);
+	state			= new CGameState(this);
 
 
 	world->physics->SetGravity(GRAVITY_DEFAULT);
@@ -37,25 +38,14 @@ void CGame::ShowDebugInfo()
 	debugInfo->ShowDebugInfo();
 }
 
-gamestate CGame::GetState()
+enGameState CGame::GetState()
 {
-	return state.top();
+	return state->Get();
 }
 
-void CGame::SetState(gamestate _gamestate)
+void CGame::SetState(enGameState gameState)
 {
-	gamestate tempgs = (state.empty() ? GAME_STATE_NO : GetState());
-
-	state.push(_gamestate);
-	onGameStateChange(_gamestate, tempgs);
-}
-
-void CGame::DownState()
-{
-	gamestate gs = GetState();
-
-	state.pop();
-	onGameStateChange(GetState(), gs);
+	state->Set(gameState);
 }
 
 void CGame::Start()
@@ -93,10 +83,12 @@ void CGame::LoadSprites()
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_on.sprite", "g_icon_sound_on");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_star.sprite", "g_icon_star");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_stats.sprite", "g_icon_stats");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_pause.sprite", "g_icon_pause");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_logo.sprite", "g_mm_logo");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_play.sprite", "g_mm_play");
+	app->spriteManager->Load("resources\\sprites\\gui\\white_quad.sprite", "g_white");
 
-	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_play.sprite", "g_fail_logo");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_fail_logo.sprite", "g_fail_logo");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_house.sprite", "g_icon_house");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_retry.sprite", "g_icon_retry");
 }
@@ -104,28 +96,43 @@ void CGame::LoadSprites()
 void CGame::LoadFonts()
 {
 	app->fontManager->Load("resources\\fonts\\arial.ttf", "Arial");
-	app->fontManager->Load("resources\\fonts\\arial.ttf", "Arial2");
+	app->fontManager->Load("resources\\fonts\\utsaah.ttf", "Utsaah1");
+	app->fontManager->Load("resources\\fonts\\utsaah.ttf", "Utsaah2");
+	app->fontManager->Load("resources\\fonts\\utsaah.ttf", "Utsaah3");
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void CGame::PlayerFail()
 {
-	
+	gInterface->HideGameHUD();
+	gInterface->ShowFailMenu();
 }
 
 // CALLBACKS
-void CGame::onGameStateChange(gamestate newgs, gamestate oldgs)
+void CGame::onGameStateChange(enGameState newgs, enGameState oldgs)
 {
 	if(newgs == GAME_STATE_GAME)
 	{
-		level->Start();
-		ShowDebugInfo();
-		gInterface->ShowGameHUD();
+		if(oldgs == GAME_STATE_FAIL)
+		{
+			gInterface->HideFailMenu();
+			level->Restart();
+		}
+		else
+		{
+			level->Start();
+			gInterface->ShowGameHUD();
+		}
 	}
 	else if(newgs == GAME_STATE_LOAD_RESOURCES)
 	{
 		LoadResources();
+
+#ifdef _DEBUG
+		ShowDebugInfo();
+#endif
+
 		SetState(GAME_STATE_MAIN_MENU);
 	}
 	else if(newgs == GAME_STATE_LOADING_IMAGE)
@@ -141,15 +148,22 @@ void CGame::onGameStateChange(gamestate newgs, gamestate oldgs)
 	{
 		gInterface->HideMainMenu();
 	}
+	else if(newgs == GAME_STATE_FAIL)
+	{
+		PlayerFail();
+	}
 }
 
 void CGame::onObjectCollision(PE::CContact *Contact)
 {
-	if(Contact->object1 == GetLevel()->GetPlayer()->GetObjectID())
+	if(GetState() == GAME_STATE_GAME)
 	{
-		if(Contact->routPush != ROUT_PUSH_Y)
+		if(Contact->object1 == GetLevel()->GetPlayer()->GetObjectID())
 		{
-			PlayerFail();
+			if(Contact->routPush != ROUT_PUSH_Y)
+			{
+				SetState(GAME_STATE_FAIL);
+			}
 		}
 	}
 }
@@ -158,12 +172,13 @@ void CGame::LoopFunction()
 {
 	if(GetState() == GAME_STATE_GAME)
 	{
-		DebugInfoUpdate();
 		level->GetPlayer()->UpdateScore();
 		gInterface->UpdatePlayerScore();
 	}
-	if(GetState() == GAME_STATE_GAME || GetState() == GAME_STATE_MAIN_MENU || GetState() == GAME_STATE_STARTING)
+	if(GetState() == GAME_STATE_GAME || GetState() == GAME_STATE_MAIN_MENU || GetState() == GAME_STATE_STARTING 
+		|| GetState() == GAME_STATE_FAIL)
 	{
+		DebugInfoUpdate();
 		level->Update();
 	}
 }

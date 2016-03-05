@@ -11,7 +11,6 @@ class CInterface
 {
 private:
 	CGame *game;
-	gamestate gstate;
 
 	PE::CApplication *app;
 
@@ -19,6 +18,8 @@ private:
 	void CreateGUIMainMenu(void);
 	void CreateGUIFailMenu(void);
 	void CreateGameHUD(void);
+
+	void ShowWhiteScreen(void);
 
 public:
 
@@ -32,11 +33,16 @@ public:
 	void HideLoadingImage(void);
 
 	// Main Menu
-	void ShowMainMenu(gamestate oldgs);
+	void ShowMainMenu(enGameState oldgs);
 	void HideMainMenu(void);
 
 	// Game HUDS
 	void ShowGameHUD(void);
+	void HideGameHUD(void);
+
+	// Fail Menu
+	void ShowFailMenu(void);
+	void HideFailMenu(void);
 	
 	void UpdatePlayerScore(void);
 
