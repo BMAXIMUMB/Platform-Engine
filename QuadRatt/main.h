@@ -20,6 +20,10 @@
 #include <ctime>
 #include <math.h>
 
+//ICON SETTINGS
+#define ICON_SIZE										64
+#define ICON_POS_Y										102
+
 //SCORE SETTINGS
 #define SCORE_FILE_PATH									"save\\save.ini"
 #define SCORE_SECTION_NAME								"save"

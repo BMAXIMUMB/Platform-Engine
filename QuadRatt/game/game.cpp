@@ -89,16 +89,16 @@ void CGame::LoadSprites()
 	app->spriteManager->Load("resources\\sprites\\column.sprite", COLUMN_SPRITE_NAME);
 
 	// gui sprites
-	app->spriteManager->Load("resources\\sprites\\gui\\button_play.sprite", "mm_button_play");
-	app->spriteManager->Load("resources\\sprites\\gui\\logo.sprite", "mm_logo");
-	app->spriteManager->Load("resources\\sprites\\gui\\mm_bg.sprite", "mm_background");
-
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_off.sprite", "g_icon_sound_off");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_on.sprite", "g_icon_sound_on");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_star.sprite", "g_icon_star");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_stats.sprite", "g_icon_stats");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_logo.sprite", "g_mm_logo");
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_play.sprite", "g_mm_play");
+
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_mm_play.sprite", "g_fail_logo");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_house.sprite", "g_icon_house");
+	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_retry.sprite", "g_icon_retry");
 }
 
 void CGame::LoadFonts()

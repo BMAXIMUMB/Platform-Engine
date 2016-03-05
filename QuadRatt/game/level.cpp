@@ -141,7 +141,7 @@ void CLevel::PlayerCreate()
 	es.spawnPosY = START_PLAYER_POSY;
 	es.sizeX = 64.0f;
 	es.sizeY = 64.0f;
-	es.sprite = app->spriteManager->Get("g_icon_stats");
+	es.sprite = app->spriteManager->Get("s_player");
 	es.color = 0xffffffff;
 	
 	GetPlayer()->Create(world, es);

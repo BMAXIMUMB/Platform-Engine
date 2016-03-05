@@ -6,6 +6,13 @@
 #include <string>
 #include "../application/application.h"
 
+enum TextAlign
+{
+	ALIGN_CENTER,
+	ALIGN_RIGHT,
+	ALIGN_LEFT
+};
+
 struct GuiElementSettings
 {
 	float posX;
@@ -29,6 +36,7 @@ struct TextSettings
 	std::string name;
 	color4 color;
 	PE::CFont *font = nullptr;
+	TextAlign align = ALIGN_LEFT;
 };
 
 namespace Gui
@@ -151,6 +159,8 @@ namespace Gui
 
 		PE::CFont *font;
 		wchar_t *text;
+
+		TextAlign align;
 
 		void Render(void);
 

@@ -8,7 +8,7 @@ CProgram *gProgram;
 
 void InitGL()
 {
-	glClearColor(0.3, 0.3, 0.3, 0.0);					
+	glClearColor(0.3f, 0.3f, 0.3f, 0.0);					
 	glClearDepth(1.0f);									
 	glEnable(GL_TEXTURE_2D);							
 	glEnable(GL_BLEND);

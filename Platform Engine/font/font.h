@@ -32,6 +32,8 @@ namespace PlatformEngine
 		void Render(float posx, float posy, const wchar_t* text);
 
 		int GetSize(void);
+		float GetWidth(const wchar_t* text);
+		float GetHeight(void);
 	};
 };
 

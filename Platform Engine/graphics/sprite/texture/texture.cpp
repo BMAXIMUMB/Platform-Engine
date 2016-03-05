@@ -3,8 +3,7 @@
 #include "texture.h"
 #include "../../../platform_engine.h"
 #include <string>
-
-extern void logprintf(std::string str);
+#include "../../../logprintf.h"
 
 namespace PlatformEngine
 {
@@ -27,14 +26,22 @@ namespace PlatformEngine
 		if(tgaTexture->channels == 4) textureType = GL_RGBA;
 		else textureType = GL_RGB;
 
+#ifdef BUILD_MIPMAP
+
 		gluBuild2DMipmaps(GL_TEXTURE_2D, tgaTexture->channels,
 			tgaTexture->sizeX,
 			tgaTexture->sizeY,
 			textureType, GL_UNSIGNED_BYTE,
 			tgaTexture->data);
-		//glTexImage2D(GL_TEXTURE_2D, 0, tga_texture->channels, tga_texture->sizeX, tga_texture->sizeY, 0, textype, GL_UNSIGNED_BYTE, tga_texture->data);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+#else
+		glTexImage2D(GL_TEXTURE_2D, 0, tgaTexture->channels, tgaTexture->sizeX, tgaTexture->sizeY, 0, textureType, GL_UNSIGNED_BYTE, tgaTexture->data);
+		
+#endif
+		// Включаем анизотропную фильтрацию текстур
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		
 		delete[] tgaTexture->data;
@@ -55,9 +62,10 @@ namespace PlatformEngine
 		int i = 0;
 
 		pFile = fopen(strfilename, "rb");
+
 		if(pFile == NULL)
 		{
-			logprintf("Файл не найден: " + (std::string)strfilename);
+			logprintf("Файл не найден: ", strfilename);
 			return NULL;
 		}
 

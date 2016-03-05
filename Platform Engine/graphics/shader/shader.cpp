@@ -118,7 +118,7 @@ namespace PlatformEngine
 		}
 
 		// Компилируем вершинный шейдер
-		printf("Compiling shader : %s\n", vertex_file_path);
+		logprintf("Compiling shader : %s\n", vertex_file_path);
 		char const * VertexSourcePointer = VertexShaderCode.c_str();
 		glShaderSource(vertexShaderID, 1, &VertexSourcePointer, NULL);
 		glCompileShader(vertexShaderID);
@@ -135,7 +135,7 @@ namespace PlatformEngine
 		printf("%s\n", &VertexShaderErrorMessage[0]);*/
 
 		// Компилируем фрагментный шейдер
-		printf("Compiling shader : %s\n", fragment_file_path);
+		logprintf("Compiling shader : %s\n", fragment_file_path);
 		char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 		glShaderSource(fragmentShaderID, 1, &FragmentSourcePointer, NULL);
 		glCompileShader(fragmentShaderID);

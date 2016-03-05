@@ -5,6 +5,7 @@
 #ifndef _LOGPRINTF_H_
 #define _LOGPRINTF_H_
 
-PLATFORMENGINE_API void logprintf(std::string str);
+// Функция печати лога
+PLATFORMENGINE_API void logprintf(std::string text, ...);
 
 #endif _LOGPRINTF_H_

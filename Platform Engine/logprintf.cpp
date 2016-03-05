@@ -1,7 +1,14 @@
 #include "logprintf.h"
 
-void logprintf(std::string str)
+void logprintf(std::string text, ...)
 {
-	str = str + "\n";
-	printf(str.c_str());
+	va_list argList;
+	char buffer[1024];
+
+	va_start(argList, text);
+	vsnprintf(buffer, 1024, text.c_str(), argList);
+	va_end(argList);
+	strcat(buffer, "\n");
+
+	printf(buffer);
 }

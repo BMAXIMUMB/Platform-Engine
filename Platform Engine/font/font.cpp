@@ -50,4 +50,14 @@ namespace PlatformEngine
 	{
 		return size;
 	}
+
+	float CFont::GetWidth(const wchar_t* text)
+	{
+		return ftf->Advance(text);
+	}
+
+	float CFont::GetHeight()
+	{
+		return ftf->LineHeight();
+	}
 };

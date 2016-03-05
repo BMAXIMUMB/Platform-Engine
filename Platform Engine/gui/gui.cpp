@@ -254,6 +254,7 @@ namespace Gui
 		this->color = ts.color;
 		this->name = ts.name;
 		this->GUI = GUI;
+		this->align = ts.align;
 
 		wcscpy(text, ts.text);
 
@@ -282,17 +283,36 @@ namespace Gui
 		wndpos[1] = (1.0f / wwd[1])*posY;
 		wndpos[1] -= 1.0f;
 
-
 		//glColor4f(color.r, color.g, color.b, color.a);
 		GUI->GetApp()->shaderFontDefault->setUniform(cmul, color);
+		
+		// Выравниваем текст
 
+		float offset[2] = {0.0f, 0.0f};
 
-		font->Render(wndpos[0], wndpos[1], text);
+		if(align == ALIGN_LEFT)
+		{
+			offset[1] = -((font->GetHeight() / 2.0f) / wsize[1]);
+		}
+		else if(align == ALIGN_CENTER)
+		{
+			offset[1] = -((font->GetHeight() / 2.0f) / wsize[1]);
+			offset[0] = -((font->GetWidth(text) / 2.0f) / wsize[0]);
+		}
+		else
+		{
+			offset[1] = -((font->GetHeight() / 2.0f) / wsize[1]);
+			offset[0] = -((font->GetWidth(text)) / wsize[0]);
+		}
+
+		// Рендерим
+		font->Render(wndpos[0] + offset[0], wndpos[1] + offset[1], text);
 	}
 
 	void CText::SetText(char *text)
 	{
 		USES_CONVERSION;
+
 		if(wcscmp(this->text, A2W(text)))
 		{
 			wcscpy(this->text, A2W(text));

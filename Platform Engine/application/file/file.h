@@ -20,6 +20,7 @@ namespace PlatformEngine
 		PLATFORMENGINE_API	~CFile();
 
 		PLATFORMENGINE_API	bool Open(const char *path);
+		PLATFORMENGINE_API	bool Create(const char *path);
 
 		PLATFORMENGINE_API	int GetInt(char *section, char *key);
 		PLATFORMENGINE_API	float GetFloat(char *section, char *key);

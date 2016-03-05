@@ -17,6 +17,17 @@ namespace PlatformEngine
 
 	}
 
+	bool CFile::Create(const char *path)
+	{
+		if(!Open(path))
+		{
+			fopen(path, "a");
+			return true;
+		}
+
+		return false;
+	}
+
 	bool CFile::Open(const char * path)
 	{
 		if(fopen(path, "r") != 0)
@@ -25,6 +36,7 @@ namespace PlatformEngine
 			isFile = true;
 			return true;
 		}
+
 		return false;
 	}
 

@@ -15,7 +15,9 @@ private:
 
 	PE::CApplication *app;
 
+	void CreateIcons(void);
 	void CreateGUIMainMenu(void);
+	void CreateGUIFailMenu(void);
 	void CreateGameHUD(void);
 
 public:

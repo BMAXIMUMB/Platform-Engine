@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include "../render/render.h"
 
-extern void logprintf(std::string str);
-
 namespace PlatformEngine
 {
 	CSprite::CSprite()
@@ -27,7 +25,7 @@ namespace PlatformEngine
 
 		if(!File.Open(path))
 		{
-			logprintf("Невозможно открыть файл: " + (std::string)path);
+			logprintf("Невозможно открыть файл: ", path);
 			return false;
 		}
 

@@ -7,6 +7,8 @@
 #define TGA_A			3
 #define TGA_RLE			10
 
+#define BUILD_MIPMAP
+
 namespace PlatformEngine
 {
 	// Структура TGA изображения
