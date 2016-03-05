@@ -111,7 +111,7 @@ void CGame::LoadFonts()
 
 void CGame::PlayerFail()
 {
-
+	
 }
 
 // CALLBACKS
@@ -149,7 +149,7 @@ void CGame::onObjectCollision(PE::CContact *Contact)
 	{
 		if(Contact->routPush != ROUT_PUSH_Y)
 		{
-			
+			PlayerFail();
 		}
 	}
 }

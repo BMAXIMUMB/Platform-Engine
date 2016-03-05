@@ -297,12 +297,12 @@ namespace Gui
 		else if(align == ALIGN_CENTER)
 		{
 			offset[1] = -((font->GetHeight() / 2.0f) / wsize[1]);
-			offset[0] = -((font->GetWidth(text) / 2.0f) / wsize[0]);
+			offset[0] = -((font->GetWidth(text)) / wsize[0]);
 		}
 		else
 		{
 			offset[1] = -((font->GetHeight() / 2.0f) / wsize[1]);
-			offset[0] = -((font->GetWidth(text)) / wsize[0]);
+			offset[0] = -((font->GetWidth(text))*2 / wsize[0]);
 		}
 
 		// Рендерим
