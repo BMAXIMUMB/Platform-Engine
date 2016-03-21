@@ -19,6 +19,7 @@ struct beinfo
 class CBarrierElement
 {
 private:
+
 	PE::CSprite *sprite;
 	float posX,
 		posY,
