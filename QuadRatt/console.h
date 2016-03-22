@@ -8,6 +8,8 @@
 class CConsole
 {
 public:
+	~CConsole();
+
 	bool Create(void);
 	void Destroy(void);
 };

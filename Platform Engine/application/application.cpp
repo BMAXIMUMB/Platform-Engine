@@ -16,7 +16,8 @@ namespace PlatformEngine
 		this->hDC = NULL;
 		this->hWnd = NULL;
 		this->active = true;										
-		this->fullscreen = false;									
+		this->fullscreen = false;		
+		this->vSync = false;
 		this->mouse = new PE::CMouse;								
 		this->keyboard = new PE::CKeyboard;							
 		this->spriteManager = new PE::CSpriteManager;
@@ -40,6 +41,11 @@ namespace PlatformEngine
 		delete spriteManager;
 		delete fontManager;
 		delete render;
+	}
+
+	void CApplication::SetVSync(bool value)
+	{
+		wglSwapInterval(value ? 1 : 0);
 	}
 
 	HWND CApplication::GetHWND(void)
@@ -87,6 +93,8 @@ namespace PlatformEngine
 		loopf = Settings.loopf;
 		OnRun = Settings.onRunCallback;
 		ShutDown = Settings.ShutDown;
+
+		wglSwapInterval = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
 
 		return true;
 	}

@@ -24,6 +24,8 @@ typedef void(*_OnElementRelease)(Gui::CGuiElement*);
 typedef void(*_OnRun)(void);
 typedef void(*_ShutDown)(void);
 
+typedef BOOL(WINAPI * PFNWGLSWAPINTERVALEXTPROC) (int interval);
+
 struct ApplicationSettings
 {
 	// Информация об окне
@@ -62,6 +64,7 @@ namespace PlatformEngine					// Пространство имен движка
 
 		bool		active;					// Флаг активности окна
 		bool		fullscreen;				// Флаг режима окна
+		bool		vSync;					// Вертикальная синхронизация
 
 		int			windowSizeX;
 		int			windowSizeY;
@@ -74,6 +77,8 @@ namespace PlatformEngine					// Пространство имен движка
 		float		odt[20];
 
 		LARGE_INTEGER time_s, freq, time_n;
+
+		PFNWGLSWAPINTERVALEXTPROC wglSwapInterval;
 
 		void(*loopf)		(void);
 		_ShutDown			ShutDown;
@@ -111,6 +116,8 @@ namespace PlatformEngine					// Пространство имен движка
 		PLATFORMENGINE_API void GetWindowSize(int &sizeX, int &sizeY);
 		PLATFORMENGINE_API void SetWorldID(PlatformEngine::CWorld *World);
 		PLATFORMENGINE_API int GetFPS(void);
+
+		PLATFORMENGINE_API void SetVSync(bool);
 
 		void UpdateFPS(void);
 	};

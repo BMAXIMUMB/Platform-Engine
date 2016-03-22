@@ -29,6 +29,7 @@ private:
 public:
 	CBarrierElement(float px, float py, float sx, float sy, PE::CSprite *Spr);
 	~CBarrierElement();
+
 	beinfo GetInfo(void);
 };
 

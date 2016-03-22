@@ -15,8 +15,9 @@ CProgram::CProgram(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 CProgram::~CProgram()
 {
-	if(game != nullptr) delete game;
+	console->Destroy();
 
+	if(game != nullptr) delete game;
 	delete console;
 }
 
@@ -60,6 +61,7 @@ bool CProgram::Start()
 	if(app->Init(AppSet))
 	{
 		InitGL();
+		app->SetVSync(false);
 		if(LoadShaders())
 		{
 			game = new ::CGame(app);

@@ -2,6 +2,11 @@
 
 #include "console.h"
 
+CConsole::~CConsole()
+{
+	
+}
+
 bool CConsole::Create()
 {
 	if(AllocConsole())
