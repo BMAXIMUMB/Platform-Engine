@@ -22,7 +22,7 @@ CGame::CGame(PE::CApplication *App)
 	world->physics->SetGravity(GRAVITY_DEFAULT);
 	world->SetCollisionFunction(OnObjCollision);
 
-	SetState(GAME_STATE_LOADING_IMAGE);
+	gInterface->ShowLoadingImage();
 }
 
 CGame::~CGame()
@@ -38,19 +38,9 @@ void CGame::ShowDebugInfo()
 	debugInfo->ShowDebugInfo();
 }
 
-enGameState CGame::GetState()
-{
-	return state->Get();
-}
-
-void CGame::SetState(enGameState gameState)
-{
-	state->Set(gameState);
-}
-
 void CGame::Start()
 {
-	SetState(GAME_STATE_GAME);
+	
 }
 
 void CGame::DebugInfoUpdate()
@@ -110,11 +100,11 @@ void CGame::PlayerFail()
 }
 
 // CALLBACKS
-void CGame::onGameStateChange(enGameState newgs, enGameState oldgs)
+void CGame::onGameStateChange(IState *newState, IState *oldState)
 {
-	if(newgs == GAME_STATE_GAME)
+	if(newState == state->StateGame)
 	{
-		if(oldgs == GAME_STATE_FAIL)
+		if(oldState == state->StateFail)
 		{
 			gInterface->HideFailMenu();
 			level->Restart();
@@ -125,7 +115,7 @@ void CGame::onGameStateChange(enGameState newgs, enGameState oldgs)
 			gInterface->ShowGameHUD();
 		}
 	}
-	else if(newgs == GAME_STATE_LOAD_RESOURCES)
+	else if(newState == state->StateLoadingResources)
 	{
 		LoadResources();
 
@@ -133,22 +123,22 @@ void CGame::onGameStateChange(enGameState newgs, enGameState oldgs)
 		ShowDebugInfo();
 #endif
 
-		SetState(GAME_STATE_MAIN_MENU);
+		state->DispatchEvent(ON_RESOURCES_LOADED);
 	}
-	else if(newgs == GAME_STATE_LOADING_IMAGE)
+	else if(newState == state->StateLoadingImage)
 	{
 		gInterface->ShowLoadingImage();
 	}
-	else if(newgs == GAME_STATE_MAIN_MENU)
+	else if(newState == state->StateMainMenu)
 	{
-		gInterface->ShowMainMenu(oldgs);
+		gInterface->ShowMainMenu(oldState);
 		level->Create();
 	}
-	else if(newgs == GAME_STATE_STARTING)
+	else if(newState == state->StateStarting)
 	{
 		gInterface->HideMainMenu();
 	}
-	else if(newgs == GAME_STATE_FAIL)
+	else if(newState == state->StateFail)
 	{
 		PlayerFail();
 	}
@@ -156,13 +146,13 @@ void CGame::onGameStateChange(enGameState newgs, enGameState oldgs)
 
 void CGame::onObjectCollision(PE::CContact *Contact)
 {
-	if(GetState() == GAME_STATE_GAME)
+	if(state->GetState() == state->StateGame)
 	{
 		if(Contact->object1 == GetLevel()->GetPlayer()->GetObjectID())
 		{
 			if(Contact->routPush != ROUT_PUSH_Y)
 			{
-				SetState(GAME_STATE_FAIL);
+				state->DispatchEvent(ON_PLAYER_FAIL);
 			}
 		}
 	}
@@ -170,22 +160,12 @@ void CGame::onObjectCollision(PE::CContact *Contact)
 
 void CGame::LoopFunction()
 {
-	if(GetState() == GAME_STATE_GAME)
-	{
-		level->GetPlayer()->UpdateScore();
-		gInterface->UpdatePlayerScore();
-	}
-	if(GetState() == GAME_STATE_GAME || GetState() == GAME_STATE_MAIN_MENU || GetState() == GAME_STATE_STARTING 
-		|| GetState() == GAME_STATE_FAIL)
-	{
-		DebugInfoUpdate();
-		level->Update();
-	}
+	state->GetState()->LoopFunction();
 }
 
 void CGame::onKeyDown(int key)
 {
-	if(GetState() == GAME_STATE_GAME)
+	if(state->GetState() == state->StateGame)
 	{
 		if(key == VK_UP)
 		{

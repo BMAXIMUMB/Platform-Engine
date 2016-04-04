@@ -11,6 +11,7 @@
 #include "../world/world.h"
 #include "../graphics/render/render.h"
 #include "../graphics/color/color.h"
+#include "timer\timer.h"
 #include "../logprintf.h"
 
 namespace Gui
@@ -76,7 +77,7 @@ namespace PlatformEngine					// Пространство имен движка
 		float		pTime;
 		float		odt[20];
 
-		LARGE_INTEGER time_s, freq, time_n;
+		CTimer		*timer;
 
 		PFNWGLSWAPINTERVALEXTPROC wglSwapInterval;
 

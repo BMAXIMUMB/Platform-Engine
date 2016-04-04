@@ -37,10 +37,7 @@ public:
 
 	CInterface* GetInterface(void){ return gInterface; }
 	CLevel* GetLevel(void){ return level; }
-
-
-	enGameState GetState(void);
-	void SetState(enGameState gameState);
+	CGameState* GetStateID(void) { return state; }
 
 	void ShowDebugInfo(void);
 	void DebugInfoUpdate(void);
@@ -63,7 +60,7 @@ public:
 	void onMouseDown(int, int, int);
 	void onMouseUp(int, int, int);
 	void onMouseMove(int, int);
-	void onGameStateChange(enGameState newgs, enGameState oldgs);
+	void onGameStateChange(IState *newState, IState *oldState);
 };
 
 #endif /*_GAME_H_*/

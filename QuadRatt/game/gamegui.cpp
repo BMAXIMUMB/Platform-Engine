@@ -245,9 +245,9 @@ void CInterface::HideGameHUD()
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CInterface::ShowMainMenu(enGameState oldgs)
+void CInterface::ShowMainMenu(IState *oldState)
 {
-	if(oldgs == GAME_STATE_LOAD_RESOURCES)
+	if(oldState == game->GetStateID()->StateLoadingResources)
 	{
 		HideLoadingImage();
 	}
@@ -329,7 +329,7 @@ void CInterface::UpdatePlayerScore()
 
 void CInterface::onLoadingImageShowed()
 {
-	game->SetState(GAME_STATE_LOAD_RESOURCES);
+	game->GetStateID()->DispatchEvent(ON_LOADING_IMAGE_SHOWED);
 }
 
 void CInterface::onLoadingImageHided()
@@ -343,32 +343,7 @@ void CInterface::onLoadingImageHided()
 
 void CInterface::onActionStop(Gui::CGuiElement *elem, int actiontype)
 {
-	if(elem->GetName() == "img_loading")
-	{
-		if(actiontype == GUI_ACTION_TYPE_ALPHA)
-		{
-			if(game->GetState() == GAME_STATE_LOADING_IMAGE)
-			{
-				onLoadingImageShowed();
-			}
-			else if(game->GetState() == GAME_STATE_MAIN_MENU)
-			{
-				onLoadingImageHided();
-			}
-		}
-	}
-	else if(elem->GetName() == "mm_box")
-	{
-		if(game->GetState() == GAME_STATE_STARTING)
-		{
-			app->GUI->Hide("mm_box");
-			game->SetState(GAME_STATE_GAME);
-		}
-	}
-	else if(elem->GetName() == "fail_box")
-	{
-		//app->GUI->Hide("fail_box");
-	}
+	game->GetStateID()->GetState()->GuiActionStop(elem, actiontype);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -379,16 +354,16 @@ void CInterface::onElementClick(Gui::CGuiElement *elem, int button)
 {
 	if(elem->GetName() == "mm_box" && button == PE_MOUSE_LBUTTON)
 	{
-		game->SetState(GAME_STATE_STARTING);
+		game->GetStateID()->DispatchEvent(ON_PLAY_CLICKED);
 	}
-
-	if(game->GetState() == GAME_STATE_FAIL)
+	
+	/*if(game->GetStateID()->GetState() == game->GetStateID()->StateFail)
 	{
 		if(elem->GetName() == "g_icon_retry")
 		{
-			game->SetState(GAME_STATE_GAME);
+			
 		}
-	}
+	}*/
 }
 
 void CInterface::onElementRelease(Gui::CGuiElement *elem)

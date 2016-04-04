@@ -3,32 +3,60 @@
 #ifndef _GAMESTATE_H_
 #define _GAMESTATE_H_
 
-enum enGameState
-{
-	GAME_STATE_NO,
-	GAME_STATE_LOADING_IMAGE,
-	GAME_STATE_LOAD_RESOURCES,
-	GAME_STATE_MAIN_MENU,
-	GAME_STATE_GAME,
-	GAME_STATE_STARTING,
-	GAME_STATE_FAIL,
-};
+#include <vector>
+#include "state/state.h"
+
+#include "state/StateFail.h"
+#include "state/StateGame.h"
+#include "state/StateLoadingImage.h"
+#include "state/StateLoadingResources.h"
+#include "state/StateMainMenu.h"
+#include "state/StateStarting.h"
 
 class CGame;
-typedef void (CGame::* _SetState)(enGameState newstate, enGameState oldstate);
+
+enum Event
+{
+	ON_LOADING_IMAGE_SHOWED,
+	ON_RESOURCES_LOADED,
+	ON_PLAY_CLICKED,
+	ON_MENU_HIDED,
+	ON_PLAYER_FAIL
+};
+
+struct STransition
+{
+	IState *currentState;
+	IState *targetState;
+	Event currentEvent;
+};
 
 class CGameState
 {
-
 private:
-	enGameState currentState;
 	CGame *game;
+	IState *currentState;
+	std::vector<STransition> transitionsTable;
+
+	void SetState(IState *state);
 
 public:
-	CGameState(CGame*);
+	CGameState(CGame *game);
+	~CGameState();
 
-	enGameState Get(void);
-	void Set(enGameState state);
+	IState* GetState(void);
+	CGame *GetGame(void);
+
+	void AddTransition(IState *fromState, Event _event, IState *toState);
+	void DispatchEvent(Event currentEvent);
+
+	CStateLoadingImage *StateLoadingImage;
+	CStateLoadingResources *StateLoadingResources;
+	CStateMainMenu *StateMainMenu;
+	CStateGame *StateGame;
+	CStateStarting *StateStarting;
+	CStateFail *StateFail;
+
 };
 
 #endif //_GAMESTATE_H_

@@ -178,9 +178,4 @@ void CLevel::Restart()
 void CLevel::Update()
 {
 	CheckBackground();
-
-	if(game->GetState() == GAME_STATE_GAME)
-	{
-		BarrierCheck();
-	}
 }

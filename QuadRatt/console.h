@@ -7,9 +7,14 @@
 
 class CConsole
 {
+private:
+	bool isCreated;
+
 public:
+	CConsole();
 	~CConsole();
 
+	bool IsCreated(void);
 	bool Create(void);
 	void Destroy(void);
 };

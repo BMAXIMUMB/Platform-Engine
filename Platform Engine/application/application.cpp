@@ -24,6 +24,7 @@ namespace PlatformEngine
 		this->fontManager = new PE::CFontManager;
 		this->GUI = new Gui::CGuiManager(this);
 		this->render = new PE::CRender;
+		this->timer = new PE::CTimer(TIMER_TYPE_SECOND);
 
 		this->world = nullptr;
 		this->shaderDefault = nullptr;
@@ -442,10 +443,12 @@ namespace PlatformEngine
 	
 	int CApplication::Run(void)
 	{	
-		timeBeginPeriod(1);
-		pTime = (float)timeGetTime();
-		cFpsTime = pTime;
-		//QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+		//timeBeginPeriod(1);
+
+		double timeStart = timer->Start();
+		cFpsTime = timeStart;
+		//pTime = (float)timeGetTime();
+		//cFpsTime = pTime;
 
 		MSG	  msg;						// Структура для хранения сообщения Windows
 		BOOL  done = false;				// Логическая переменная для выхода из цикла
@@ -469,40 +472,33 @@ namespace PlatformEngine
 			{
 				if(CApplication::active)					// Активна ли программа?
 				{
-					/*QueryPerformanceCounter((LARGE_INTEGER*)&time_s);
-					double dtt = (time_s.HighPart - time_n.HighPart) / (freq.QuadPart);*/
 					//dtt /= 1000;
 					// Расчитываем dt
-					float cTime = (float)timeGetTime();
-					float dTime = cTime - pTime;
+					//float cTime = (float)timeGetTime();
+					//float dTime = cTime - pTime;
+					double dTime = timer->GetElapsed();
 					//odt[0] = cTime - pTime;
-					if(cTime - cFpsTime >= 1000)
+					/*if(cTime - cFpsTime >= 1000)
 					{
 						cFpsTime = cTime;
 						mFps = currentFps;
 						currentFps = 0;
-					}
+					}*/
 
 					// TODO: Фикс
 					// ВНИМАНИЕ! БАГА!
 					// Иногда dt = 0, скорее всего таймер неточный, или фпс дохуя
 					// обязательно пофиксить, ниже - хуёвый фикс.
 
-					//if(!dTime) dTime = 0.0001;
 					if(dTime != 0)
 					{
-						dTime = dTime / CLOCKS_PER_SEC;
 
 						if(loopf != nullptr) loopf();
-						CApplication::DrawGLScene(dTime);	// Расчитываем и рисуем сцену
+						DrawGLScene(dTime);					// Расчитываем и рисуем сцену
 						SwapBuffers(hDC);					// Меняем буфер
-						//printf("dTime %f\n", dTime);
-						pTime = cTime;
-						//QueryPerformanceCounter((LARGE_INTEGER*)&time_n);
 					}
 				}
 			}
-			//Sleep(1);
 		}
 		PEKillWindow();									// Разрушаем окно
 		return (msg.wParam);							// Выходим из программы

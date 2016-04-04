@@ -33,7 +33,7 @@ public:
 	void HideLoadingImage(void);
 
 	// Main Menu
-	void ShowMainMenu(enGameState oldgs);
+	void ShowMainMenu(IState *oldgs);
 	void HideMainMenu(void);
 
 	// Game HUDS

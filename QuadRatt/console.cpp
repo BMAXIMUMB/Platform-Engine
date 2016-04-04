@@ -2,6 +2,11 @@
 
 #include "console.h"
 
+CConsole::CConsole()
+{
+	isCreated = false;
+}
+
 CConsole::~CConsole()
 {
 	
@@ -24,6 +29,7 @@ bool CConsole::Create()
 
 		freopen("CONOUT$", "w", stdout);
 
+		isCreated = true;
 		return true;
 	}
 	return false;
@@ -31,5 +37,11 @@ bool CConsole::Create()
 
 void CConsole::Destroy()
 {
+	isCreated = false;
 	FreeConsole();
+}
+
+bool CConsole::IsCreated()
+{
+	return isCreated;
 }
