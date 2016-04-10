@@ -119,9 +119,9 @@ void CGame::onGameStateChange(IState *newState, IState *oldState)
 	{
 		LoadResources();
 
-#ifdef _DEBUG
+	#ifdef _DEBUG
 		ShowDebugInfo();
-#endif
+	#endif
 
 		state->DispatchEvent(ON_RESOURCES_LOADED);
 	}

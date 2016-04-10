@@ -12,6 +12,7 @@
 #include "../graphics/render/render.h"
 #include "../graphics/color/color.h"
 #include "timer\timer.h"
+#include "fpsmeter\fpsmeter.h"
 #include "../logprintf.h"
 
 namespace Gui
@@ -70,10 +71,6 @@ namespace PlatformEngine					// Пространство имен движка
 		int			windowSizeX;
 		int			windowSizeY;
 
-		int			mFps;
-		int			currentFps;
-		float		cFpsTime;
-
 		float		pTime;
 		float		odt[20];
 
@@ -98,6 +95,7 @@ namespace PlatformEngine					// Пространство имен движка
 		CSpriteManager *spriteManager;			// Менеджер спрайтов
 		CFontManager *fontManager;
 		CRender *render;
+		CFPSMeter *fpsMeter;
 		Gui::CGuiManager *GUI;
 
 		////////////////////////////////////////////////////////////////////////////////
@@ -116,11 +114,8 @@ namespace PlatformEngine					// Пространство имен движка
 		PLATFORMENGINE_API HWND GetHWND(void);
 		PLATFORMENGINE_API void GetWindowSize(int &sizeX, int &sizeY);
 		PLATFORMENGINE_API void SetWorldID(PlatformEngine::CWorld *World);
-		PLATFORMENGINE_API int GetFPS(void);
 
 		PLATFORMENGINE_API void SetVSync(bool);
-
-		void UpdateFPS(void);
 	};
 };
 

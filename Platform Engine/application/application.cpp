@@ -25,6 +25,7 @@ namespace PlatformEngine
 		this->GUI = new Gui::CGuiManager(this);
 		this->render = new PE::CRender;
 		this->timer = new PE::CTimer(TIMER_TYPE_SECOND);
+		this->fpsMeter = new PE::CFPSMeter;
 
 		this->world = nullptr;
 		this->shaderDefault = nullptr;
@@ -57,11 +58,6 @@ namespace PlatformEngine
 	void CApplication::SetWorldID(PlatformEngine::CWorld *World)
 	{
 		CApplication::world = World;
-	}
-
-	int CApplication::GetFPS()
-	{
-		return mFps;
 	}
 
 	void CApplication::glInit(void)
@@ -446,9 +442,6 @@ namespace PlatformEngine
 		//timeBeginPeriod(1);
 
 		double timeStart = timer->Start();
-		cFpsTime = timeStart;
-		//pTime = (float)timeGetTime();
-		//cFpsTime = pTime;
 
 		MSG	  msg;						// Структура для хранения сообщения Windows
 		BOOL  done = false;				// Логическая переменная для выхода из цикла
@@ -472,19 +465,10 @@ namespace PlatformEngine
 			{
 				if(CApplication::active)					// Активна ли программа?
 				{
-					//dtt /= 1000;
-					// Расчитываем dt
-					//float cTime = (float)timeGetTime();
-					//float dTime = cTime - pTime;
 					double dTime = timer->GetElapsed();
-					//odt[0] = cTime - pTime;
-					/*if(cTime - cFpsTime >= 1000)
-					{
-						cFpsTime = cTime;
-						mFps = currentFps;
-						currentFps = 0;
-					}*/
-
+					
+					//fpsMeter->Check();
+					
 					// TODO: Фикс
 					// ВНИМАНИЕ! БАГА!
 					// Иногда dt = 0, скорее всего таймер неточный, или фпс дохуя
@@ -512,7 +496,8 @@ namespace PlatformEngine
 
 	void CApplication::DrawGLScene(float dTime)
 	{
-		currentFps++;
+		fpsMeter->Tick(dTime);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if(world != nullptr)
 		{

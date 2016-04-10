@@ -60,7 +60,7 @@ void CDebug::Update()
 		sprintf(str, "PCount: %d", app->world->GetParticleCount());
 		textPc->SetText(str);
 
-		sprintf(str, "FPS: %d", app->GetFPS());
+		sprintf(str, "FPS: %d", app->fpsMeter->GetFPS());
 		textFps->SetText(str);
 	}
 }
