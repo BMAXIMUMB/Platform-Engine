@@ -443,22 +443,22 @@ namespace PlatformEngine
 
 		double timeStart = timer->Start();
 
-		MSG	  msg;						// Структура для хранения сообщения Windows
-		BOOL  done = false;				// Логическая переменная для выхода из цикла
+		MSG	  msg;											// Структура для хранения сообщения Windows
+		BOOL  done = false;									// Логическая переменная для выхода из цикла
 		if(OnRun != nullptr) OnRun();
 		while(!done)
 		{
 			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))    // Есть ли в очереди какое-нибудь сообщение?
 			{
-				if(msg.message == WM_QUIT)        // Мы поучили сообщение о выходе?
+				if(msg.message == WM_QUIT)					// Мы поучили сообщение о выходе?
 				{
 					if(ShutDown != nullptr) ShutDown();
-					done = true;					// Если так, (ган)done=true
+					done = true;							// Если так, (ган)done=true
 				}
 				else
 				{
-					TranslateMessage(&msg);        // Переводим сообщение
-					DispatchMessage(&msg);        // Отсылаем сообщение
+					TranslateMessage(&msg);					// Переводим сообщение
+					DispatchMessage(&msg);					// Отсылаем сообщение
 				}
 			}
 			else
@@ -466,9 +466,7 @@ namespace PlatformEngine
 				if(CApplication::active)					// Активна ли программа?
 				{
 					double dTime = timer->GetElapsed();
-					
-					//fpsMeter->Check();
-					
+
 					// TODO: Фикс
 					// ВНИМАНИЕ! БАГА!
 					// Иногда dt = 0, скорее всего таймер неточный, или фпс дохуя
@@ -484,8 +482,8 @@ namespace PlatformEngine
 				}
 			}
 		}
-		PEKillWindow();									// Разрушаем окно
-		return (msg.wParam);							// Выходим из программы
+		PEKillWindow();										// Разрушаем окно
+		return (msg.wParam);								// Выходим из программы
 	}
 
 	void CApplication::GetWindowSize(int &sizeX, int &sizeY)

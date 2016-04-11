@@ -1,4 +1,4 @@
-// application.h
+п»ї// application.h
 
 #ifndef _APPLICATION_H_
 #define _APPLICATION_H_
@@ -15,6 +15,8 @@
 #include "fpsmeter\fpsmeter.h"
 #include "../logprintf.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace Gui
 {
 	class CGuiManager;
@@ -30,43 +32,43 @@ typedef BOOL(WINAPI * PFNWGLSWAPINTERVALEXTPROC) (int interval);
 
 struct ApplicationSettings
 {
-	// Информация об окне
+	// РРЅС„РѕСЂРјР°С†РёСЏ РѕР± РѕРєРЅРµ
 	float wwidth							= NULL;
 	float wheight							= NULL;
 	LPCSTR wtitle							= "";
 	int wbits								= NULL;
 	bool wfullscreen						= NULL;
 
-	// Мышь
+	// РњС‹С€СЊ
 	void(*mButtonDown)	(int, int, int)		= nullptr;
 	void(*mButtonUp)		(int, int, int) = nullptr;
 	void(*mMove)			(int, int)		= nullptr;
 
-	// Клавиатура
+	// РљР»Р°РІРёР°С‚СѓСЂР°
 	void(*kKeyDown)		(int)				= nullptr;
 	void(*kKeyUp)		(int)				= nullptr;
 	void(*loopf)		(void)				= nullptr;
 
-	// События
+	// РЎРѕР±С‹С‚РёСЏ
 	_OnRun onRunCallback					= nullptr;
 	_OnElementClick	guiOnElementClick		= nullptr;
 	_OnElementRelease	guiOnElementRelease = nullptr;
 	_ShutDown			ShutDown			= nullptr;
 };
 
-namespace PlatformEngine					// Пространство имен движка
+namespace PlatformEngine					// РџСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ РґРІРёР¶РєР°
 {
-	class CApplication						// Класс приложения
+	class CApplication						// РљР»Р°СЃСЃ РїСЂРёР»РѕР¶РµРЅРёСЏ
 	{
 	private:
-		HGLRC		hRC;					// Постоянный контекст рендеринга
-		HDC			hDC;					// Приватный контекст устройства GDI
-		HWND		hWnd;					// Здесь будет хранится дескриптор окна
-		HINSTANCE	hInstance;				// Здесь будет хранится дескриптор приложения
+		HGLRC		hRC;					// РџРѕСЃС‚РѕСЏРЅРЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚ СЂРµРЅРґРµСЂРёРЅРіР°
+		HDC			hDC;					// РџСЂРёРІР°С‚РЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР° GDI
+		HWND		hWnd;					// Р—РґРµСЃСЊ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЃСЏ РґРµСЃРєСЂРёРїС‚РѕСЂ РѕРєРЅР°
+		HINSTANCE	hInstance;				// Р—РґРµСЃСЊ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЃСЏ РґРµСЃРєСЂРёРїС‚РѕСЂ РїСЂРёР»РѕР¶РµРЅРёСЏ
 
-		bool		active;					// Флаг активности окна
-		bool		fullscreen;				// Флаг режима окна
-		bool		vSync;					// Вертикальная синхронизация
+		bool		active;					// Р¤Р»Р°Рі Р°РєС‚РёРІРЅРѕСЃС‚Рё РѕРєРЅР°
+		bool		fullscreen;				// Р¤Р»Р°Рі СЂРµР¶РёРјР° РѕРєРЅР°
+		bool		vSync;					// Р’РµСЂС‚РёРєР°Р»СЊРЅР°СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ
 
 		int			windowSizeX;
 		int			windowSizeY;
@@ -82,17 +84,17 @@ namespace PlatformEngine					// Пространство имен движка
 		_ShutDown			ShutDown;
 		_OnRun				OnRun;
 
-		LRESULT  CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);				// Обычный обработчик
-		void PEKillWindow(void);											// Уничтожение окна
-		void ReSizeGLScene(GLsizei, GLsizei);								// Применение размеров GL сцены
+		LRESULT  CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);				// РћР±С‹С‡РЅС‹Р№ РѕР±СЂР°Р±РѕС‚С‡РёРє
+		void PEKillWindow(void);											// РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РѕРєРЅР°
+		void ReSizeGLScene(GLsizei, GLsizei);								// РџСЂРёРјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂРѕРІ GL СЃС†РµРЅС‹
 
 	public:
-		CMouse *mouse;						// Указатель на мышь
-		CKeyboard *keyboard;					// Указатель на клавиатуру
-		CShader *shaderDefault;				// Шейдер по умолчанию
-		CShader *shaderFontDefault;			// Стандартный шейдер для текста
-		CWorld *world;						// Объект мира
-		CSpriteManager *spriteManager;			// Менеджер спрайтов
+		CMouse *mouse;														// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РјС‹С€СЊ
+		CKeyboard *keyboard;												// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РєР»Р°РІРёР°С‚СѓСЂСѓ
+		CShader *shaderDefault;												// РЁРµР№РґРµСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+		CShader *shaderFontDefault;											// РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№ С€РµР№РґРµСЂ РґР»СЏ С‚РµРєСЃС‚Р°
+		CWorld *world;														// РћР±СЉРµРєС‚ РјРёСЂР°
+		CSpriteManager *spriteManager;										// РњРµРЅРµРґР¶РµСЂ СЃРїСЂР°Р№С‚РѕРІ
 		CFontManager *fontManager;
 		CRender *render;
 		CFPSMeter *fpsMeter;
@@ -100,10 +102,10 @@ namespace PlatformEngine					// Пространство имен движка
 
 		////////////////////////////////////////////////////////////////////////////////
 
-		PLATFORMENGINE_API CApplication();									// Конструктор
-		PLATFORMENGINE_API ~CApplication();									// Деструктор
+		PLATFORMENGINE_API CApplication();									// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+		PLATFORMENGINE_API ~CApplication();									// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 
-		static LRESULT  CALLBACK PEWndProc(HWND, UINT, WPARAM, LPARAM);		// Статический обработчик
+		static LRESULT  CALLBACK PEWndProc(HWND, UINT, WPARAM, LPARAM);		// РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РѕР±СЂР°Р±РѕС‚С‡РёРє
 
 		PLATFORMENGINE_API bool Init(ApplicationSettings Settings);
 		PLATFORMENGINE_API bool PECreateWindow(LPCSTR title, int width, int height, int bits, bool fullscreen);

@@ -5,6 +5,8 @@
 
 #include "../../platform_engine.h"
 
+#define FPSMETER_AUTOCHECK
+
 namespace PlatformEngine
 {
 	class CFPSMeter

@@ -14,7 +14,10 @@ namespace PlatformEngine
 	{
 		tick++;
 		time += dTime;
-		Check();
+
+		#ifdef FPSMETER_AUTOCHECK
+			Check();
+		#endif
 	}
 
 	void CFPSMeter::Check()
