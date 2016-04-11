@@ -16,7 +16,6 @@ namespace PlatformEngine
 
 	CFont::~CFont()
 	{
-		// ׃האכטל רנטפע
 		if(ftf != NULL) delete ftf;
 	}
 
@@ -37,7 +36,7 @@ namespace PlatformEngine
 	void CFont::SetDepth(int depth)
 	{
 		this->depth = depth;
-		ftf->Depth(depth);
+		ftf->Depth((float)depth);
 	}
 
 	void CFont::Render(float posx, float posy, const wchar_t* text)

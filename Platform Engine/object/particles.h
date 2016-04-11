@@ -3,9 +3,11 @@
 #ifndef _PARTICLES_H_
 #define _PARTICLES_H_
 
+#include <vector>
 #include "../graphics/sprite/sprite.h"
 #include "../graphics/color/color.h"
-#include <vector>
+
+//----------------------------------------------------------------------------------------------------------
 
 #define E_DESTROY_WAIT				(0x1)
 #define E_DEFAULT_INTERVAL			(0.010)		//sec

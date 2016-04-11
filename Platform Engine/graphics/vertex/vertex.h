@@ -5,6 +5,7 @@
 
 namespace PlatformEngine
 {
+
 	// Классы вершин
 
 	class CVertex2f

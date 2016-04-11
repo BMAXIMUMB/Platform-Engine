@@ -19,7 +19,7 @@ namespace PlatformEngine
 		CVbo();
 		~CVbo();
 
-		void Build(PlatformEngine::CTexCoord2f * Texcoord);		// —борка буферов
+		void Build(PlatformEngine::CTexCoord2f * Texcoord);			// —борка буферов
 	};
 };
 

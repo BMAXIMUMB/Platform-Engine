@@ -31,8 +31,8 @@ namespace PlatformEngine
 		unsigned int textureID;							// ID текстуры
 		int textureType;								// Тип текстуры(RGB, RGBA)
 
-		void LoadFromFileTGA(const char * strfilename);// Загрузка текстуры
-		ImageTGA * LoadTga(const char * strfilename);  // Загрузка текстуры TGA
+		void LoadFromFileTGA(const char * strfilename);	// Загрузка текстуры
+		ImageTGA * LoadTga(const char * strfilename);	// Загрузка текстуры TGA
 
 		CTextureImage();
 		~CTextureImage();

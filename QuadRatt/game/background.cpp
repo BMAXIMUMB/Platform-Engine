@@ -3,6 +3,8 @@
 #include "background.h"
 #include "column_manager.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 CBackground::CBackground(PE::CWorld *world)
 {
 	this->world = world;

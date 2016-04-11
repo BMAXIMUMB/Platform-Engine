@@ -9,6 +9,8 @@
 #include <string>
 #include <iostream>
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace PlatformEngine
 {
 	class CShader

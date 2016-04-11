@@ -2,6 +2,8 @@
 #include <string>
 #include "platform_engine.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 #ifndef _LOGPRINTF_H_
 #define _LOGPRINTF_H_
 

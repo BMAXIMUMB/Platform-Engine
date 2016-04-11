@@ -3,8 +3,10 @@
 #ifndef _RESOURCE_H_
 #define _RESOURCE_H_
 
-#include "../platform_engine.h"
 #include <map>
+#include "../platform_engine.h"
+
+//----------------------------------------------------------------------------------------------------------
 
 #define RESOURCE_TYPE_SPRITE			(0x1)
 #define RESOURCE_TYPE_FONT				(0x2)

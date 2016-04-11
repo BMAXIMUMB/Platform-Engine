@@ -12,12 +12,12 @@ namespace PlatformEngine
 	{
 		friend CApplication;
 	private:
-		void(*KeyDown)	(int);									// Событие нажатия клавиши
-		void(*KeyUp)	(int);									// Событияе отжатия клавиши
+		void(*KeyDown)	(int);														// Событие нажатия клавиши
+		void(*KeyUp)	(int);														// Событияе отжатия клавиши
 
-		bool  keys[256];										// Массив для операций с клавиатурой
+		bool  keys[256];															// Массив для операций с клавиатурой
 
-		CKeyboard();											// Конструктор
+		CKeyboard();																// Конструктор
 
 	public:
 		PLATFORMENGINE_API bool		IsKeyPressed(int key);							// Нажата ли кнопка

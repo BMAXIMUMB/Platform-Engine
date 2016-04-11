@@ -7,7 +7,6 @@
 
 namespace PlatformEngine
 {
-	//  вадрат, производный класс от 'Object'
 	class CQuad : public CObject
 	{
 

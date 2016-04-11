@@ -3,6 +3,8 @@
 #include "gamestate.h"
 #include "game.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 CGameState::CGameState(CGame *game)
 {
 	this->game = game;

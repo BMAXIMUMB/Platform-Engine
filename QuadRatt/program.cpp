@@ -3,6 +3,8 @@
 #include "program.h"
 #include "input\input.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 CProgram::CProgram(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	this->hInstance = hInstance;

@@ -4,6 +4,8 @@
 #include "../world/world.h"
 #include "object.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace PlatformEngine
 {
 	CObject::CObject()

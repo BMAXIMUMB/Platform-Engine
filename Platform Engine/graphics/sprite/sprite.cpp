@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "../render/render.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace PlatformEngine
 {
 	CSprite::CSprite()

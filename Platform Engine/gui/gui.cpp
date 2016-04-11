@@ -1,10 +1,12 @@
 // gui.cpp
 
+#include <atlbase.h>
+
 #include "gui.h"
 #include "gui_manager.h"
 #include "../font/font.h"
 
-#include <atlbase.h>
+//----------------------------------------------------------------------------------------------------------
 
 namespace Gui
 {

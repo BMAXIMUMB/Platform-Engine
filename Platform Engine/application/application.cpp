@@ -476,7 +476,7 @@ namespace PlatformEngine
 					{
 
 						if(loopf != nullptr) loopf();
-						DrawGLScene(dTime);					// Расчитываем и рисуем сцену
+						DrawGLScene((float)dTime);					// Расчитываем и рисуем сцену
 						SwapBuffers(hDC);					// Меняем буфер
 					}
 				}

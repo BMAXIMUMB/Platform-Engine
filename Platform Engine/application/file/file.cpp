@@ -48,11 +48,11 @@ namespace PlatformEngine
 	float CFile::GetFloat(char *section, char *key)
 	{
 		char *buff = new char[30];
-		float val;
+		double val;
 		GetPrivateProfileStringA(section, key, NULL, buff, 256, path);
 		val = atof(buff);
 		delete buff;
-		return val;
+		return (float)val;
 	}
 
 	LPSTR CFile::GetString(char *section, char *key)

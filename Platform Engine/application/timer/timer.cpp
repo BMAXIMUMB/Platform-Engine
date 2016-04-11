@@ -53,7 +53,7 @@ namespace PlatformEngine
 
 			double tempElapsed = stopTime - startTime;
 
-			#ifdef AUTORESET
+			#ifdef TIMER_AUTORESET
 				startTime = stopTime;
 			#endif
 			

@@ -26,18 +26,19 @@ namespace PlatformEngine
 		if(tgaTexture->channels == 4) textureType = GL_RGBA;
 		else textureType = GL_RGB;
 
-#ifdef BUILD_MIPMAP
+		#ifdef BUILD_MIPMAP
 
-		gluBuild2DMipmaps(GL_TEXTURE_2D, tgaTexture->channels,
-			tgaTexture->sizeX,
-			tgaTexture->sizeY,
-			textureType, GL_UNSIGNED_BYTE,
-			tgaTexture->data);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, tgaTexture->channels,
+				tgaTexture->sizeX,
+				tgaTexture->sizeY,
+				textureType, GL_UNSIGNED_BYTE,
+				tgaTexture->data);
 
-#else
-		glTexImage2D(GL_TEXTURE_2D, 0, tgaTexture->channels, tgaTexture->sizeX, tgaTexture->sizeY, 0, textureType, GL_UNSIGNED_BYTE, tgaTexture->data);
+		#else
+			glTexImage2D(GL_TEXTURE_2D, 0, tgaTexture->channels, tgaTexture->sizeX, tgaTexture->sizeY, 0, textureType, GL_UNSIGNED_BYTE, tgaTexture->data);
 		
-#endif
+		#endif
+
 		// ¬ключаем анизотропную фильтрацию текстур
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

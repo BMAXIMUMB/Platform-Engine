@@ -6,7 +6,7 @@
 #include <windows.h>
 #include "../../logprintf.h"
 
-#define AUTORESET
+#define TIMER_AUTORESET
 
 namespace PlatformEngine
 {

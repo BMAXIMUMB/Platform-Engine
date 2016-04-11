@@ -13,6 +13,8 @@
 #include "state/StateMainMenu.h"
 #include "state/StateStarting.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 class CGame;
 
 enum Event

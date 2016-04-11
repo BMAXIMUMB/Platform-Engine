@@ -29,6 +29,7 @@ namespace PlatformEngine
 		CMouse();												// Конструктор
 
 	public:
+
 		// Настройки событий мыши
 		PLATFORMENGINE_API	void ButtonDownFunction(void(*ButtonDown) (int button, int posx, int posy));
 		PLATFORMENGINE_API	void ButtonUpFunction(void(*ButtonUp) (int button, int posx, int posy));

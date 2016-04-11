@@ -4,6 +4,8 @@
 #include "../application/application.h"
 #include "particles.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 #define ATVC(p1, p2) cos(p1) * p2
 #define ATVS(p1, p2) sin(p1) * p2
 

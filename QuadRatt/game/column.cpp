@@ -2,6 +2,8 @@
 
 #include "column.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 void CColumn::Create(PE::CWorld *world, ColumnSettings cs)
 {
 	this->info = cs;
@@ -37,6 +39,7 @@ color4 CColumn::CalculateColor()
 	// Настраиваем маску в зависимости от глубины
 	maskColor = mask;
 	maskColor -= ((float)info.depth * COLUMN_DEPTH_MULTIPLE / 255);
+
 	// Альфу ставим 1
 	maskColor.a = 1;
 

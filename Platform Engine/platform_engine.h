@@ -12,7 +12,6 @@
 #define _PLATFORMENGINE_H_
 
 #include <Windows.h>				// Заголовочные файлы для Windows
-//#include <GL\glext.h>
 #include <glm\glm.hpp>
 #include <GL\glew.h>
 #include <glm\gtc\matrix_transform.hpp>
@@ -21,7 +20,7 @@
 #define _USE_MATH_DEFINES 
 
 #include <math.h>
-#include <stdio.h>					// stdio.h
+#include <stdio.h>
 
 PLATFORMENGINE_API int RandomValue(int min, int max);
 float FloatRandomValue(float min, float max);

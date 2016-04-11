@@ -7,6 +7,8 @@
 #include "../../Platform Engine/gui/gui.h"
 #include "game.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 class CInterface
 {
 private:

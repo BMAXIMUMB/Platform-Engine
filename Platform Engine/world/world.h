@@ -10,6 +10,8 @@
 #include "../object/particles.h"
 #include <vector>
 
+//----------------------------------------------------------------------------------------------------------
+
 #define COLLISION_ON								(true)
 #define COLLISION_OFF								(false)
 
@@ -32,6 +34,7 @@ namespace PlatformEngine
 
 		// Тут хранятся все объекты мира
 		std::vector< PlatformEngine::CObject*> objectList;
+
 		// Источники партиклов
 		std::vector< PlatformEngine::CParticleEmitter*> particleEmitterList;
 
@@ -74,8 +77,10 @@ namespace PlatformEngine
 
 		// Обновление частиц
 		void UpdateParticle(float dTime);
+
 		// Отрисовать фон
 		void DrawBackground(void);
+
 		//Отрисовать частицы
 		void DrawParticle(void);
 

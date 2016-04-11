@@ -7,6 +7,8 @@
 #include "../graphics/color/color.h"
 #include "particles.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 // OBJECT_TYPES
 #define OBJECT_TYPE_QUAD					(0x1)
 #define OBJECT_TYPE_TRIANGLE				(0x2)

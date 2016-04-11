@@ -4,6 +4,8 @@
 #include "layer.h"
 #include "../application/application.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace PlatformEngine
 {
 	CWorld::CWorld(CApplication *app, WorldSettings Settings)

@@ -81,10 +81,10 @@ color4 Color(BYTE r, BYTE g, BYTE b, BYTE a)
 {
 	color4 color;
 
-	color.r = r / 255;
-	color.g = g / 255;
-	color.b = b / 255;
-	color.a = a / 255;
+	color.r = r / (float)255;
+	color.g = g / (float)255;
+	color.b = b / (float)255;
+	color.a = a / (float)255;
 
 	return color;
 }

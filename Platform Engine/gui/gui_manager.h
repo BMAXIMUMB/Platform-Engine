@@ -2,14 +2,18 @@
 
 #ifndef _GUI_MANAGER_H_
 #define _GUI_MANAGER_H_
+
 #include "gui.h"
 #include <vector>
+
+//----------------------------------------------------------------------------------------------------------
 
 #define GUI_ACTION_TYPE_MOVE			(0x1)
 #define GUI_ACTION_TYPE_SCALE			(0x2)
 #define GUI_ACTION_TYPE_ALPHA			(0x3)
 
 #define POINT_IN_SQUARE(x1, x2, y1, y2, px, py) px >= x1 && px <= x2 && py >= y1 && py <= y2
+
 #define GetElement FindElement
 
 namespace Gui

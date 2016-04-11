@@ -11,6 +11,8 @@
 #include "../../world/camera/camera.h"
 #include "../../resource/resource.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 struct SpriteDrawSettings
 {
 	float posX,
@@ -29,9 +31,9 @@ namespace PlatformEngine
 	class CSprite :public СResource
 	{
 	public:
-		CTexCoord2f *texCoord;			// Текстурные координаты
-		CTextureImage *texture;			// Текстура спрайта
-		CVbo *vbo;										// VBO
+		CTexCoord2f *texCoord;												// Текстурные координаты
+		CTextureImage *texture;												// Текстура спрайта
+		CVbo *vbo;															// VBO
 
 	public:
 		PLATFORMENGINE_API CSprite();										// Конструктор

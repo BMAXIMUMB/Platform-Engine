@@ -3,12 +3,13 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+#include <stack>
 #include "../main.h"
 #include "../debug.h"
 #include "level.h"
 #include "gamestate.h"
 
-#include <stack>
+//----------------------------------------------------------------------------------------------------------
 
 // Состояния игры
 

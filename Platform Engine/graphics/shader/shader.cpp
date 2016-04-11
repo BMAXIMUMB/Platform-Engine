@@ -5,6 +5,8 @@
 #include <vector>
 #include "../../logprintf.h"
 
+//----------------------------------------------------------------------------------------------------------
+
 namespace PlatformEngine
 {
 	CShader::CShader()

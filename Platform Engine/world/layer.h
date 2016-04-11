@@ -3,10 +3,13 @@
 #ifndef _LAYER_H_
 #define _LAYER_H_
 
-#include "../graphics/sprite/sprite.h"
-#include "../application/application.h"
 #include <vector>
 #include <algorithm>
+
+#include "../graphics/sprite/sprite.h"
+#include "../application/application.h"
+
+//----------------------------------------------------------------------------------------------------------
 
 #define LAYER_POSITION_FIXED				(0x0)
 #define LAYER_POSITION_UNFIXED				(0x1)
