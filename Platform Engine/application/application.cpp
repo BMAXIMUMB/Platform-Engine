@@ -31,7 +31,6 @@ namespace PlatformEngine
 		this->shaderDefault = nullptr;
 		this->shaderFontDefault = nullptr;
 
-		odt[0] = NULL; odt[1] = NULL; odt[2] = NULL; odt[3] = NULL; odt[4] = NULL;
 
 		srand((unsigned)time(0));
 	}
@@ -315,6 +314,7 @@ namespace PlatformEngine
 			::SetWindowLong(hWnd, GWL_USERDATA, (DWORD)pCS->lpCreateParams);		//«апоминаем переданный указатель на класс
 		}
 		CApplication* pThis = (CApplication*)::GetWindowLong(hWnd, GWL_USERDATA);	//берем его 
+
 		return pThis->WndProc(hWnd, uMsg, wParam, lParam);							// вызываем обычный (не static метод)
 	}
 
@@ -439,8 +439,6 @@ namespace PlatformEngine
 	
 	int CApplication::Run(void)
 	{	
-		//timeBeginPeriod(1);
-
 		double timeStart = timer->Start();
 
 		MSG	  msg;											// —труктура дл€ хранени€ сообщени€ Windows
@@ -497,11 +495,13 @@ namespace PlatformEngine
 		fpsMeter->Tick(dTime);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		if(world != nullptr)
 		{
 			world->Update(dTime);
 			world->Draw();
 		}
+
 		GUI->Update(dTime);
 		GUI->DrawElements();
 	}

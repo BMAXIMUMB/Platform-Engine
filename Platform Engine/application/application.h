@@ -40,7 +40,7 @@ struct ApplicationSettings
 	bool wfullscreen						= NULL;
 
 	// Мышь
-	void(*mButtonDown)	(int, int, int)		= nullptr;
+	void(*mButtonDown)		(int, int, int)	= nullptr;
 	void(*mButtonUp)		(int, int, int) = nullptr;
 	void(*mMove)			(int, int)		= nullptr;
 
@@ -50,8 +50,8 @@ struct ApplicationSettings
 	void(*loopf)		(void)				= nullptr;
 
 	// События
-	_OnRun onRunCallback					= nullptr;
-	_OnElementClick	guiOnElementClick		= nullptr;
+	_OnRun				onRunCallback		= nullptr;
+	_OnElementClick		guiOnElementClick	= nullptr;
 	_OnElementRelease	guiOnElementRelease = nullptr;
 	_ShutDown			ShutDown			= nullptr;
 };
@@ -73,9 +73,6 @@ namespace PlatformEngine					// Пространство имен движка
 		int			windowSizeX;
 		int			windowSizeY;
 
-		float		pTime;
-		float		odt[20];
-
 		CTimer		*timer;
 
 		PFNWGLSWAPINTERVALEXTPROC wglSwapInterval;
@@ -85,25 +82,26 @@ namespace PlatformEngine					// Пространство имен движка
 		_OnRun				OnRun;
 
 		LRESULT  CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);				// Обычный обработчик
+
 		void PEKillWindow(void);											// Уничтожение окна
 		void ReSizeGLScene(GLsizei, GLsizei);								// Применение размеров GL сцены
 
 	public:
-		CMouse *mouse;														// Указатель на мышь
-		CKeyboard *keyboard;												// Указатель на клавиатуру
-		CShader *shaderDefault;												// Шейдер по умолчанию
-		CShader *shaderFontDefault;											// Стандартный шейдер для текста
-		CWorld *world;														// Объект мира
-		CSpriteManager *spriteManager;										// Менеджер спрайтов
+		CMouse		*mouse;														// Указатель на мышь
+		CKeyboard	*keyboard;													// Указатель на клавиатуру
+		CShader		*shaderDefault;												// Шейдер по умолчанию
+		CShader		*shaderFontDefault;											// Стандартный шейдер для текста
+		CWorld		*world;														// Объект мира
+		CSpriteManager *spriteManager;											// Менеджер спрайтов
 		CFontManager *fontManager;
-		CRender *render;
-		CFPSMeter *fpsMeter;
+		CRender		*render;
+		CFPSMeter	*fpsMeter;
 		Gui::CGuiManager *GUI;
 
 		////////////////////////////////////////////////////////////////////////////////
 
-		PLATFORMENGINE_API CApplication();									// Конструктор
-		PLATFORMENGINE_API ~CApplication();									// Деструктор
+		PLATFORMENGINE_API CApplication();
+		PLATFORMENGINE_API ~CApplication();
 
 		static LRESULT  CALLBACK PEWndProc(HWND, UINT, WPARAM, LPARAM);		// Статический обработчик
 
