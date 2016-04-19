@@ -9,6 +9,16 @@ CStateFail::CStateFail(CGameState *state)
 	this->state = state;
 }
 
+void CStateFail::Activate()
+{
+
+}
+
+void CStateFail::Deactivate()
+{
+
+}
+
 void CStateFail::Update()
 {
 

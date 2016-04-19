@@ -9,6 +9,16 @@ CStateLoadingImage::CStateLoadingImage(CGameState *state)
 	this->state = state;
 }
 
+void CStateLoadingImage::Activate()
+{
+
+}
+
+void CStateLoadingImage::Deactivate()
+{
+
+}
+
 void CStateLoadingImage::Update()
 {
 

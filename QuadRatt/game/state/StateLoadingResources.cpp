@@ -7,6 +7,16 @@ CStateLoadingResources::CStateLoadingResources(CGameState *state)
 	this->state = state;
 }
 
+void CStateLoadingResources::Activate()
+{
+
+}
+
+void CStateLoadingResources::Deactivate()
+{
+
+}
+
 void CStateLoadingResources::Update()
 {
 

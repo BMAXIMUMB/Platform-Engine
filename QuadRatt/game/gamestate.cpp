@@ -34,7 +34,10 @@ CGameState::~CGameState()
 
 void CGameState::SetState(IState *state)
 {
+	currentState->Deactivate();
+
 	currentState = state;
+	currentState->Activate();
 }
 
 IState* CGameState::GetState()
@@ -61,7 +64,11 @@ void CGameState::DispatchEvent(Event currentEvent)
 		if(transitionsTable[i].currentState == currentState && transitionsTable[i].currentEvent == currentEvent)
 		{
 			IState *tempState = currentState;
-			logprintf("setState %d", currentEvent);
+
+			#ifdef _DEBUG
+				logprintf("set state");
+			#endif
+
 			SetState(transitionsTable[i].targetState);
 			game->onGameStateChange(transitionsTable[i].targetState, tempState);
 			return;

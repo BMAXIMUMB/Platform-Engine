@@ -9,6 +9,16 @@ CStateStarting::CStateStarting(CGameState *state)
 	this->state = state;
 }
 
+void CStateStarting::Activate()
+{
+
+}
+
+void CStateStarting::Deactivate()
+{
+
+}
+
 void CStateStarting::Update()
 {
 

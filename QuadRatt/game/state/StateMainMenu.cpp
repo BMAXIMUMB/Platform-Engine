@@ -9,6 +9,16 @@ CStateMainMenu::CStateMainMenu(CGameState *state)
 	this->state = state;
 }
 
+void CStateMainMenu::Activate()
+{
+
+}
+
+void CStateMainMenu::Deactivate()
+{
+
+}
+
 void CStateMainMenu::Update()
 {
 
