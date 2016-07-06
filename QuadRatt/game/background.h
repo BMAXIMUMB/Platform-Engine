@@ -59,6 +59,8 @@ private:
 	void CheckGround(void);
 	void CheckColumn(void);
 
+	void DeleteGround(void);
+
 	bool isCreate(void){ return create; }
 	void setCreate(bool val){ create = val; }
 
@@ -70,6 +72,7 @@ public:
 	CBackgroundElement* CreateElement(LayerObjectSettings los);
 	void DestroyElement(CBackgroundElement *bElem);
 	void Create(void);
+	void Reset(void);
 
 	void Check(void);
 

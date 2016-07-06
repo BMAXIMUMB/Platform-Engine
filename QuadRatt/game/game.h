@@ -45,6 +45,7 @@ public:
 
 
 	void Start();
+	void Restart();
 
 	void PlayerFail(void);
 

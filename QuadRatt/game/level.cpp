@@ -3,6 +3,7 @@
 #include "level.h"
 #include "entity.h"
 #include "game.h"
+#include "gamegui.h"
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -83,6 +84,16 @@ void CLevel::BarrierGenerate(float offset)
 
 	b->Create(world, barrierInfoList[RandomValue(0, barrierInfoList.size())], offset);
 	barrierList.push_back(b);
+}
+
+void CLevel::BarrierAllDelete()
+{
+	for(auto it = barrierList.begin(); it != barrierList.end(); it++)
+	{
+		delete (*it);
+	}
+
+	barrierList.clear();
 }
 
 void CLevel::BarrierDelete(CBarrier *Barrier)
@@ -166,6 +177,11 @@ void CLevel::Create()
 	PlayerCreate();
 }
 
+void CLevel::Destroy()
+{
+
+}
+
 void CLevel::Start()
 {
 	StartBarrierGenerate();
@@ -174,7 +190,20 @@ void CLevel::Start()
 
 void CLevel::Restart()
 {
+	game->GetInterface()->HideFailMenu();
 
+	// ”дал€ем преп€дстви€ и генерируем новые
+	BarrierAllDelete();
+	StartBarrierGenerate();
+
+	//
+	background->Reset();
+
+	// ѕеремещаем игрока в стартовую позицию, задаем скорость
+	player->Reset();
+	player->Move(750.0, OBJECT_CURRENT_VALUE);
+	
+	world->camera->AttachToObject(player->GetObjectID(), -200.0f, 0.0f, 0.0f, 376.0f);
 }
 
 void CLevel::Update()

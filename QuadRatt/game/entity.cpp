@@ -77,9 +77,19 @@ void CPlayer::Create(PE::CWorld *world, entitysettings pset)
 	this->posY = spawnPosX;
 }
 
+void CPlayer::Reset(void)
+{
+	// —брос данных и респавн игрока
+
+	startPosX = spawnPosX;
+
+	score->Set(0);
+	Spawn();
+}
+
 void CPlayer::Spawn()
 {
-	if(object != NULL)
+	if(object != nullptr)
 	{
 		Delete();
 	}

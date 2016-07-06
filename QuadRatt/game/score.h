@@ -18,6 +18,7 @@ public:
 	bool SaveBestScoreFromFile(void);
 
 	void Update(CPlayer *Player);
+	void Set(int value);
 
 	int GetBestScore(void){ return bestScore; }
 	int GetScore(void){ return currentScore; }

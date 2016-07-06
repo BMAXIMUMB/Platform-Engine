@@ -15,7 +15,7 @@ CGame::CGame(PE::CApplication *App)
 	world			= new PE::CWorld(app, ws);
 	level			= new CLevel(this);
 	gInterface		= new CInterface(this);
-	debugInfo		= new CDebug(app);
+	debugInfo		= new CDebug(app, this);
 	state			= new CGameState(this);
 
 
@@ -41,6 +41,11 @@ void CGame::ShowDebugInfo()
 void CGame::Start()
 {
 	
+}
+
+void CGame::Restart()
+{
+
 }
 
 void CGame::DebugInfoUpdate()
@@ -138,10 +143,10 @@ void CGame::onGameStateChange(IState *newState, IState *oldState)
 	{
 		gInterface->HideMainMenu();
 	}
-	else if(newState == state->StateFail)
+	/*else if(newState == state->StateFail)
 	{
 		PlayerFail();
-	}
+	}*/
 }
 
 void CGame::onObjectCollision(PE::CContact *Contact)
@@ -152,6 +157,7 @@ void CGame::onObjectCollision(PE::CContact *Contact)
 		{
 			if(Contact->routPush != ROUT_PUSH_Y)
 			{
+				// Проебал
 				state->DispatchEvent(ON_PLAYER_FAIL);
 			}
 		}

@@ -11,7 +11,7 @@ CStateFail::CStateFail(CGameState *state)
 
 void CStateFail::Activate()
 {
-
+	state->GetGame()->PlayerFail();
 }
 
 void CStateFail::Deactivate()

@@ -5,6 +5,8 @@
 
 #include "main.h"
 
+class CGame;
+
 class CDebug
 {
 private:
@@ -14,10 +16,11 @@ private:
 
 	bool debugShowed;
 
+	CGame *game;
 	PE::CApplication *app;
 
 public:
-	CDebug(PE::CApplication *App);
+	CDebug(PE::CApplication *App, CGame *game);
 	~CDebug();
 
 	void ShowDebugInfo(void);

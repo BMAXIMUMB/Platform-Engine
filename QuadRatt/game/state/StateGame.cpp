@@ -36,5 +36,5 @@ void CStateGame::LoopFunction()
 
 void CStateGame::GuiActionStop(Gui::CGuiElement *elem, int actionType)
 {
-
+	
 }

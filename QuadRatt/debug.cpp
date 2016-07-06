@@ -1,10 +1,13 @@
 // debug.cpp
 
 #include "debug.h"
+#include "game\game.h"
 
-CDebug::CDebug(PE::CApplication *App)
+CDebug::CDebug(PE::CApplication *App, CGame *game)
 {
 	this->app = App;
+	this->game = game;
+
 	debugShowed = false;
 }
 
@@ -33,7 +36,7 @@ void CDebug::ShowDebugInfo()
 	ts.posX = 0.0;
 	ts.posY = 670.0;
 	ts.color = {1, 1, 1, 1};
-	ts.text = L"PCount:";
+	ts.text = L"posX:";
 	ts.name = "t2";
 	ts.fontsize = 15;
 
@@ -57,7 +60,10 @@ void CDebug::Update()
 	if(debugShowed)
 	{
 		char str[50];
-		sprintf(str, "PCount: %d", app->world->GetParticleCount());
+		float x, y;
+
+		game->GetLevel()->GetPlayer()->GetPosition(x, y);
+		sprintf(str, "posX: %.2f, posY: %.2f", x, y);
 		textPc->SetText(str);
 
 		sprintf(str, "FPS: %d", app->fpsMeter->GetFPS());

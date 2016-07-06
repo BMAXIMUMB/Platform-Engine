@@ -33,6 +33,7 @@ public:
 	~CLevel();
 
 	void Create(void);
+	void Destroy(void);
 	void Start(void);
 	void Restart(void);
 
@@ -42,6 +43,7 @@ public:
 	void BarrierGenerate(float offset);
 	void StartBarrierGenerate(void);
 	void BarrierDelete(CBarrier *Barrier);
+	void BarrierAllDelete(void);
 	void LoadBarrierInfo(void);
 	void BarrierCheck(void);
 	CBarrierInfo* LoadBarrierInfoFromFile(const char *path);

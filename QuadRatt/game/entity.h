@@ -78,6 +78,7 @@ public:
 	void GetSpeed(float &x, float &y);
 	bool onGround(void);
 	void Spawn(void);
+	void Reset(void);
 	void Move(float speed_x, float speed_y);
 	void Jump(void);
 

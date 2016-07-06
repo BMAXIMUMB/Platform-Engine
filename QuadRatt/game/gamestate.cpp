@@ -25,6 +25,7 @@ CGameState::CGameState(CGame *game)
 	AddTransition(StateMainMenu, ON_PLAY_CLICKED, StateStarting);
 	AddTransition(StateStarting, ON_MENU_HIDED, StateGame);
 	AddTransition(StateGame, ON_PLAYER_FAIL, StateFail);
+	AddTransition(StateFail, ON_RETRY, StateGame);
 }
 
 CGameState::~CGameState()

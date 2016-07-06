@@ -53,3 +53,8 @@ void CScore::Update(CPlayer *player)
 		//SaveBestScoreFromFile();
 	}
 }
+
+void CScore::Set(int value)
+{
+	currentScore = value;
+}

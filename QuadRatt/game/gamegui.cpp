@@ -281,7 +281,9 @@ void CInterface::ShowFailMenu()
 void CInterface::HideFailMenu()
 {
 	//ShowWhiteScreen();
-	//app->GUI->GetElement("fail_box")->SetAlphaSmooth(0.0f, 1.0f);
+	//app->GUI->GetElement("fail_box")->SetAlphaSmooth(0.0f, 0.5f);
+
+	app->GUI->Hide("fail_box");
 }
 
 void CInterface::ShowWhiteScreen()
@@ -359,13 +361,15 @@ void CInterface::onElementClick(Gui::CGuiElement *elem, int button)
 		game->GetStateID()->DispatchEvent(ON_PLAY_CLICKED);
 	}
 	
-	/*if(game->GetStateID()->GetState() == game->GetStateID()->StateFail)
+	if(game->GetStateID()->GetState() == game->GetStateID()->StateFail)
 	{
 		if(elem->GetName() == "g_icon_retry")
 		{
-			
+			game->GetLevel()->Restart();
+			game->GetStateID()->DispatchEvent(ON_RETRY);
+			ShowGameHUD();
 		}
-	}*/
+	}
 }
 
 void CInterface::onElementRelease(Gui::CGuiElement *elem)
