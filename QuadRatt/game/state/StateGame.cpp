@@ -36,5 +36,11 @@ void CStateGame::LoopFunction()
 
 void CStateGame::GuiActionStop(Gui::CGuiElement *elem, int actionType)
 {
-	
+	if(elem->GetName() == "white_quad")
+	{
+		if(actionType == GUI_ACTION_TYPE_ALPHA)
+		{
+			state->GetGame()->GetApp()->GUI->Hide("white_quad");
+		}
+	}
 }

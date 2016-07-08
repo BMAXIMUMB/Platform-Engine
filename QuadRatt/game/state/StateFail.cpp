@@ -32,5 +32,14 @@ void CStateFail::LoopFunction()
 
 void CStateFail::GuiActionStop(Gui::CGuiElement *elem, int actionType)
 {
-
+	if(elem->GetName() == "white_quad")
+	{
+		if(actionType == GUI_ACTION_TYPE_ALPHA)
+		{
+			state->GetGame()->GetLevel()->Restart();
+			state->GetGame()->GetStateID()->DispatchEvent(ON_RETRY);
+			state->GetGame()->GetInterface()->ShowGameHUD();
+			state->GetGame()->GetInterface()->HideWhiteScreen();
+		}
+	}
 }

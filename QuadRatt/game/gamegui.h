@@ -21,8 +21,6 @@ private:
 	void CreateGUIFailMenu(void);
 	void CreateGameHUD(void);
 
-	void ShowWhiteScreen(void);
-
 public:
 
 	CInterface(CGame *Game);
@@ -45,6 +43,10 @@ public:
 	// Fail Menu
 	void ShowFailMenu(void);
 	void HideFailMenu(void);
+
+	// White Screen
+	void ShowWhiteScreen(void);
+	void HideWhiteScreen(void);
 	
 	void UpdatePlayerScore(void);
 

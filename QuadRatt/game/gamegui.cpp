@@ -290,6 +290,12 @@ void CInterface::ShowWhiteScreen()
 {
 	app->GUI->GetElement("white_quad")->SetAlpha(0.0f);
 	app->GUI->GetElement("white_quad")->SetAlphaSmooth(1.0f, 1.0f);
+	app->GUI->GetElement("white_quad")->Show();
+}
+
+void CInterface::HideWhiteScreen()
+{
+	app->GUI->GetElement("white_quad")->SetAlphaSmooth(0.0f, 0.65f);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -365,9 +371,7 @@ void CInterface::onElementClick(Gui::CGuiElement *elem, int button)
 	{
 		if(elem->GetName() == "g_icon_retry")
 		{
-			game->GetLevel()->Restart();
-			game->GetStateID()->DispatchEvent(ON_RETRY);
-			ShowGameHUD();
+			ShowWhiteScreen();
 		}
 	}
 }
