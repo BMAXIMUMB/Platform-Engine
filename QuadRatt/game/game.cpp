@@ -112,7 +112,7 @@ void CGame::onGameStateChange(IState *newState, IState *oldState)
 		if(oldState == state->StateFail)
 		{
 			gInterface->HideFailMenu();
-			level->Restart();
+			//level->Restart();
 		}
 		else
 		{

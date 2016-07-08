@@ -27,6 +27,7 @@ void CEntity::SetPosition(float x, float y)
 	posX = x;
 	posY = y;
 	object->SetPosition(x, y);
+	world->camera->Update();
 }
 
 void CEntity::GetPosition(float &x, float &y)
@@ -60,13 +61,13 @@ CPlayer::~CPlayer()
 void CPlayer::SetSpawnPosition(float x, float y)
 {
 	spawnPosX = x;
-	spawnPosX = y;
+	spawnPosY = y;
 }
 
 void CPlayer::Create(PE::CWorld *world, entitysettings pset)
 {
 	this->spawnPosX = pset.spawnPosX;
-	this->spawnPosX = pset.spawnPosY;
+	this->spawnPosY = pset.spawnPosY;
 	this->sizeX = pset.sizeX;
 	this->sizeY = pset.sizeY;
 	this->world = world;
@@ -74,14 +75,16 @@ void CPlayer::Create(PE::CWorld *world, entitysettings pset)
 	this->color = pset.color;
 
 	this->posX = spawnPosX;
-	this->posY = spawnPosX;
+	this->posY = spawnPosY;
 }
 
 void CPlayer::Reset(void)
 {
 	// —брос данных и респавн игрока
 
-	startPosX = spawnPosX;
+	this->startPosX = spawnPosX;
+	this->posX = spawnPosX;
+	this->posY = spawnPosY;
 
 	score->Set(0);
 	Spawn();
@@ -93,9 +96,17 @@ void CPlayer::Spawn()
 	{
 		Delete();
 	}
-
-	object = world->CreateObjectQuad(spawnPosX, spawnPosX, sizeX, sizeY, sprite, OBJECT_TYPE_DYNAMIC);
+	
+	object = world->CreateObjectQuad(spawnPosX, spawnPosY, sizeX, sizeY, sprite, OBJECT_TYPE_DYNAMIC);
 	object->SetColor(color);
+}
+
+void CPlayer::Respawn()
+{
+	SetPosition(spawnPosX, spawnPosY);
+	score->Set(0);
+
+	this->startPosX = spawnPosX;
 }
 
 bool CPlayer::onGround()

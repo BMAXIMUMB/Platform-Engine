@@ -191,19 +191,15 @@ void CLevel::Start()
 void CLevel::Restart()
 {
 	game->GetInterface()->HideFailMenu();
+	
+	// ѕеремещаем игрока в стартовую позицию, задаем скорость
+	player->Respawn();
 
 	// ”дал€ем преп€дстви€ и генерируем новые
 	BarrierAllDelete();
 	StartBarrierGenerate();
 
-	//
 	background->Reset();
-
-	// ѕеремещаем игрока в стартовую позицию, задаем скорость
-	player->Reset();
-	player->Move(750.0, OBJECT_CURRENT_VALUE);
-	
-	world->camera->AttachToObject(player->GetObjectID(), -200.0f, 0.0f, 0.0f, 376.0f);
 }
 
 void CLevel::Update()

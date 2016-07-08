@@ -78,6 +78,12 @@ namespace PlatformEngine
 		oldposY = 0.0;
 	}
 
+	void CLayer::Reset()
+	{
+		oldposX = 0.0;
+		oldposY = 0.0;
+	}
+
 	void CLayer::AddElementToList(CLayerObject *lo)
 	{
 		lObjectList.push_back(lo);
@@ -151,6 +157,7 @@ namespace PlatformEngine
 						lObjectList[i]->posX -= (cpos[0] - oldposX)*lObjectList[i]->moveFactor;
 						lObjectList[i]->posY -= (cpos[1] - oldposY)*lObjectList[i]->moveFactor;
 						lObjectList[i]->sprite->Draw(App, sds);
+						//logprintf("posx %f oldposX %f", lObjectList[i]->posX, oldposX);
 					}
 				}
 			}

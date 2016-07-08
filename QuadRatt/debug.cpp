@@ -59,11 +59,17 @@ void CDebug::Update()
 {
 	if(debugShowed)
 	{
-		char str[50];
+		char str[80];
 		float x, y;
+		float cpos[2] = { 0.f, 0.f };
 
 		game->GetLevel()->GetPlayer()->GetPosition(x, y);
-		sprintf(str, "posX: %.2f, posY: %.2f", x, y);
+		if(game->GetWorld()->camera != nullptr)
+		{
+			game->GetWorld()->camera->GetPosition(cpos[0], cpos[1]);
+		}
+		
+		sprintf(str, "posX: %.2f, posY: %.2f | cposx %f, cposy %f", x, y, cpos[0], cpos[1]);
 		textPc->SetText(str);
 
 		sprintf(str, "FPS: %d", app->fpsMeter->GetFPS());

@@ -20,6 +20,21 @@ namespace PlatformEngine
 		attachedObject = nullptr;
 	}
 
+	void CCamera::Reset()
+	{
+		posX = 0.0;
+		posY = 0.0;
+		offsetX = 0.0;
+		offsetY = 0.0;
+		speedX = 0.0;
+		speedY = 0.0;
+		fixedPosX = 0.0;
+		fixedPosY = 0.0;
+		move = false;
+
+		attachedObject = nullptr;
+	}
+
 	void CCamera::SetPosition(float x, float y)
 	{
 		posX = x;
@@ -57,6 +72,27 @@ namespace PlatformEngine
 		this->fixedPosY = fixed_pos_y;
 
 		Obj->GetSpeed(speedX, speedY);
+		Obj->GetPosition(posX, posY);
+	}
+
+	void CCamera::DeAttachToObject()
+	{
+		attachedObject = nullptr;
+	}
+
+	void CCamera::Update()
+	{
+		if(attachedObject != nullptr)
+		{
+			float opos[2];
+			attachedObject->GetPosition(opos[0], opos[1]);
+
+			if(fixedPosX == 0.0) posX = opos[0];
+			else posX = fixedPosX;
+
+			if(fixedPosY == 0.0) posY = opos[1];
+			else posY = fixedPosY;
+		}
 	}
 
 	void CCamera::Update(float dTime)

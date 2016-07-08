@@ -93,6 +93,8 @@ namespace PlatformEngine
 		PLATFORMENGINE_API	void DestroyElement(CLayerObject *lo);
 
 		PLATFORMENGINE_API	void Draw(CApplication *App, CCamera *Cam);
+
+		PLATFORMENGINE_API	void Reset(void);
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////

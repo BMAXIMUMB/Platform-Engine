@@ -88,3 +88,14 @@ void CColumnManager::DeleteColumn(CColumn* column)
 		}
 	}
 }
+
+void CColumnManager::DeleteAll()
+{
+	for(auto it = columnElementList.begin(); it != columnElementList.end(); it++)
+	{
+		delete (*it);
+	}
+
+	columnElementList.clear();
+	isStarted = false;
+}

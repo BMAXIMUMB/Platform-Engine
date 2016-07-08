@@ -59,6 +59,9 @@ private:
 	void CheckGround(void);
 	void CheckColumn(void);
 
+	void ResetGround(void);
+	void ResetColumn(void);
+
 	void DeleteGround(void);
 
 	bool isCreate(void){ return create; }

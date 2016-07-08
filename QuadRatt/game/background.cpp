@@ -48,7 +48,17 @@ void CBackground::CreateGround()
 	{
 		los.posX = (float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*i) + START_ELEMENT_POS;
 		los.posY = (float)150 / 2;
+
 		groundElementList.push_back(CreateElement(los));
+	}
+}
+
+void CBackground::ResetGround()
+{
+	for(int i = 0; i < GROUND_ELEMENT_COUNT; i++)
+	{
+		groundElementList[i]->SetPosition((float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*(i + 1)) +START_ELEMENT_POS, (float)150 / 2);
+		logprintf("i %d|x %f\n", i, (float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*(i + 1)) + START_ELEMENT_POS);
 	}
 }
 
@@ -58,49 +68,52 @@ void CBackground::DeleteGround()
 	{
 		DestroyElement(*it);
 	}
-
+	
 	groundElementList.clear();
 }
 
 void CBackground::CheckGround()
 {
-	float elempos[2], elemsize[2];
-	float campos[2];
-	int wsize[2];
-
-	world->camera->GetPosition(campos[0], campos[1]);
-	world->GetApp()->GetWindowSize(wsize[0], wsize[1]);
-
-	groundElementList[0]->GetPosition(elempos[0], elempos[1]);
-	groundElementList[0]->GetSize(elemsize[0], elemsize[1]);
-
-	/*if(elempos[0] - (elemsize[0] / 2) + (wsize[0]*1.5) - campos[0] > 1280){
-
-	printf("SPARTA\n");
-	}*/
-
-	for(unsigned int i = 0; i < groundElementList.size(); i++)
+	if(groundElementList.size())
 	{
-		groundElementList[i]->GetPosition(elempos[0], elempos[1]);
-		groundElementList[i]->GetSize(elemsize[0], elemsize[1]);
+		float elempos[2], elemsize[2];
+		float campos[2];
+		int wsize[2];
 
-		// Если объект ушел за левую часть экрана
-		if(elempos[0] + (elemsize[0] / 2) + (wsize[0] / 2) - campos[0] + world->camera->offsetX < 0)
+		world->camera->GetPosition(campos[0], campos[1]);
+		world->GetApp()->GetWindowSize(wsize[0], wsize[1]);
+
+		groundElementList[0]->GetPosition(elempos[0], elempos[1]);
+		groundElementList[0]->GetSize(elemsize[0], elemsize[1]);
+
+		/*if(elempos[0] - (elemsize[0] / 2) + (wsize[0]*1.5) - campos[0] > 1280){
+
+		printf("SPARTA\n");
+		}*/
+
+		for(unsigned int i = 0; i < groundElementList.size(); i++)
 		{
-			// Переместим его в конец списка
-			auto it = groundElementList.begin();
-			//Ground[i]->Delete();
-			//delete Ground[i];
-			float np[2];
+			groundElementList[i]->GetPosition(elempos[0], elempos[1]);
+			groundElementList[i]->GetSize(elemsize[0], elemsize[1]);
 
-			groundElementList.back()->GetPosition(np[0], np[1]);
-			groundElementList[i]->SetPosition(np[0] + elemsize[0], np[1]);
+			// Если объект ушел за левую часть экрана
+			if(elempos[0] + (elemsize[0] / 2) + (wsize[0] / 2) - campos[0] + world->camera->offsetX < 0)
+			{
+				// Переместим его в конец списка
+				auto it = groundElementList.begin();
+				//Ground[i]->Delete();
+				//delete Ground[i];
+				float np[2];
 
-			CBackgroundElement *bge = groundElementList[i];	// Есть другой способ это сделать?
+				groundElementList.back()->GetPosition(np[0], np[1]);
+				groundElementList[i]->SetPosition(np[0] + elemsize[0], np[1]);
 
-			groundElementList.erase(it + i);
-			groundElementList.push_back(bge);
-			//return;
+				CBackgroundElement *bge = groundElementList[i];	// Есть другой способ это сделать?
+
+				groundElementList.erase(it + i);
+				groundElementList.push_back(bge);
+				//return;
+			}
 		}
 	}
 }
@@ -131,6 +144,12 @@ void CBackground::CreateColumn()
 	ColumnManager->Create();
 }
 
+void CBackground::ResetColumn()
+{
+	ColumnManager->DeleteAll();
+	ColumnManager->Create();
+}
+
 void CBackground::CheckColumn()
 {
 	ColumnManager->Check();
@@ -148,8 +167,10 @@ void CBackground::Create()
 
 void CBackground::Reset()
 {
-	DeleteGround();
-	CreateGround();
+	world->background->Reset();
+	
+	ResetGround();
+	ResetColumn();
 }
 
 void CBackground::Check()
