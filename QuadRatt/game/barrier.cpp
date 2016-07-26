@@ -75,7 +75,7 @@ void CBarrier::Create(PE::CWorld *World, CBarrierInfo *Binfo, float offset_x)
 
 void CBarrier::CreateElement(PE::CWorld *World, CBarrierElement *be, float offset_x)
 {
-	CBlock *b = new CBlock();
+	CBlock *block = new CBlock();
 
 	entitysettings es;
 	beinfo info = be->GetInfo();
@@ -86,8 +86,9 @@ void CBarrier::CreateElement(PE::CWorld *World, CBarrierElement *be, float offse
 	es.sizeY = info.sizeY;
 	es.sprite = info.sprite;
 
-	b->Create(World, es);
-	blockList.push_back(b);
+	block->Create(World, es);
+	
+	blockList.push_back(block);
 }
 
 void CBarrier::Destroy()

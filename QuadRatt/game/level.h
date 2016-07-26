@@ -6,6 +6,7 @@
 #include "../main.h"
 #include "background.h"
 #include "barrier.h"
+#include "map\map.h"
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ private:
 	CBackground *background;
 	CPlayer *player;
 	CGame *game;
+	CMap *map;
 
 	PE::CWorld *world;
 	PE::CApplication *app;
