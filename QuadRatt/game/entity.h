@@ -14,7 +14,7 @@ struct entitysettings
 	sizeY							= NULL;
 
 	PE::CSprite *sprite				= NULL;
-	color4 color;
+	color4 color					= Color(0xffffffff);
 };
 
 struct entitymoveinfo

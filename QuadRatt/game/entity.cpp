@@ -174,6 +174,8 @@ void CBlock::Create(PE::CWorld *world, entitysettings pset)
 	this->sizeY = pset.sizeY;
 	this->world = world;
 	this->sprite = pset.sprite;
+	this->color = pset.color;
 
 	this->object = world->CreateObjectQuad(posX, posY, sizeX, sizeY, sprite, OBJECT_TYPE_STATIC);
+	this->object->SetColor(this->color);
 }

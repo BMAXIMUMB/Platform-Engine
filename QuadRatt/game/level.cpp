@@ -15,6 +15,7 @@ CLevel::CLevel(CGame *game)
 
 	background = new CBackground(world);
 	player = new CPlayer;
+	map = new CMap(world);
 }
 
 CLevel::~CLevel()

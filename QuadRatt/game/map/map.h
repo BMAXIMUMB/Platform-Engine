@@ -4,7 +4,6 @@
 #define _MAP_H_
 
 #include <vector>
-#include "../entity.h"
 
 #include "map_generator.h"
 
@@ -14,12 +13,20 @@ private:
 
 	// Хранилище всех физических объектов
 	std::vector <CEntity*> objectList;
+	
+	// Генератор карты
+	CMapGenerator *mapGenerator;
+
+	// Мир, в котором будут создаваться объекты
+	PlatformEngine::CWorld *world;
 
 public:
 
-	CMap();
+	CMap(PlatformEngine::CWorld *world);
 	~CMap();
-
+	
+	// Удалить все объекты с карты
+	void Clear(void);
 };
 
 #endif //_MAP_H_
