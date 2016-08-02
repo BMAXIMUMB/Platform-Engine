@@ -40,14 +40,17 @@ public:
 	void Restart(void);
 
 	void PlayerCreate(void);
-	void Update(void);
+	void LoopFunction(void);
+
+	void CheckMap(void);
+	void Check(void);
 
 	void BarrierGenerate(float offset);
 	void StartBarrierGenerate(void);
 	void BarrierDelete(CBarrier *Barrier);
 	void BarrierAllDelete(void);
 	void LoadBarrierInfo(void);
-	void BarrierCheck(void);
+	void CheckBarrier(void);
 	CBarrierInfo* LoadBarrierInfoFromFile(const char *path);
 
 	CBackground* GetBackground(void);

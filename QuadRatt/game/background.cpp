@@ -58,7 +58,6 @@ void CBackground::ResetGround()
 	for(int i = 0; i < GROUND_ELEMENT_COUNT; i++)
 	{
 		groundElementList[i]->SetPosition((float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*(i + 1)) +START_ELEMENT_POS, (float)150 / 2);
-		logprintf("i %d|x %f\n", i, (float)GROUND_ELEMENT_SIZE_X / 2 + (GROUND_ELEMENT_SIZE_X*(i + 1)) + START_ELEMENT_POS);
 	}
 }
 

@@ -35,6 +35,11 @@ void CEntity::GetPosition(float &x, float &y)
 	object->GetPosition(x, y);
 }
 
+void CEntity::GetSize(float &x, float &y)
+{
+	object->GetSize(x, y);
+}
+
 void CEntity::SetColor(color4 color)
 {
 	if(object != nullptr)

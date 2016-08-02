@@ -26,7 +26,7 @@ void CStateStarting::Update()
 
 void CStateStarting::LoopFunction()
 {
-	state->GetGame()->GetLevel()->Update();
+	state->GetGame()->GetLevel()->LoopFunction();
 	state->GetGame()->DebugInfoUpdate();
 }
 

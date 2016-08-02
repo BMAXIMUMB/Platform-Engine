@@ -25,7 +25,7 @@ bool CBarrierInfo::LoadFromFile(const char *path, PE::CSpriteManager *SM)
 
 	if(!File.Open(path))
 	{
-		logprintf("Невозможно открыть файл: ", path);
+		logprintf("Невозможно открыть файл: %s", path);
 		return false;
 	}
 

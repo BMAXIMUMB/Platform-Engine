@@ -48,8 +48,10 @@ public:
 	PE::CQuad* GetObjectID(void);
 
 	void SetPosition(float x, float y);
-	void GetPosition(float &x, float &y);
 	void SetColor(color4 color);
+
+	void GetPosition(float &x, float &y);
+	void GetSize(float &x, float &y);
 
 	virtual void Create(PE::CWorld *world, entitysettings entity_settings) = 0;
 };

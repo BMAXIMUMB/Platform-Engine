@@ -26,7 +26,7 @@ void CStateFail::Update()
 
 void CStateFail::LoopFunction()
 {
-	state->GetGame()->GetLevel()->Update();
+	state->GetGame()->GetLevel()->LoopFunction();
 	state->GetGame()->DebugInfoUpdate();
 }
 

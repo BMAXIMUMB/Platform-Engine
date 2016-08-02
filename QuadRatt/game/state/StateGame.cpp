@@ -29,8 +29,8 @@ void CStateGame::LoopFunction()
 	state->GetGame()->GetLevel()->GetPlayer()->UpdateScore();
 	state->GetGame()->GetInterface()->UpdatePlayerScore();
 
-	state->GetGame()->GetLevel()->Update();
-	state->GetGame()->GetLevel()->BarrierCheck();
+	state->GetGame()->GetLevel()->LoopFunction();
+	state->GetGame()->GetLevel()->Check();
 	state->GetGame()->DebugInfoUpdate();
 }
 

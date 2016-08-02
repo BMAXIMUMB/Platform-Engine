@@ -12,14 +12,24 @@ CMapGenerator::~CMapGenerator()
 
 }
 
-CEntity* CMapGenerator::CreateObject()
+CEntity* CMapGenerator::CreateObject(float &mapEnd)
 {
-	CEntity *object = new CBlock;
+	CEntity *object = new CBlock();
+
+	entitysettings es;
+	es.spawnPosX = mapEnd + RandomValue(64, 200);
+	es.spawnPosY = RandomValue(400, 500);
+	es.sizeX = 64;
+	es.sizeY = 64;
+	es.sprite = world->GetApp()->spriteManager->Get("s_block");
+
+	object->Create(world, es);
+	mapEnd = es.spawnPosX;
 
 	return object;
 }
 
-void CMapGenerator::Generate(std::vector<CEntity*> objectList)
+void CMapGenerator::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
-	
+	objectList.push_back(CreateObject(mapEnd));
 }

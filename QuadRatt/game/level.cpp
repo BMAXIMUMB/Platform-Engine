@@ -65,7 +65,7 @@ CBarrierInfo* CLevel::LoadBarrierInfoFromFile(const char *filename)
 	char path[100] = BINFO_PATH;
 	strcat(path, filename);
 
-	printf("Loaded barrier pattern: %s\n", filename);
+	logprintf("Loaded barrier pattern: %s", filename);
 	binfo->LoadFromFile(path, app->spriteManager);
 
 	return binfo;
@@ -110,7 +110,7 @@ void CLevel::BarrierDelete(CBarrier *Barrier)
 	}
 }
 
-void CLevel::BarrierCheck()
+void CLevel::CheckBarrier()
 {
 	// Тут мы чекаем, нужно ли создать новое препятствие или удалить старое
 	// Сначала узнаем позицию камеры и размеры экрана
@@ -145,6 +145,17 @@ void CLevel::BarrierCheck()
 void CLevel::CheckBackground()
 {
 	background->Check();
+}
+
+void CLevel::CheckMap()
+{
+	map->Check();
+}
+
+void CLevel::Check()
+{
+	CheckMap();
+	CheckBarrier();
 }
 
 void CLevel::PlayerCreate()
@@ -203,7 +214,7 @@ void CLevel::Restart()
 	background->Reset();
 }
 
-void CLevel::Update()
+void CLevel::LoopFunction()
 {
 	CheckBackground();
 }

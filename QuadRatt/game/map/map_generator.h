@@ -14,7 +14,7 @@ private:
 	PlatformEngine::CWorld *world;
 
 	// Функция создания объекта. Возвращает указатель на созданный объект
-	CEntity* CreateObject(void);
+	CEntity* CreateObject(float &mapEnd);
 
 public:
 	
@@ -26,7 +26,7 @@ public:
 
 	// Функция генерации объектов. В качестве аргумента принимает
 	// указатель на список объектов, куда положить сгенерированные объекты
-	void Generate(std::vector<CEntity*> objectList);
+	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
 };
 
 #endif //_MAP_GENERATOR_H_

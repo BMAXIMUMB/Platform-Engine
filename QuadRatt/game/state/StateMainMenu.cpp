@@ -26,7 +26,7 @@ void CStateMainMenu::Update()
 
 void CStateMainMenu::LoopFunction()
 {
-	state->GetGame()->GetLevel()->Update();
+	state->GetGame()->GetLevel()->LoopFunction();
 	state->GetGame()->DebugInfoUpdate();
 }
 
