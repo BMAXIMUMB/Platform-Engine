@@ -47,13 +47,14 @@ void CMap::Check()
 
 	for(unsigned int i = 0; i < objectList.size(); i++)
 	{
+
 		objectList[i]->GetPosition(pos[0], pos[1]);
 		objectList[i]->GetSize(size[0], size[1]);
 
 		if(pos[0] + size[0] < cpos[0] - (wsize[0] / 2))
 		{
-			objectList.erase(objectList.begin() + i);
 			delete objectList[i];
+			objectList.erase(objectList.begin() + i);
 			break;
 		}
 	}
