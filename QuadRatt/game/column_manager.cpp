@@ -81,8 +81,8 @@ void CColumnManager::DeleteColumn(CColumn* column)
 	{
 		if(*it == column)
 		{
-			columnElementList.erase(it);
 			delete column;
+			columnElementList.erase(it);
 
 			break;
 		}
