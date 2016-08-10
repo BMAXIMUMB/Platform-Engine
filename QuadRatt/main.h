@@ -50,7 +50,7 @@
 
 // PLAYER SETTINGS
 #define PLAYER_JUMP_SPEED								800.0f
-#define PLAYER_SCORE_DIVIDER							700.0f
+#define PLAYER_SCORE_DIVIDER							250.0f
 #define START_PLAYER_POSX								100.0f
 #define START_PLAYER_POSY								300.0f
 
