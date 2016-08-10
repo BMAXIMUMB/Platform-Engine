@@ -155,7 +155,7 @@ void CLevel::CheckMap()
 void CLevel::Check()
 {
 	CheckMap();
-	CheckBarrier();
+	//CheckBarrier();
 }
 
 void CLevel::PlayerCreate()
@@ -179,8 +179,9 @@ void CLevel::PlayerCreate()
 void CLevel::Create()
 {
 	// Создаем уровень
+
 	// Загружаем инфу о препядствиях
-	LoadBarrierInfo();
+	//LoadBarrierInfo();
 
 	// Создаем фон 
 	CreateBackground();
@@ -196,7 +197,9 @@ void CLevel::Destroy()
 
 void CLevel::Start()
 {
-	StartBarrierGenerate();
+
+	//StartBarrierGenerate();
+
 	player->SetStartPos();
 }
 
@@ -207,9 +210,12 @@ void CLevel::Restart()
 	// Перемещаем игрока в стартовую позицию, задаем скорость
 	player->Respawn();
 
+	/*
+	Отключаем старую систему препятсвий
 	// Удаляем препятствия и генерируем новые
 	BarrierAllDelete();
 	StartBarrierGenerate();
+	*/
 
 	background->Reset();
 }

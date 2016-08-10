@@ -47,7 +47,6 @@ void CMap::Check()
 
 	for(unsigned int i = 0; i < objectList.size(); i++)
 	{
-
 		objectList[i]->GetPosition(pos[0], pos[1]);
 		objectList[i]->GetSize(size[0], size[1]);
 
