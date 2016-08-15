@@ -4,7 +4,7 @@
 
 int RandomValue(int min, int max)
 {
-	return min + rand() % max;
+	return min + rand() % (max-min);
 }
 
 float FloatRandomValue(float min, float max)
