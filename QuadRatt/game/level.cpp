@@ -201,6 +201,11 @@ void CLevel::Start()
 	//StartBarrierGenerate();
 
 	player->SetStartPos();
+
+	// »змен€ем стратовую позицию генерации карты
+	float pos[2];
+	player->GetPosition(pos[0], pos[1]);
+	map->SetGeneratePos(START_BARRIER_OFFSET + pos[0]);
 }
 
 void CLevel::Restart()

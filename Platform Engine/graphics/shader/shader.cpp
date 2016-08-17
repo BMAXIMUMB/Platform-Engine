@@ -120,34 +120,42 @@ namespace PlatformEngine
 		}
 
 		// Компилируем вершинный шейдер
-		logprintf("Compiling shader : %s\n", vertex_file_path);
+		logprintf("Compiling shader : %s", vertex_file_path);
 		char const * VertexSourcePointer = VertexShaderCode.c_str();
 		glShaderSource(vertexShaderID, 1, &VertexSourcePointer, NULL);
 		glCompileShader(vertexShaderID);
 
 		GLint Result = GL_FALSE;
-		//int InfoLogLength;
 
+#ifdef SHADER_DEBUG
+
+		int InfoLogLength;
 
 		// Дебаг ошибок
-		/*glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
-		glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &Result);
+		glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 		std::vector<char> VertexShaderErrorMessage(InfoLogLength);
-		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-		printf("%s\n", &VertexShaderErrorMessage[0]);*/
+		glGetShaderInfoLog(vertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
+		printf("%s\n", &VertexShaderErrorMessage[0]);
+
+#endif
 
 		// Компилируем фрагментный шейдер
-		logprintf("Compiling shader : %s\n", fragment_file_path);
+		logprintf("Compiling shader : %s", fragment_file_path);
 		char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 		glShaderSource(fragmentShaderID, 1, &FragmentSourcePointer, NULL);
 		glCompileShader(fragmentShaderID);
 
+#ifdef SHADER_DEBUG
+
 		// Дебаг ошибок
-		/*glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
-		glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &Result);
+		glGetShaderiv(fragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 		std::vector<char> FShaderErrorMessage(InfoLogLength);
-		glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FShaderErrorMessage[0]);
-		printf("%s\n", &FShaderErrorMessage[0]);*/
+		glGetShaderInfoLog(fragmentShaderID, InfoLogLength, NULL, &FShaderErrorMessage[0]);
+		printf("%s\n", &FShaderErrorMessage[0]);
+
+#endif
 
 		programID = glCreateProgram();
 		glAttachShader(programID, vertexShaderID);
@@ -155,11 +163,13 @@ namespace PlatformEngine
 		glLinkProgram(programID);
 
 		glGetProgramiv(programID, GL_LINK_STATUS, &linkOk);
+
 		if(!linkOk)
 		{
 			logprintf("Ошибка шейдера");
 			return false;
 		}
+
 		return true;
 	}
 }

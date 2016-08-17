@@ -6,8 +6,8 @@ CMap::CMap(PlatformEngine::CWorld *world)
 {
 	this->world = world;
 
+	mapEnd = 0.0f;
 	mapGenerator = new CMapGenerator(world);
-	mapEnd = 3590.f;
 }
 
 CMap::~CMap()
@@ -57,4 +57,9 @@ void CMap::Check()
 			break;
 		}
 	}
+}
+
+void CMap::SetGeneratePos(float position)
+{
+	mapEnd = position;
 }

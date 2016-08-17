@@ -138,7 +138,7 @@ void CPlayer::SetStartPos()
 {
 	float pos[2];
 
-	object->GetPosition(pos[0], pos[1]);
+	GetPosition(pos[0], pos[1]);
 	startPosX = pos[0];
 }
 

@@ -46,7 +46,7 @@
 // BARRIER SETTINGS
 #define BINFO_PATH										"resources\\bpatterns\\"
 #define BINFO_MASK										"*.ini"
-#define START_BARRIER_OFFSET							1200.0f
+#define START_BARRIER_OFFSET							1600.0f
 
 // PLAYER SETTINGS
 #define PLAYER_JUMP_SPEED								800.0f

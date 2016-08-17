@@ -33,6 +33,9 @@ public:
 
 	// Функция проверки объектов
 	void Check(void);
+
+	// Изменить стартовую позицию генерации карты
+	void SetGeneratePos(float position);
 };
 
 #endif //_MAP_H_

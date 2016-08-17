@@ -17,8 +17,8 @@ CEntity* CMapGenerator::CreateObject(float &mapEnd)
 	CEntity *object = new CBlock();
 
 	entitysettings es;
-	es.spawnPosX = mapEnd + RandomValue(64, 200);
-	es.spawnPosY = RandomValue(400, 500);
+	es.spawnPosX = mapEnd + RandomValue(64, 300);
+	es.spawnPosY = (float)RandomValue(400, 650);
 	es.sizeX = 64;
 	es.sizeY = 64;
 	es.sprite = world->GetApp()->spriteManager->Get("s_block");

@@ -22,6 +22,12 @@
 #include <math.h>
 #include <stdio.h>
 
+#define PLATFORMENGINE_VERSION				0x0001
+#define PLATFORMENGINE_API_VERSION			0x0001
+
+#define PLATFORMENGINE_VERSION_STR			"0.0.1"
+#define PLATFORMENGINE_VERSION_API_STR		"0.0.1"
+
 PLATFORMENGINE_API int RandomValue(int min, int max);
 float FloatRandomValue(float min, float max);
 
