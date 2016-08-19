@@ -12,23 +12,6 @@ IZone::~IZone()
 
 }
 
-CEntity* IZone::CreateObject(float &mapEnd)
-{
-	CEntity *object = new CBlock();
-
-	entitysettings es;
-	es.spawnPosX = mapEnd + RandomValue(64, 300);
-	es.spawnPosY = (float)RandomValue(400, 650);
-	es.sizeX = 64;
-	es.sizeY = 64;
-	es.sprite = world->GetApp()->spriteManager->Get("s_block");
-
-	object->Create(world, es);
-	mapEnd = es.spawnPosX;
-
-	return object;
-}
-
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -37,7 +20,7 @@ CEntity* IZone::CreateObject(float &mapEnd)
 
 SimpleZone::SimpleZone(PlatformEngine::CWorld *world) :IZone(world)
 {
-
+	lenght = RandomValue(3000, 5000);
 }
 
 SimpleZone::~SimpleZone()
@@ -47,5 +30,16 @@ SimpleZone::~SimpleZone()
 
 void SimpleZone::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
-	objectList.push_back(CreateObject(mapEnd));
+	// Сначала выделяем память под наш объект
+	CEntity *object = new CBlock(world);
+
+	// Генерируем для него позицию
+	float spawnPosX = mapEnd + RandomValue(64, 300);
+	float spawnPosY = (float)RandomValue(400, 650);
+
+	// Создаем его и пушим в список всех объектов
+	object->Create(spawnPosX, spawnPosY);
+	objectList.push_back(object);
+
+	mapEnd = spawnPosX;
 }

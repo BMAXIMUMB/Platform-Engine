@@ -14,7 +14,6 @@ CLevel::CLevel(CGame *game)
 	this->app = game->GetApp();
 
 	background = new CBackground(world);
-	player = new CPlayer;
 	map = new CMap(world);
 }
 
@@ -160,16 +159,9 @@ void CLevel::Check()
 
 void CLevel::PlayerCreate()
 {
-	entitysettings es;
+	player = new CPlayer(world);
 
-	es.spawnPosX = START_PLAYER_POSX;
-	es.spawnPosY = START_PLAYER_POSY;
-	es.sizeX = 64.0f;
-	es.sizeY = 64.0f;
-	es.sprite = app->spriteManager->Get("s_player");
-	es.color = 0xffffffff;
-	
-	GetPlayer()->Create(world, es);
+	GetPlayer()->Create(START_PLAYER_POSX, START_PLAYER_POSY);
 	GetPlayer()->Spawn();
 	GetPlayer()->Move(750.0, OBJECT_CURRENT_VALUE);
 

@@ -5,6 +5,21 @@
 
 #include "../entity.h"
 
+struct MapInfo
+{
+	// Информация о карте
+
+	// Хранилище всех физических объектов
+	std::vector<CEntity*> objectList;
+
+	// Конец сгенерированной карты
+	float mapEnd;
+};
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
 class IZone
 {
 
@@ -21,9 +36,6 @@ public:
 
 	IZone(PlatformEngine::CWorld *world);
 	~IZone();
-
-	// Функция создания объекта. Возвращает указатель на созданный объект
-	CEntity* CreateObject(float &mapEnd);
 
 	virtual void Generate(std::vector<CEntity*> &objectList, float &mapEnd) = 0;
 };

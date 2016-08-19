@@ -6,46 +6,40 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
-struct entitysettings
+// Эта структура хранит параметры объекта
+struct EntityOptions
 {
-	float spawnPosX					= NULL,
-	spawnPosY						= NULL,
-	sizeX							= NULL,
-	sizeY							= NULL;
+	// Стартовая позиция по X и Y
+	float spawnPosX					= NULL;
+	float spawnPosY					= NULL;
 
-	PE::CSprite *sprite				= NULL;
+	// Размеры по X и Y
+	float sizeX						= NULL;
+	float sizeY						= NULL;
+
+	// Спрайт объекта
+	PlatformEngine::CSprite *sprite	= NULL;
+
+	// Цвет объекта. Изначально равен 255.255.255.255 (RGBA).
 	color4 color					= Color(0xffffffff);
-};
-
-struct entitymoveinfo
-{
-	float speedX,
-	speedY,
-	accX,
-	accY;
 };
 
 class CEntity
 {
 protected:
 
-	float posX,
-		posY,
-		sizeX,
-		sizeY;
+	EntityOptions options;
 
-	PE::CQuad *object;
-	PE::CWorld *world;
-	PE::CSprite *sprite;
-	color4 color;
+	PlatformEngine::CQuad *object;
+	PlatformEngine::CWorld *world;
 
 public:
 
-	CEntity();
+	CEntity(PlatformEngine::CWorld *world);
 	~CEntity();
 
 	void Delete(void);
-	PE::CQuad* GetObjectID(void);
+	PlatformEngine::CQuad* GetObjectID(void);
 
 	void SetPosition(float x, float y);
 	void SetColor(color4 color);
@@ -53,7 +47,7 @@ public:
 	void GetPosition(float &x, float &y);
 	void GetSize(float &x, float &y);
 
-	virtual void Create(PE::CWorld *world, entitysettings entity_settings) = 0;
+	virtual void Create(float posX, float posY) = 0;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -63,19 +57,16 @@ class CPlayer :public CEntity
 {
 private:
 
-	float spawnPosX;
-	float spawnPosY;
-
 	float startPosX;
 
 	CScore *score;
 
 public:
 
-	CPlayer();
+	CPlayer(PlatformEngine::CWorld *world);
 	~CPlayer();
 
-	void Create(PE::CWorld *world, entitysettings player_settings);
+	void Create(float posX, float posY);
 	void SetSpawnPosition(float pos_x, float pos_y);
 	void GetSpeed(float &x, float &y);
 	bool onGround(void);
@@ -99,10 +90,10 @@ public:
 class CBlock :public CEntity
 {
 public:
-	CBlock();
+	CBlock(PlatformEngine::CWorld *world);
 	~CBlock();
 
-	void Create(PE::CWorld *world, entitysettings block_settings);
+	void Create(float posX, float posY);
 };
 
 #endif /*_ENTITY_H_*/

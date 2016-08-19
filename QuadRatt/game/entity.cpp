@@ -2,8 +2,10 @@
 
 #include "entity.h"
 
-CEntity::CEntity()
+CEntity::CEntity(PlatformEngine::CWorld *world)
 {
+	this->world = world;
+
 	object = nullptr;
 }
 
@@ -17,15 +19,13 @@ void CEntity::Delete()
 	world->DestroyObject(object);
 }
 
-PE::CQuad* CEntity::GetObjectID(void)
+PlatformEngine::CQuad* CEntity::GetObjectID(void)
 {
 	return object;
 }
 
 void CEntity::SetPosition(float x, float y)
 {
-	posX = x;
-	posY = y;
 	object->SetPosition(x, y);
 	world->camera->Update();
 }
@@ -45,14 +45,21 @@ void CEntity::SetColor(color4 color)
 	if(object != nullptr)
 	{
 		object->SetColor(color);
-		this->color = color;
+		options.color = color;
 	}
 }
 
 ////////////////////////////////////////////////////////////////////////////
 
-CPlayer::CPlayer()
+CPlayer::CPlayer(PlatformEngine::CWorld *world) : CEntity(world)
 {
+	// Задаем параметры игрока
+
+	options.sizeX = 64;
+	options.sizeY = 64;
+	options.color = 0xffffffff;
+	options.sprite = world->GetApp()->spriteManager->Get("s_player");
+
 	startPosX = 0.0f;
 
 	score = new CScore;
@@ -65,31 +72,21 @@ CPlayer::~CPlayer()
 
 void CPlayer::SetSpawnPosition(float x, float y)
 {
-	spawnPosX = x;
-	spawnPosY = y;
+	options.spawnPosX = x;
+	options.spawnPosY = y;
 }
 
-void CPlayer::Create(PE::CWorld *world, entitysettings pset)
+void CPlayer::Create(float spawnPosX, float spawnPosY)
 {
-	this->spawnPosX = pset.spawnPosX;
-	this->spawnPosY = pset.spawnPosY;
-	this->sizeX = pset.sizeX;
-	this->sizeY = pset.sizeY;
-	this->world = world;
-	this->sprite = pset.sprite;
-	this->color = pset.color;
-
-	this->posX = spawnPosX;
-	this->posY = spawnPosY;
+	options.spawnPosX = spawnPosX;
+	options.spawnPosY = spawnPosY;
 }
 
 void CPlayer::Reset(void)
 {
 	// Сброс данных и респавн игрока
 
-	this->startPosX = spawnPosX;
-	this->posX = spawnPosX;
-	this->posY = spawnPosY;
+	this->startPosX = options.spawnPosX;
 
 	score->Set(0);
 	Spawn();
@@ -102,16 +99,16 @@ void CPlayer::Spawn()
 		Delete();
 	}
 	
-	object = world->CreateObjectQuad(spawnPosX, spawnPosY, sizeX, sizeY, sprite, OBJECT_TYPE_DYNAMIC);
-	object->SetColor(color);
+	object = world->CreateObjectQuad(options.spawnPosX, options.spawnPosY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_DYNAMIC);
+	object->SetColor(options.color);
 }
 
 void CPlayer::Respawn()
 {
-	SetPosition(spawnPosX, spawnPosY);
+	SetPosition(options.spawnPosX, options.spawnPosY);
 	score->Set(0);
 
-	this->startPosX = spawnPosX;
+	this->startPosX = options.spawnPosX;
 }
 
 bool CPlayer::onGround()
@@ -168,19 +165,27 @@ void CPlayer::UpdateScore(void)
 
 ////////////////////////////////////////////////////////////////////////////
 
-CBlock::CBlock(){}
-CBlock::~CBlock(){}
-
-void CBlock::Create(PE::CWorld *world, entitysettings pset)
+CBlock::CBlock(PlatformEngine::CWorld *world) : CEntity(world)
 {
-	this->posX = pset.spawnPosX;
-	this->posY = pset.spawnPosY;
-	this->sizeX = pset.sizeX;
-	this->sizeY = pset.sizeY;
-	this->world = world;
-	this->sprite = pset.sprite;
-	this->color = pset.color;
+	// Задаем параметры объекта
 
-	this->object = world->CreateObjectQuad(posX, posY, sizeX, sizeY, sprite, OBJECT_TYPE_STATIC);
-	this->object->SetColor(this->color);
+	options.sizeX = 64;
+	options.sizeY = 64;
+	options.color = 0xffffffff;
+	options.sprite = world->GetApp()->spriteManager->Get("s_block");
+}
+
+CBlock::~CBlock()
+{
+
+}
+
+void CBlock::Create(float posX, float posY)
+{
+	options.spawnPosX = posX;
+	options.spawnPosY = posY;
+
+	// Создаем объект и изменяем цвет на нужный
+	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	this->object->SetColor(this->options.color);
 }
