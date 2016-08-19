@@ -8,16 +8,24 @@
 class IZone
 {
 
-private:
+protected:
 
 	// Длина зоны, принимает случайное значение в заданном диапазоне
 	// Диапазон может быть разным в каждом типе зоны
 	int lenght;
 
+	// Мир, в котором будут создаваться объекты
+	PlatformEngine::CWorld *world;
+
 public:
 
-	IZone();
+	IZone(PlatformEngine::CWorld *world);
 	~IZone();
+
+	// Функция создания объекта. Возвращает указатель на созданный объект
+	CEntity* CreateObject(float &mapEnd);
+
+	virtual void Generate(std::vector<CEntity*> &objectList, float &mapEnd) = 0;
 };
 
 class SimpleZone :public IZone
@@ -27,8 +35,10 @@ class SimpleZone :public IZone
 
 public:
 
-	SimpleZone();
+	SimpleZone(PlatformEngine::CWorld *world);
 	~SimpleZone();
+
+	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
 };
 
 #endif // _ZONE_H_

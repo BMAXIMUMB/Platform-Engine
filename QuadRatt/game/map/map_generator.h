@@ -20,8 +20,8 @@ private:
 	// Мир, в котором будут создаваться объекты
 	PlatformEngine::CWorld *world;
 
-	// Функция создания объекта. Возвращает указатель на созданный объект
-	CEntity* CreateObject(float &mapEnd);
+	// Текущая зона
+	IZone * currentZone;
 
 public:
 	
