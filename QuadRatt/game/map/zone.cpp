@@ -2,9 +2,10 @@
 
 #include "zone.h"
 
-IZone::IZone(PlatformEngine::CWorld *world)
+IZone::IZone(PlatformEngine::CWorld *world, int beginPos)
 {
 	this->world = world;
+	this->beginPos = beginPos;
 }
 
 IZone::~IZone()
@@ -18,7 +19,7 @@ IZone::~IZone()
 //----------------------------------------------------------------------------------------------------------
 
 
-SimpleZone::SimpleZone(PlatformEngine::CWorld *world) :IZone(world)
+SimpleZone::SimpleZone(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
 {
 	lenght = RandomValue(3000, 5000);
 }

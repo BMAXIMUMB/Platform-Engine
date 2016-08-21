@@ -19,24 +19,41 @@ struct MapInfo
 //----------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------
+class CMapGenerator;
 
 class IZone
 {
 
+	friend CMapGenerator;
+
 protected:
 
-	// Длина зоны, принимает случайное значение в заданном диапазоне
-	// Диапазон может быть разным в каждом типе зоны
+	/**
+	*	Длина зоны, принимает случайное значение в заданном диапазоне
+	*	Диапазон может быть разным в каждом типе зоны
+	*/
 	int lenght;
+
+	/**
+	*	Координата X начала зоны
+	*/
+	int beginPos;
 
 	// Мир, в котором будут создаваться объекты
 	PlatformEngine::CWorld *world;
 
 public:
 
-	IZone(PlatformEngine::CWorld *world);
+	/*
+	*	world - мир, в котором будут создаваться объекты
+	*	beginPos - позиция начала зоны по X
+	*/
+	IZone(PlatformEngine::CWorld *world, int beginPos);
 	~IZone();
 
+	/**
+	*	Генерирует объекты по заданному алгоритму
+	*/
 	virtual void Generate(std::vector<CEntity*> &objectList, float &mapEnd) = 0;
 };
 
@@ -47,7 +64,7 @@ class SimpleZone :public IZone
 
 public:
 
-	SimpleZone(PlatformEngine::CWorld *world);
+	SimpleZone(PlatformEngine::CWorld *world, int beginPos);
 	~SimpleZone();
 
 	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
