@@ -26,6 +26,12 @@ void CStateGame::Update()
 
 void CStateGame::LoopFunction()
 {
+
+	if(state->GetGame()->GetApp()->keyboard->IsKeyPressed(VK_UP))
+	{
+		state->GetGame()->GetLevel()->GetPlayer()->Jump();
+	}
+
 	state->GetGame()->GetLevel()->GetPlayer()->UpdateScore();
 	state->GetGame()->GetInterface()->UpdatePlayerScore();
 

@@ -36,11 +36,13 @@ void SimpleZone::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 
 	// Генерируем для него позицию
 	float spawnPosX = mapEnd + RandomValue(64, 300);
-	float spawnPosY = (float)RandomValue(400, 650);
+	float spawnPosY = 182;
 
 	// Создаем его и пушим в список всех объектов
 	object->Create(spawnPosX, spawnPosY);
 	objectList.push_back(object);
 
 	mapEnd = spawnPosX;
+
+	logprintf("generate");
 }

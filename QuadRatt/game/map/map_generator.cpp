@@ -18,9 +18,6 @@ void CMapGenerator::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
 	if(currentZone == nullptr || currentZone->beginPos + currentZone->lenght < mapEnd)
 	{
-		// DEBUG
-		logprintf("delete zone");
-		
 		if(currentZone != nullptr) delete currentZone;
 		currentZone = CreateZone(mapEnd);
 	}

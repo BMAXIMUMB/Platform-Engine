@@ -214,6 +214,9 @@ void CLevel::Restart()
 	StartBarrierGenerate();
 	*/
 
+	map->Clear();
+	map->SetGeneratePos(START_BARRIER_OFFSET);
+
 	background->Reset();
 }
 

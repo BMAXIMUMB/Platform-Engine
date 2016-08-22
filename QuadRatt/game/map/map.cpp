@@ -52,6 +52,7 @@ void CMap::Check()
 
 		if(pos[0] + size[0] < cpos[0] - (wsize[0] / 2))
 		{
+			// Удаляем
 			delete objectList[i];
 			objectList.erase(objectList.begin() + i);
 			break;

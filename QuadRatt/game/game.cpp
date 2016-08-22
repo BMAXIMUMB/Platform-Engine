@@ -171,13 +171,7 @@ void CGame::LoopFunction()
 
 void CGame::onKeyDown(int key)
 {
-	if(state->GetState() == state->StateGame)
-	{
-		if(key == VK_UP)
-		{
-			level->GetPlayer()->Jump();
-		}
-	}
+
 }
 
 void CGame::onKeyUp(int key)
