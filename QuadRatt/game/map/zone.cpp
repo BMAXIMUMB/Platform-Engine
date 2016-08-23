@@ -31,18 +31,25 @@ SimpleZone::~SimpleZone()
 
 void SimpleZone::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
-	// Сначала выделяем память под наш объект
 	CEntity *object = new CBlock(world);
 
 	// Генерируем для него позицию
-	float spawnPosX = mapEnd + RandomValue(64, 300);
+	float spawnPosX = mapEnd + 64*12;
 	float spawnPosY = 182;
 
-	// Создаем его и пушим в список всех объектов
 	object->Create(spawnPosX, spawnPosY);
 	objectList.push_back(object);
 
-	mapEnd = spawnPosX;
+	/*object = new CBlock(world);
+	object->Create(spawnPosX, spawnPosY + 64);
+	objectList.push_back(object);*/
+
+	object = new CBlock(world);
+	object->Create(spawnPosX+64*2, spawnPosY);
+	objectList.push_back(object);
+	
+
+	mapEnd = spawnPosX + 64 * 2;
 
 	logprintf("generate");
 }

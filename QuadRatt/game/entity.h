@@ -56,7 +56,6 @@ public:
 class CPlayer :public CEntity
 {
 private:
-
 	float startPosX;
 
 	CScore *score;

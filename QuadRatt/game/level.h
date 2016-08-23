@@ -26,8 +26,7 @@ private:
 	PE::CApplication *app;
 	PE::CParticleEmitter *particleEmitter;
 
-	std::vector<CBarrierInfo*> barrierInfoList;		// Шаблоны препятствий
-	std::vector<CBarrier*> barrierList;				// Сами препятствия
+	float oldPosX;
 
 public:
 
@@ -45,19 +44,14 @@ public:
 	void CheckMap(void);
 	void Check(void);
 
-	void BarrierGenerate(float offset);
-	void StartBarrierGenerate(void);
-	void BarrierDelete(CBarrier *Barrier);
-	void BarrierAllDelete(void);
-	void LoadBarrierInfo(void);
-	void CheckBarrier(void);
-	CBarrierInfo* LoadBarrierInfoFromFile(const char *path);
-
 	CBackground* GetBackground(void);
 	CPlayer* GetPlayer(void);
 
 	void CreateBackground(void);
 	void CheckBackground(void);
+
+	////////////////////
+	bool oldPosCheck;
 };
 
 #endif /*_LEVEL_H_*/

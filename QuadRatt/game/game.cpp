@@ -12,14 +12,14 @@ CGame::CGame(PE::CApplication *App)
 	ws.collision	= true;
 	ws.groundLevel	= 150.f;
 
-	world			= new PE::CWorld(app, ws);
+	world			= new PlatformEngine::CWorld(app, ws);
 	level			= new CLevel(this);
 	gInterface		= new CInterface(this);
 	debugInfo		= new CDebug(app, this);
 	state			= new CGameState(this);
 
 
-	world->physics->SetGravity(23000);
+	world->physics->SetGravity(24000);
 	world->SetCollisionFunction(OnObjCollision);
 
 	gInterface->ShowLoadingImage();
@@ -159,6 +159,10 @@ void CGame::onObjectCollision(PE::CContact *Contact)
 			{
 				// Проебал
 				state->DispatchEvent(ON_PLAYER_FAIL);
+			}
+			else
+			{
+				level->oldPosCheck = true;
 			}
 		}
 	}

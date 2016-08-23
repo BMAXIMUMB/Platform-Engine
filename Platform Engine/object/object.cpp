@@ -135,7 +135,7 @@ namespace PlatformEngine
 
 	void CObject::Update(float dTime)
 	{
-		if(!inGround) accY -= dTime*world->physics->GetGravity();
+		if(!OnGround()) accY -= dTime*world->physics->GetGravity();
 
 		speedX += dTime*accX;
 		speedY += dTime*accY;

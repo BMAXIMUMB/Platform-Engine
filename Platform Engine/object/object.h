@@ -77,8 +77,8 @@ namespace PlatformEngine
 		PLATFORMENGINE_API  void SetOnObject(bool val);
 		PLATFORMENGINE_API	void SetColor(color4 color);
 
-		PLATFORMENGINE_API	void Move(float speedX, float speedY);						// Двигать объекта
-		PLATFORMENGINE_API	void Stop(void);											// Остановить объекта
+		PLATFORMENGINE_API	void Move(float speedX, float speedY);						// Двигать объект
+		PLATFORMENGINE_API	void Stop(void);											// Остановить объект
 		PLATFORMENGINE_API	void SetAcceleration(float accX, float accY);				// Задать ускорение
 
 		PLATFORMENGINE_API	void Update(float dTime);
