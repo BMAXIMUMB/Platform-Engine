@@ -90,7 +90,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			object[4] = new CBlock(world);
 			object[4]->Create(spawnPosX, spawnPosY);
 			//--------------------------------------------
-			spawnPosX = mapEnd + restTowerDistance;
+			spawnPosX = mapEnd + restTowerDistance - 64;
 
 			object[0] = new CBlock(world);
 			object[0]->Create(spawnPosX, spawnPosY);
