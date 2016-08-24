@@ -5,8 +5,6 @@
 CMapGenerator::CMapGenerator(PlatformEngine::CWorld *world)
 {
 	this->world = world;
-
-	currentZone = nullptr;
 }
 
 CMapGenerator::~CMapGenerator()
@@ -33,11 +31,7 @@ IZone* CMapGenerator::CreateZone(float beginPos)
 	switch(rndVal)
 	{
 		case 0:
-			zone = new SimpleZone(world, (int)beginPos);
-			break;
-
-		case 1:
-			zone = new SimpleZone(world, (int)beginPos);
+			zone = new TowerHole(world, (int)beginPos);
 			break;
 	}
 	

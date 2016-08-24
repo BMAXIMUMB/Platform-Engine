@@ -114,7 +114,7 @@ void CLevel::LoopFunction()
 	{
 		if(pos[1] < oldPosX)
 		{
-			player->Move(OBJECT_CURRENT_VALUE, -500.0f);
+			player->Move(OBJECT_CURRENT_VALUE, -520.0f);
 			oldPosCheck = false;
 		}
 		else if(pos[1] > oldPosX) oldPosCheck = false;

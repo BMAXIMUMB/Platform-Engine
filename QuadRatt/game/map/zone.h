@@ -9,10 +9,14 @@ struct MapInfo
 {
 	// Информация о карте
 
-	// Хранилище всех физических объектов
+	/*
+	*	Хранилище всех физических объектов
+	*/
 	std::vector<CEntity*> objectList;
 
-	// Конец сгенерированной карты
+	/*
+	*	Конец сгенерированной карты
+	*/
 	float mapEnd;
 };
 
@@ -39,8 +43,27 @@ protected:
 	*/
 	int beginPos;
 
-	// Мир, в котором будут создаваться объекты
-	PlatformEngine::CWorld *world;
+	/**
+	*	Мир, в котором будут создаваться объекты
+	*/
+	PlatformEngine::CWorld *world = nullptr;
+
+	//----------------------------------------------------------------------------------------------------------
+
+	/**
+	*	Ограничения и правила генерации для всех зон
+	*/
+	const float restMaxJumpHeight = 135.8f;
+
+	/**
+	*	Координата по Y первого объекта над землей
+	*/
+	const float restGroundLevel = 182.0f;
+
+	/**
+	*	Размер квадратного блока
+	*/
+	const float restBlockSize = 64.0f;
 
 public:
 
@@ -57,17 +80,30 @@ public:
 	virtual void Generate(std::vector<CEntity*> &objectList, float &mapEnd) = 0;
 };
 
-class SimpleZone :public IZone
+class TowerHole :public IZone
 {
 	// Тестовый вариант зоны
 
 
 public:
 
-	SimpleZone(PlatformEngine::CWorld *world, int beginPos);
-	~SimpleZone();
+	TowerHole(PlatformEngine::CWorld *world, int beginPos);
+	~TowerHole();
 
 	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
+
+private:
+
+
+	/*
+	*	Расстояние между башнями
+	*/
+	const float restTowerDistance = 448.0f;
+
+	/*
+	*	Дополнительный размер для отверстия в башне
+	*/
+	const float restMoreHoleSize = 7.0f;
 };
 
 #endif // _ZONE_H_

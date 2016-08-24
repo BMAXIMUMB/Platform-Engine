@@ -49,7 +49,7 @@
 #define START_BARRIER_OFFSET							1600.0f
 
 // PLAYER SETTINGS
-#define PLAYER_JUMP_SPEED								820.0f
+#define PLAYER_JUMP_SPEED								790.0f
 #define PLAYER_SCORE_DIVIDER							250.0f
 #define START_PLAYER_POSX								100.0f
 #define START_PLAYER_POSY								300.0f

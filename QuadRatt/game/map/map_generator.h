@@ -21,7 +21,7 @@ private:
 	PlatformEngine::CWorld *world;
 
 	// Текущая зона
-	IZone * currentZone;
+	IZone * currentZone = nullptr;
 
 public:
 	

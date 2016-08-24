@@ -19,37 +19,139 @@ IZone::~IZone()
 //----------------------------------------------------------------------------------------------------------
 
 
-SimpleZone::SimpleZone(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
+TowerHole::TowerHole(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
 {
-	lenght = RandomValue(3000, 5000);
+	lenght = RandomValue(1300, 1700);
 }
 
-SimpleZone::~SimpleZone()
+TowerHole::~TowerHole()
 {
 
 }
 
-void SimpleZone::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
+void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
-	CEntity *object = new CBlock(world);
+	float spawnPosX = 0.0f;
+	float spawnPosY = 0.0f;
 
-	// Генерируем для него позицию
-	float spawnPosX = mapEnd + 64*12;
-	float spawnPosY = 182;
+	int rndVal = RandomValue(0, 5);
+	switch(rndVal)
+	{
+		case 0:	// 1 тип башни
+		case 1:
+		{
+			CEntity *object[3];
 
-	object->Create(spawnPosX, spawnPosY);
-	objectList.push_back(object);
+			//--------------------------------------------
+			spawnPosX = mapEnd + restTowerDistance;
+			spawnPosY = restGroundLevel;
 
-	/*object = new CBlock(world);
-	object->Create(spawnPosX, spawnPosY + 64);
-	objectList.push_back(object);*/
+			object[0] = new CBlock(world);
+			object[0]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize);
 
-	object = new CBlock(world);
-	object->Create(spawnPosX+64*2, spawnPosY);
-	objectList.push_back(object);
-	
+			object[1] = new CBlock(world);
+			object[1]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize * 3) + restMoreHoleSize;
 
-	mapEnd = spawnPosX + 64 * 2;
+			object[2] = new CBlock(world);
+			object[2]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+
+			/*if(RandomValue(0, 1) == 0)
+			{
+			CEntity *object2;
+
+			spawnPosX = spawnPosX + (blockSize*2);
+			spawnPosY = groundLevel;
+
+			object2 = new CBlock(world);
+			object2->Create(spawnPosX, spawnPosY);
+			objectList.push_back(object2);
+			}*/
+
+			objectList.push_back(object[0]);
+			objectList.push_back(object[1]);
+			objectList.push_back(object[2]);
+		}
+		break;
+
+		case 2:
+		case 3:
+		{
+			CEntity *object[5];
+
+			//--------------------------------------------
+			spawnPosX = mapEnd + restTowerDistance - (64 * 4);
+			spawnPosY = restGroundLevel;
+
+			object[4] = new CBlock(world);
+			object[4]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosX = mapEnd + restTowerDistance;
+
+			object[0] = new CBlock(world);
+			object[0]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize);
+
+			object[1] = new CBlock(world);
+			object[1]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize * 2);
+
+			object[2] = new CBlock(world);
+			object[2]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize * 4) + restMoreHoleSize;
+
+			object[3] = new CBlock(world);
+			object[3]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+
+			objectList.push_back(object[0]);
+			objectList.push_back(object[1]);
+			objectList.push_back(object[2]);
+			objectList.push_back(object[3]);
+			objectList.push_back(object[4]);
+		}
+		break;
+
+		case 4: // 2 тип башни
+		{
+			CEntity *object[3];
+
+			//--------------------------------------------
+			spawnPosX = mapEnd + restTowerDistance;
+			spawnPosY = restGroundLevel + restBlockSize + restMoreHoleSize;
+
+			object[2] = new CBlock(world);
+			object[2]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize * 2) + restMoreHoleSize;
+
+			object[1] = new CBlock(world);
+			object[1]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+			spawnPosY = restGroundLevel + (restBlockSize * 3) + restMoreHoleSize;
+
+			object[0] = new CBlock(world);
+			object[0]->Create(spawnPosX, spawnPosY);
+			//--------------------------------------------
+
+			objectList.push_back(object[0]);
+			objectList.push_back(object[1]);
+			objectList.push_back(object[2]);
+		}
+
+
+			break;
+
+	}
+
+	mapEnd = spawnPosX;
 
 	logprintf("generate");
 }
