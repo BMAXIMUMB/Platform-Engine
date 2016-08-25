@@ -94,6 +94,15 @@ public:
 
 private:
 
+	enum TowerType
+	{
+		Null,
+		Type1,
+		Type2,
+		Type3
+	};
+
+	TowerType lastTowerType;
 
 	/*
 	*	Расстояние между башнями
@@ -103,7 +112,7 @@ private:
 	/*
 	*	Дополнительный размер для отверстия в башне
 	*/
-	const float restMoreHoleSize = 7.0f;
+	const float restMoreHoleSize = 10.0f;
 };
 
 #endif // _ZONE_H_

@@ -22,6 +22,7 @@ IZone::~IZone()
 TowerHole::TowerHole(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
 {
 	lenght = RandomValue(1300, 1700);
+	lastTowerType = Null;
 }
 
 TowerHole::~TowerHole()
@@ -75,6 +76,8 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			objectList.push_back(object[0]);
 			objectList.push_back(object[1]);
 			objectList.push_back(object[2]);
+
+			lastTowerType = Type1;
 		}
 		break;
 
@@ -82,16 +85,31 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		case 3:
 		{
 			CEntity *object[5];
+			if(lastTowerType != Type3)
+			{
+				//--------------------------------------------
+				spawnPosX = mapEnd + restTowerDistance - (64 * 4);
+				spawnPosY = restGroundLevel;
+
+				object[4] = new CBlock(world);
+				object[4]->Create(spawnPosX, spawnPosY);
+				//--------------------------------------------
+				if(lastTowerType == Type2) spawnPosX = mapEnd + restTowerDistance;
+				else spawnPosX = mapEnd + restTowerDistance - 64;
+			}
+			else
+			{
+				//--------------------------------------------
+				spawnPosX = mapEnd + restTowerDistance - (64 * 2);
+				spawnPosY = restGroundLevel;
+
+				object[4] = new CBlock(world);
+				object[4]->Create(spawnPosX, spawnPosY);
+				//--------------------------------------------
+				spawnPosX = mapEnd + restTowerDistance + (64 * 2);
+			}
 
 			//--------------------------------------------
-			spawnPosX = mapEnd + restTowerDistance - (64 * 4);
-			spawnPosY = restGroundLevel;
-
-			object[4] = new CBlock(world);
-			object[4]->Create(spawnPosX, spawnPosY);
-			//--------------------------------------------
-			spawnPosX = mapEnd + restTowerDistance - 64;
-
 			object[0] = new CBlock(world);
 			object[0]->Create(spawnPosX, spawnPosY);
 			//--------------------------------------------
@@ -116,6 +134,8 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			objectList.push_back(object[2]);
 			objectList.push_back(object[3]);
 			objectList.push_back(object[4]);
+
+			lastTowerType = Type2;
 		}
 		break;
 
@@ -144,10 +164,10 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			objectList.push_back(object[0]);
 			objectList.push_back(object[1]);
 			objectList.push_back(object[2]);
+
+			lastTowerType = Type3;
 		}
-
-
-			break;
+		break;
 
 	}
 
