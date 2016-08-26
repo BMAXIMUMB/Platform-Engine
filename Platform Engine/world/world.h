@@ -17,10 +17,10 @@
 
 struct WorldSettings
 {
-	bool collision										= COLLISION_ON;
-	float groundLevel									= 0.0f;
+	bool collision = COLLISION_ON;
+	float groundLevel = 0.0f;
 
-	void(*ObjectCollision) (PlatformEngine::CContact*)	= nullptr;
+	void(*ObjectCollision) (PlatformEngine::CContact*) = nullptr;
 };
 
 namespace PlatformEngine
@@ -32,21 +32,34 @@ namespace PlatformEngine
 	{
 	private:
 
-		// Тут хранятся все объекты мира
+		/**
+		*	Хранит все объекты мира
+		*/
 		std::vector< PlatformEngine::CObject*> objectList;
 
-		// Источники партиклов
+		/**
+		*	Источники партиклов
+		*/
 		std::vector< PlatformEngine::CParticleEmitter*> particleEmitterList;
 
-		CApplication *app;	
+		/**
+		*	Указатель на приложение
+		*/
+		CApplication *app;
 
+		/**
+		*	Включена ли коллизия
+		*/
 		bool collisionOn;
 
+		/**
+		*	Callback
+		*/
 		void(*ObjectCollision) (CContact*);
 
 	public:
 
-		CPhysics *physics;						
+		CPhysics *physics;
 		CCamera *camera;
 		CLayer *background;
 
@@ -56,43 +69,109 @@ namespace PlatformEngine
 		PLATFORMENGINE_API CWorld* GetID(void);
 		PLATFORMENGINE_API CApplication*   GetApp(void);
 
-		PLATFORMENGINE_API void Draw();									// Отрисовать мир
-		PLATFORMENGINE_API void Update(float dTime);					// Обновить мир
+		/**
+		*	Отрисовать мир
+		*/
+		PLATFORMENGINE_API void Draw();
 
-		PLATFORMENGINE_API void SetCollision(bool collision);			// Включить/отключить столкновение
-		PLATFORMENGINE_API bool GetCollision(void);						// Узнать, включена ли коллизия
+		/**
+		*	Обновить мир
+		*/
+		PLATFORMENGINE_API void Update(float dTime);
 
+		/**
+		*	Включить/отключить столкновения
+		*/
+		PLATFORMENGINE_API void SetCollision(bool collision);
+
+		/**
+		*	Узнать, включены ли столкновения
+		*/
+		PLATFORMENGINE_API bool GetCollision(void);
+
+		/**
+		*	Задать callback столкновений
+		*/
 		PLATFORMENGINE_API void SetCollisionFunction(void(*ObjectCollision) (CContact*));
 
+		/**
+		*	Создать квадратный объект
+		*/
 		PLATFORMENGINE_API CQuad* CreateObjectQuad(float posX, float posY, float sizeX, float sizeY, CSprite* sprite, int objtype = OBJECT_TYPE_STATIC);
+
+		/**
+		*	Удаоить объект
+		*/
 		PLATFORMENGINE_API void DestroyObject(CObject *Obj);
 
+		/**
+		*	Создать источник частиц
+		*/
 		PLATFORMENGINE_API CParticleEmitter* CreateParticleEmitter(float pos_x, float pos_y, int count, int speed, ParticleEmitterSettings pes, PE::CSprite *Sprite);
+
+		/**
+		*	Удалить источник частиц
+		*/
 		PLATFORMENGINE_API void DestroyParticleEmitter(CParticleEmitter* PS);
 
+		/**
+		*	Показать объект
+		*/
 		PLATFORMENGINE_API void ObjectShow(CObject *Obj);
+
+		/**
+		*	Скрыть объект
+		*/
 		PLATFORMENGINE_API void ObjectHide(CObject *Obj);
 
+		/**
+		*	Узнать количество частиц
+		*/
 		PLATFORMENGINE_API int GetParticleCount(void);
 
-		// Обновление частиц
+		/**
+		*	Обновить частицы
+		*/
 		void UpdateParticle(float dTime);
 
-		// Отрисовать фон
+		/**
+		*	Отрисовать фон
+		*/
 		void DrawBackground(void);
 
-		//Отрисовать частицы
+		/**
+		*	Отрисовать частицы
+		*/
 		void DrawParticle(void);
 
-		void OnObjectCollision(CContact *Contact);						// Вызывается при обнаружении столкновения объектов
+		/**
+		*	Вызывается при обнаружении столкновения
+		*/
+		void OnObjectCollision(CContact *Contact);
 
+		/**
+		*	Добавить объект в список
+		*/
 		void ObjectAddToList(CObject *Obj);
+
+		/**
+		*	Убрать объект из списка
+		*/
 		bool ObjectDeleteToList(CObject *Obj);
 
+		/**
+		*	Добавить источник партиклов в список
+		*/
 		void PEAddToList(CParticleEmitter *particleEmitter);
+
+		/**
+		*	Убрать источник частиц из списка
+		*/
 		bool PEDeleteToList(CParticleEmitter *particleEmitter);
 
-		// Проверка столкновений
+		/**
+		*	Проверка столкновений
+		*/
 		void CollisionUpdate();
 	};
 };

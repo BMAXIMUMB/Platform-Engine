@@ -12,6 +12,15 @@ CMapGenerator::~CMapGenerator()
 
 }
 
+void CMapGenerator::Reset()
+{
+	if(currentZone != nullptr)
+	{
+		delete currentZone;
+		currentZone = nullptr;
+	}
+}
+
 void CMapGenerator::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
 	if(currentZone == nullptr || currentZone->beginPos + currentZone->lenght < mapEnd)
@@ -26,12 +35,12 @@ void CMapGenerator::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 IZone* CMapGenerator::CreateZone(float beginPos)
 {
 	IZone *zone;
-	int rndVal = RandomValue(0, 1);
+	int rndVal = /*RandomValue(0, 1)*/0;
 
 	switch(rndVal)
 	{
 		case 0:
-			zone = new TowerHole(world, (int)beginPos);
+			zone = new TowerStairs(world, (int)beginPos);
 			break;
 	}
 	

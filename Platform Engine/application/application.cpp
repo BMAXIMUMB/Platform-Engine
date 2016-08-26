@@ -11,7 +11,9 @@ namespace PlatformEngine
 {
 	CApplication::CApplication()
 	{
-		// Инициализация
+		/**
+		*	Инициализация
+		*/
 		this->hRC = NULL;
 		this->hDC = NULL;
 		this->hWnd = NULL;
@@ -31,7 +33,9 @@ namespace PlatformEngine
 		this->shaderDefault = nullptr;
 		this->shaderFontDefault = nullptr;
 
-
+		/**
+		*	Настройка рандомизации
+		*/
 		srand((unsigned)time(0));
 	}
 

@@ -23,6 +23,7 @@ void CMap::Clear()
 	}
 
 	objectList.clear();
+	mapGenerator->Reset();
 }
 
 void CMap::Check()

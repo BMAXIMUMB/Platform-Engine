@@ -9,12 +9,12 @@ struct MapInfo
 {
 	// Информация о карте
 
-	/*
+	/**
 	*	Хранилище всех физических объектов
 	*/
 	std::vector<CEntity*> objectList;
 
-	/*
+	/**
 	*	Конец сгенерированной карты
 	*/
 	float mapEnd;
@@ -67,7 +67,7 @@ protected:
 
 public:
 
-	/*
+	/**
 	*	world - мир, в котором будут создаваться объекты
 	*	beginPos - позиция начала зоны по X
 	*/
@@ -82,8 +82,6 @@ public:
 
 class TowerHole :public IZone
 {
-	// Тестовый вариант зоны
-
 
 public:
 
@@ -104,15 +102,56 @@ private:
 
 	TowerType lastTowerType;
 
-	/*
+	/**
 	*	Расстояние между башнями
 	*/
 	const float restTowerDistance = 448.0f;
 
-	/*
+	/**
 	*	Дополнительный размер для отверстия в башне
 	*/
 	const float restMoreHoleSize = 10.0f;
+};
+
+class TowerStairs :public IZone
+{
+
+public:
+	TowerStairs(PlatformEngine::CWorld *world, int beginPos);
+	~TowerStairs();
+
+	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
+
+private:
+	
+	/**
+	*	Создана ли хоть одна башня
+	*/
+	bool isCreated;
+
+	/**
+	*	Высота пролета последней башни
+	*/
+	int lastHoleLevel;
+
+	//----------------------------------------------------------------------------------------------------------
+
+	/**
+	*	Расстояние между башнями
+	*/
+	const float restTowerDistance = 192.0f;
+
+	/**
+	*	Расстояние между самой первой башней и предыдущей зоной
+	*/
+	const float restZoneDistance = 192.0f;
+
+	/**
+	*	Размер пролета в блоках
+	*/
+	const float holeSize = 3;
+
+	void TowerCreate(int holeLevel);
 };
 
 #endif // _ZONE_H_

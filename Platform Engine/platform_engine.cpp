@@ -9,5 +9,5 @@ int RandomValue(int min, int max)
 
 float FloatRandomValue(float min, float max)
 {
-	return (float)(rand()) / RAND_MAX*(max - min) + min;
+	return (float)(rand()) / RAND_MAX*(max - min + 1) + min;
 }

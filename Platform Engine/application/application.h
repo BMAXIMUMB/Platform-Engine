@@ -75,16 +75,29 @@ namespace PlatformEngine					// Пространство имен движка
 
 		CTimer		*timer;
 
+		/**
+		*	VSync func
+		*/
 		PFNWGLSWAPINTERVALEXTPROC wglSwapInterval;
 
 		void(*loopf)		(void);
 		_ShutDown			ShutDown;
 		_OnRun				OnRun;
 
-		LRESULT  CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);				// Обычный обработчик
+		/**
+		*	Обычный обработчик
+		*/
+		LRESULT  CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-		void PEKillWindow(void);											// Уничтожение окна
-		void ReSizeGLScene(GLsizei, GLsizei);								// Применение размеров GL сцены
+		/**
+		*	Уничножение окна
+		*/
+		void PEKillWindow(void);
+
+		/**
+		*	Перерисовать GL сцену
+		*/
+		void ReSizeGLScene(GLsizei, GLsizei);
 
 	public:
 		CMouse		*mouse;														// Указатель на мышь
@@ -93,8 +106,8 @@ namespace PlatformEngine					// Пространство имен движка
 		CShader		*shaderFontDefault;											// Стандартный шейдер для текста
 		CWorld		*world;														// Объект мира
 		CSpriteManager *spriteManager;											// Менеджер спрайтов
-		CFontManager *fontManager;
-		CRender		*render;
+		CFontManager *fontManager;												// Менеджер шрифтов
+		CRender		*render;													// Рендер
 		CFPSMeter	*fpsMeter;
 		Gui::CGuiManager *GUI;
 
@@ -103,18 +116,46 @@ namespace PlatformEngine					// Пространство имен движка
 		PLATFORMENGINE_API CApplication();
 		PLATFORMENGINE_API ~CApplication();
 
-		static LRESULT  CALLBACK PEWndProc(HWND, UINT, WPARAM, LPARAM);		// Статический обработчик
+		/**
+		*	Статический обработчик 
+		*/
+		static LRESULT  CALLBACK PEWndProc(HWND, UINT, WPARAM, LPARAM);
 
+		/**
+		*	Инициализация приложения
+		*/
 		PLATFORMENGINE_API bool Init(ApplicationSettings Settings);
+
+		/**
+		*	Cоздание окна приложения
+		*/
 		PLATFORMENGINE_API bool PECreateWindow(LPCSTR title, int width, int height, int bits, bool fullscreen);
+
+		/**
+		*	Запуск основного цикла
+		*/
 		PLATFORMENGINE_API int Run(void);
+
+		/**
+		*	Инициализация openGL
+		*/
 		PLATFORMENGINE_API void glInit(void);
+
+		/**
+		*	Функция отрисовки
+		*/
 		PLATFORMENGINE_API void DrawGLScene(float dTime);
 
+		/**
+		*	Вспомогательные функции
+		*/
 		PLATFORMENGINE_API HWND GetHWND(void);
 		PLATFORMENGINE_API void GetWindowSize(int &sizeX, int &sizeY);
 		PLATFORMENGINE_API void SetWorldID(PlatformEngine::CWorld *World);
 
+		/**
+		*	Включить/отключить вертикальную синхронизацю
+		*/
 		PLATFORMENGINE_API void SetVSync(bool);
 	};
 };
