@@ -60,7 +60,7 @@ void CLevel::PlayerCreate()
 
 	GetPlayer()->Create(START_PLAYER_POSX, START_PLAYER_POSY);
 	GetPlayer()->Spawn();
-	GetPlayer()->Move(700.0, OBJECT_CURRENT_VALUE);
+	GetPlayer()->Move(670.0, OBJECT_CURRENT_VALUE);
 
 	world->camera->AttachToObject(GetPlayer()->GetObjectID(), -200.0f, 0.0f, 0.0f, 376.0f);
 }

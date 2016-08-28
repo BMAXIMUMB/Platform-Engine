@@ -22,7 +22,7 @@ IZone::~IZone()
 TowerHole::TowerHole(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
 {
 	lenght = RandomValue(1300, 1700);
-	lastTowerType = Null;
+	lastTowerType = TowerType::Null;
 }
 
 TowerHole::~TowerHole()
@@ -73,12 +73,9 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			object2->Create(spawnPosX, spawnPosY);
 			objectList.push_back(object2);
 			}*/
+			for(int i = 0; i < _countof(object); i++) objectList.push_back(object[i]);
 
-			objectList.push_back(object[0]);
-			objectList.push_back(object[1]);
-			objectList.push_back(object[2]);
-
-			lastTowerType = Type1;
+			lastTowerType = TowerType::Type1;
 		}
 		break;
 
@@ -86,7 +83,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		case 4:
 		{
 			CEntity *object[5];
-			if(lastTowerType != Type3)
+			if(lastTowerType != TowerType::Type3)
 			{
 				//--------------------------------------------
 				posX = mapEnd + restTowerDistance - (64 * 4);
@@ -95,7 +92,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 				object[4] = new CBlock(world);
 				object[4]->Create(posX, posY);
 				//--------------------------------------------
-				if(lastTowerType == Type2) posX = mapEnd + restTowerDistance;
+				if(lastTowerType == TowerType::Type2) posX = mapEnd + restTowerDistance;
 				else posX = mapEnd + restTowerDistance - 64;
 			}
 			else
@@ -130,13 +127,9 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			object[3]->Create(posX, posY);
 			//--------------------------------------------
 
-			objectList.push_back(object[0]);
-			objectList.push_back(object[1]);
-			objectList.push_back(object[2]);
-			objectList.push_back(object[3]);
-			objectList.push_back(object[4]);
+			for(int i = 0; i < _countof(object); i++) objectList.push_back(object[i]);
 
-			lastTowerType = Type2;
+			lastTowerType = TowerType::Type2;
 		}
 		break;
 
@@ -162,11 +155,9 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 			object[0]->Create(posX, posY);
 			//--------------------------------------------
 
-			objectList.push_back(object[0]);
-			objectList.push_back(object[1]);
-			objectList.push_back(object[2]);
+			for(int i = 0; i < _countof(object); i++) objectList.push_back(object[i]);
 
-			lastTowerType = Type3;
+			lastTowerType = TowerType::Type3;
 		}
 		break;
 
@@ -195,50 +186,20 @@ TowerStairs::~TowerStairs()
 void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
 	float posX = 0.0f;
-	float posY = 0.0f;
+	int level = 0;
 
 	if(!isCreated)	// Если ни одна башня еще не создана
 	{
 		// Зададим начальный уровень пролета (1, 2)
-		int level = RandomValue(1, 2);
-
-		CEntity *object[7];
-
-		//--------------------------------------------
+		level = RandomValue(1, 2);
+		// Зададим позицию башни
 		posX = mapEnd + restTowerDistance;
-		posY = restGroundLevel;
-
-		object[0] = new CBlock(world);
-		object[0]->Create(posX, posY);
-		//--------------------------------------------
-		if(level == 2)
-		{
-			posY = restGroundLevel + restBlockSize;
-			CEntity *obj = new CBlock(world);
-			obj->Create(posX, posY);
-			objectList.push_back(obj);
-		}
-
-		for(int i = 1; i < 7; i++)
-		{
-			posY = restGroundLevel + (level+(i-1)+ holeSize)*restBlockSize;
-
-			object[i] = new CBlock(world);
-			object[i]->Create(posX, posY);
-		}
-
-		lastHoleLevel = level;
-
-		for(int i = 0; i < _countof(object); i++) objectList.push_back(object[i]);
-
-		mapEnd = posX;
 
 		isCreated = true;
 	}
 	else
 	{
 		int direction;	// Направление лестницы ( 0 - вниз, 1 - вверх)
-		int level;
 
 		// Выберем, куда будет строиться лестница (вверх или вниз)
 
@@ -250,24 +211,60 @@ void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		if(lastHoleLevel == 2 && direction == 0) level = 1;
 		else level = RandomValue(1, 2);
 		
-		if(direction == 1) level += lastHoleLevel;
+		if(direction == 1 && lastHoleLevel < 8) level += lastHoleLevel;
 		else level = lastHoleLevel - level;
-		
-		CEntity *object[7];
 
-		posX = mapEnd + restTowerDistance;
-		posY = restGroundLevel;
-		//--------------------------------------------
-		posX = mapEnd + restTowerDistance;
-		posY = restGroundLevel;
-
-		object[0] = new CBlock(world);
-		object[0]->Create(posX, posY);
-		//--------------------------------------------
 	}
+	// Создадим башню
+	TowerCreate(level, mapEnd, objectList);
 }
 
-void TowerStairs::TowerCreate(int holeLevel)
+void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*> &objectList)
 {
+	float posY = 0.0f;
+	float posX = 0.0f;
+	int offset = 0;
 
+	switch(holeLevel - lastHoleLevel)
+	{
+		case 1:
+			offset = 4;
+			break;
+
+		case 2:
+			offset = 3;
+			break;
+
+		case -1:
+			offset = 3;
+			break;
+
+		case -2:
+			offset = 3;
+			break;
+
+		case 0:
+			offset = 4;
+			break;
+	}
+	posX = mapEnd + (restBlockSize*offset);
+
+	for(int i = 0; i < restTowerHeight; i++)
+	{
+		if(i < holeLevel)
+		{
+			posY = restGroundLevel + (restBlockSize*i);
+		}
+		else
+		{
+			posY = restGroundLevel + (restBlockSize*(i + restHoleSize));
+		}
+		CEntity *object = new CBlock(world);
+		object->Create(posX, posY);
+
+		objectList.push_back(object);
+	}
+
+	lastHoleLevel = holeLevel;
+	mapEnd = posX;
 }

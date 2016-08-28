@@ -49,8 +49,10 @@ namespace PlatformEngine
 
 	void CLayer::Sort()
 	{
-		CLayerObjectSort los;
-		std::sort(lObjectList.begin(), lObjectList.end(), los);
+		std::sort(lObjectList.begin(), lObjectList.end(), [](CLayerObject *i, CLayerObject *j)
+		{
+			return (i->depth < j->depth);
+		});
 	}
 
 	CLayerObject* CLayer::CreateElement(LayerObjectSettings LOSettings)

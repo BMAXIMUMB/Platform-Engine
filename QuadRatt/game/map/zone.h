@@ -92,7 +92,7 @@ public:
 
 private:
 
-	enum TowerType
+	enum class TowerType
 	{
 		Null,
 		Type1,
@@ -149,9 +149,14 @@ private:
 	/**
 	*	Размер пролета в блоках
 	*/
-	const float holeSize = 3;
+	const float restHoleSize = 3;
 
-	void TowerCreate(int holeLevel);
+	/**
+	*	Высота башни
+	*/
+	const int restTowerHeight = 8;
+
+	void TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*> &objectList);
 };
 
 #endif // _ZONE_H_

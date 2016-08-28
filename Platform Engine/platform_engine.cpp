@@ -4,10 +4,10 @@
 
 int RandomValue(int min, int max)
 {
-	return min + rand() % (max-min);
+	return min + rand() % (max-min + 1);
 }
 
 float FloatRandomValue(float min, float max)
 {
-	return (float)(rand()) / RAND_MAX*(max - min + 1) + min;
+	return (float)(rand()) / RAND_MAX*(max - min) + min;
 }
