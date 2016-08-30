@@ -244,16 +244,19 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*
 			break;
 
 		case 0:
-			offset = 5;
+			offset = 4;
 			break;
 
 		default: offset = 4;
 	}
 	if(lastHoleLevel == -1) posX = mapEnd + restZoneDistance;
-	else posX = mapEnd + (restBlockSize*offset) + 8;	// TODO:
-														// Если не прибавить , проходить будет очень сложно
-														// или даже не возможно. Нужно тестить и править физику
-														// если нужно
+	/**
+	*	TODO:
+	*	Если не прибавить 8, проходить будет очень сложно
+	*	или даже не возможно. Нужно тестить и править физику
+	*	если нужно
+	*/
+	else posX = mapEnd + (restBlockSize*offset) + 8;
 
 	for(int i = 0; i < restTowerHeight; i++)
 	{

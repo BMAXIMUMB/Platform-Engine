@@ -23,6 +23,11 @@ private:
 	// Текущая зона
 	IZone * currentZone = nullptr;
 
+	/**
+	*	Номер последней сгенерированной зоны
+	*/
+	int lastZoneID	= NULL;
+
 public:
 	
 	// Конструктор. world - указатель на объект мира
