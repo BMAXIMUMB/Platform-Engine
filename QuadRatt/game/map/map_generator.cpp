@@ -42,6 +42,10 @@ IZone* CMapGenerator::CreateZone(float beginPos)
 		case 0:
 			zone = new TowerStairs(world, (int)beginPos);
 			break;
+
+		case 1:
+			zone = new TowerHole(world, (int)beginPos);
+			break;
 	}
 	
 	// DEBUG

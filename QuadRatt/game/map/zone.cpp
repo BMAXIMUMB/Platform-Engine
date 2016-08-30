@@ -175,7 +175,9 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 TowerStairs::TowerStairs(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
 {
 	lenght = RandomValue(3700, 5000);
+
 	isCreated = false;
+	lastHoleLevel = -1;
 }
 
 TowerStairs::~TowerStairs()
@@ -185,7 +187,6 @@ TowerStairs::~TowerStairs()
 
 void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 {
-	float posX = 0.0f;
 	int level = 0;
 
 	if(!isCreated)	// ≈сли ни одна башн€ еще не создана
@@ -193,7 +194,6 @@ void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		// «ададим начальный уровень пролета (1, 2)
 		level = RandomValue(1, 2);
 		// «ададим позицию башни
-		posX = mapEnd + restTowerDistance;
 
 		isCreated = true;
 	}
@@ -211,7 +211,7 @@ void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		if(lastHoleLevel == 2 && direction == 0) level = 1;
 		else level = RandomValue(1, 2);
 		
-		if(direction == 1 && lastHoleLevel < 8) level += lastHoleLevel;
+		if(direction == 1 && lastHoleLevel+level < 7) level += lastHoleLevel;
 		else level = lastHoleLevel - level;
 
 	}
@@ -244,10 +244,16 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*
 			break;
 
 		case 0:
-			offset = 4;
+			offset = 5;
 			break;
+
+		default: offset = 4;
 	}
-	posX = mapEnd + (restBlockSize*offset);
+	if(lastHoleLevel == -1) posX = mapEnd + restZoneDistance;
+	else posX = mapEnd + (restBlockSize*offset) + 8;	// TODO:
+														// ≈сли не прибавить , проходить будет очень сложно
+														// или даже не возможно. Ќужно тестить и править физику
+														// если нужно
 
 	for(int i = 0; i < restTowerHeight; i++)
 	{

@@ -25,7 +25,7 @@ CProgram::~CProgram()
 
 void CProgram::InitGL()
 {
-	logprintf("Инициализация GL..");
+	logprintf("Init GL");
 	//glShadeModel(GL_SMOOTH);							// Разрешить плавное цветовое сглаживание
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glClearDepth(1.0f);									// Разрешить очистку буфера глубины
@@ -42,8 +42,6 @@ void CProgram::InitGL()
 
 bool CProgram::Start()
 {
-	logprintf("Старт приложения...");
-
 	app = new PE::CApplication;
 	ApplicationSettings AppSet;
 

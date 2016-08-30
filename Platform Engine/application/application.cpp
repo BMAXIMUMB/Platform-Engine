@@ -96,6 +96,10 @@ namespace PlatformEngine
 
 		wglSwapInterval = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
 
+#ifdef PRINT_VERSION_GL
+		logprintf("OpenGL %s, GLSL %s", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif
+
 		return true;
 	}
 
@@ -275,7 +279,6 @@ namespace PlatformEngine
 
 	void CApplication::PEKillWindow(void)
 	{
-		logprintf("Разрушаем окно");
 		if(fullscreen)												// Мы в полноэкранном режиме?
 		{
 			ChangeDisplaySettings(NULL, 0);							// Если да, то переключаемся обратно в оконный режим

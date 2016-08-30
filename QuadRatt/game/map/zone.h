@@ -48,6 +48,11 @@ protected:
 	*/
 	PlatformEngine::CWorld *world = nullptr;
 
+	/**
+	*	Тип предыдущей зоны
+	*/
+	//std::type_info lastZoneType;
+
 	//----------------------------------------------------------------------------------------------------------
 
 	/**
@@ -144,7 +149,7 @@ private:
 	/**
 	*	Расстояние между самой первой башней и предыдущей зоной
 	*/
-	const float restZoneDistance = 192.0f;
+	const float restZoneDistance = 640;
 
 	/**
 	*	Размер пролета в блоках

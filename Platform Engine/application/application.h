@@ -15,6 +15,8 @@
 #include "fpsmeter\fpsmeter.h"
 #include "../logprintf.h"
 
+#define PRINT_VERSION_GL
+
 //----------------------------------------------------------------------------------------------------------
 
 namespace Gui
