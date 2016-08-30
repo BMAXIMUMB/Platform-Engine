@@ -2,10 +2,11 @@
 
 #include "zone.h"
 
-IZone::IZone(PlatformEngine::CWorld *world, int beginPos)
+IZone::IZone(ZoneInfo zi)
 {
-	this->world = world;
-	this->beginPos = beginPos;
+	world = zi.world;
+	beginPos = zi.beginPos;
+	prevZoneID = zi.lastZoneID;
 }
 
 IZone::~IZone()
@@ -19,7 +20,7 @@ IZone::~IZone()
 //----------------------------------------------------------------------------------------------------------
 
 
-TowerHole::TowerHole(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
+TowerHole::TowerHole(ZoneInfo zi) :IZone(zi)
 {
 	lenght = RandomValue(1300, 1700);
 	lastTowerType = TowerType::Null;
@@ -172,7 +173,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 
 //----------------------------------------------------------------------------------------------------------
 
-TowerStairs::TowerStairs(PlatformEngine::CWorld *world, int beginPos) :IZone(world, beginPos)
+TowerStairs::TowerStairs(ZoneInfo zi) :IZone(zi)
 {
 	lenght = RandomValue(3700, 5000);
 

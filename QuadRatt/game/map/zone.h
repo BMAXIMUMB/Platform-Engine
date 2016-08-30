@@ -20,6 +20,15 @@ struct MapInfo
 	float mapEnd;
 };
 
+
+struct ZoneInfo
+{
+	PlatformEngine::CWorld *world;
+
+	int beginPos;
+
+	int lastZoneID;
+};
 //----------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------
@@ -49,9 +58,9 @@ protected:
 	PlatformEngine::CWorld *world = nullptr;
 
 	/**
-	*	Тип предыдущей зоны
+	*	ID предыдущей зоны
 	*/
-	//std::type_info lastZoneType;
+	int prevZoneID;
 
 	//----------------------------------------------------------------------------------------------------------
 
@@ -76,7 +85,7 @@ public:
 	*	world - мир, в котором будут создаваться объекты
 	*	beginPos - позиция начала зоны по X
 	*/
-	IZone(PlatformEngine::CWorld *world, int beginPos);
+	IZone(ZoneInfo zi);
 	~IZone();
 
 	/**
@@ -90,7 +99,7 @@ class TowerHole :public IZone
 
 public:
 
-	TowerHole(PlatformEngine::CWorld *world, int beginPos);
+	TowerHole(ZoneInfo zi);
 	~TowerHole();
 
 	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
@@ -122,7 +131,7 @@ class TowerStairs :public IZone
 {
 
 public:
-	TowerStairs(PlatformEngine::CWorld *world, int beginPos);
+	TowerStairs(ZoneInfo zi);
 	~TowerStairs();
 
 	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);

@@ -46,14 +46,19 @@ IZone* CMapGenerator::CreateZone(float beginPos)
 		if(rndVal != lastZoneID) loop = false;
 	}
 
+	ZoneInfo zoneInfo;
+	zoneInfo.beginPos = (int)beginPos;
+	zoneInfo.lastZoneID = lastZoneID;
+	zoneInfo.world = world;
+
 	switch(rndVal)
 	{
 		case 0:
-			zone = new TowerStairs(world, (int)beginPos);
+			zone = new TowerStairs(zoneInfo);
 			break;
 
 		case 1:
-			zone = new TowerHole(world, (int)beginPos);
+			zone = new TowerHole(zoneInfo);
 			break;
 	}
 	lastZoneID = rndVal;
