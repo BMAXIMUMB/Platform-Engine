@@ -43,7 +43,11 @@ namespace PlatformEngine
 	int CWorld::GetParticleCount()
 	{
 		int count = 0;
-		for(unsigned int i = 0; i < particleEmitterList.size(); i++) count += particleEmitterList[i]->GetParticleCount();
+		//for(unsigned int i = 0; i < particleEmitterList.size(); i++) count += particleEmitterList[i]->GetParticleCount();
+		for(auto i : particleEmitterList)
+		{
+			i->GetParticleCount();
+		}
 
 		return count;
 	}
@@ -135,18 +139,18 @@ namespace PlatformEngine
 	{
 		DrawBackground();										// Рисуем фон
 
-		for(unsigned int i = 0; i < objectList.size(); i++)		// Пробегаемся по всем объектам в списке
+		for(auto i: objectList)
 		{
 			float objinfo[5];
 			color4 color;
 			SpriteDrawSettings sds;
 
-			objectList[i]->GetPosition(objinfo[0], objinfo[1]);
-			objectList[i]->GetSize(objinfo[2], objinfo[3]);
+			i->GetPosition(objinfo[0], objinfo[1]);
+			i->GetSize(objinfo[2], objinfo[3]);
 
-			color = objectList[i]->GetColor();
+			color = i->GetColor();
 
-			objinfo[4] = objectList[i]->GetRotate();
+			objinfo[4] = i->GetRotate();
 
 			sds.Cam = camera;
 			sds.posX = objinfo[0];
@@ -158,7 +162,7 @@ namespace PlatformEngine
 			sds.cmultiple[2] = color.b;
 			sds.cmultiple[3] = color.a;
 
-			objectList[i]->sprite->Draw(app, sds);	// Рисуем каждый объект
+			i->sprite->Draw(app, sds);	// Рисуем каждый объект
 		}
 		
 		// Рисуем партиклы
@@ -172,25 +176,25 @@ namespace PlatformEngine
 
 	void CWorld::DrawParticle()
 	{
-		for(unsigned int i = 0; i < particleEmitterList.size(); i++)
+		for(auto i: particleEmitterList)
 		{
-			particleEmitterList[i]->Draw();
+			i->Draw();
 		}
 	}
 
 	void CWorld::UpdateParticle(float dTime)
 	{
-		for(unsigned int i = 0; i < particleEmitterList.size(); i++)
+		for(auto i : particleEmitterList)
 		{
-			particleEmitterList[i]->Update(dTime);
+			i->Update(dTime);
 		}
 	}
 
 	void CWorld::Update(float dTime)
 	{
-		for(unsigned int i = 0; i < objectList.size(); i++)		// Пробегаемся по всем объектам в списке
+		for(auto i : objectList)
 		{
-			if(objectList[i]->GetObjectType() == OBJECT_TYPE_DYNAMIC) objectList[i]->Update(dTime);
+			if(i->GetObjectType() == OBJECT_TYPE_DYNAMIC) i->Update(dTime);
 		}
 
 		if(collisionOn) CollisionUpdate();

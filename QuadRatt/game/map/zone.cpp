@@ -37,6 +37,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 	float posY = 0.0f;
 
 	int rndVal = RandomValue(0, 5);
+
 	switch(rndVal)
 	{
 		case 0:	// 1 тип башни
@@ -194,7 +195,6 @@ void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 	{
 		// Зададим начальный уровень пролета (1, 2)
 		level = RandomValue(1, 2);
-		// Зададим позицию башни
 
 		isCreated = true;
 	}
