@@ -42,7 +42,7 @@ public:
 	*	Функция генерации объектов. В качестве аргумента принимает
 	*	указатель на список объектов, куда нужно положить сгенерированные объекты
 	*/
-	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
+	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
 
 	/**
 	*	Создает новую зону

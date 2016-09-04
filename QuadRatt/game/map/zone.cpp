@@ -31,7 +31,7 @@ TowerHole::~TowerHole()
 
 }
 
-void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
+void TowerHole::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
 {
 	float posX = 0.0f;
 	float posY = 0.0f;
@@ -44,7 +44,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		case 1:
 		case 2:
 		{
-			CEntity *object[3];
+			IEntity *object[3];
 
 			//--------------------------------------------
 			posX = mapEnd + restTowerDistance;
@@ -84,7 +84,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 		case 3:
 		case 4:
 		{
-			CEntity *object[5];
+			IEntity *object[5];
 			if(lastTowerType != TowerType::Type3)
 			{
 				//--------------------------------------------
@@ -137,7 +137,7 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 
 		case 5: // 3 тип башни
 		{
-			CEntity *object[3];
+			IEntity *object[3];
 
 			//--------------------------------------------
 			posX = mapEnd + restTowerDistance;
@@ -166,8 +166,6 @@ void TowerHole::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 	}
 
 	mapEnd = posX;
-
-	logprintf("generate");
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -187,7 +185,7 @@ TowerStairs::~TowerStairs()
 
 }
 
-void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
+void TowerStairs::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
 {
 	int level = 0;
 
@@ -220,7 +218,7 @@ void TowerStairs::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
 	TowerCreate(level, mapEnd, objectList);
 }
 
-void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*> &objectList)
+void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<IEntity*> &objectList)
 {
 	float posY = 0.0f;
 	float posX = 0.0f;
@@ -269,7 +267,7 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*
 		{
 			posY = restGroundLevel + (restBlockSize*(i + restHoleSize));
 		}
-		CEntity *object = new CBlock(world);
+		IEntity *object = new CBlock(world);
 		object->Create(posX, posY);
 
 		objectList.push_back(object);
@@ -277,4 +275,24 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*
 
 	lastHoleLevel = holeLevel;
 	mapEnd = posX;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+PlatformStairs::PlatformStairs(ZoneInfo zi) : IZone(zi)
+{
+		
+}
+
+PlatformStairs::~PlatformStairs()
+{
+
+}
+
+void PlatformStairs::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
+{
+	float posX = 0.0f;
+	float posY = 0.0f;
 }

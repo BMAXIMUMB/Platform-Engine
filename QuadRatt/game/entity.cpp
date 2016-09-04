@@ -2,45 +2,45 @@
 
 #include "entity.h"
 
-CEntity::CEntity(PlatformEngine::CWorld *world)
+IEntity::IEntity(PlatformEngine::CWorld *world)
 {
 	this->world = world;
 
 	object = nullptr;
 }
 
-CEntity::~CEntity()
+IEntity::~IEntity()
 {
 	Delete();
 }
 
-void CEntity::Delete()
+void IEntity::Delete()
 {
 	world->DestroyObject(object);
 }
 
-PlatformEngine::CQuad* CEntity::GetObjectID(void)
+PlatformEngine::CQuad* IEntity::GetObjectID(void)
 {
 	return object;
 }
 
-void CEntity::SetPosition(float x, float y)
+void IEntity::SetPosition(float x, float y)
 {
 	object->SetPosition(x, y);
 	world->camera->Update();
 }
 
-void CEntity::GetPosition(float &x, float &y)
+void IEntity::GetPosition(float &x, float &y)
 {
 	object->GetPosition(x, y);
 }
 
-void CEntity::GetSize(float &x, float &y)
+void IEntity::GetSize(float &x, float &y)
 {
 	object->GetSize(x, y);
 }
 
-void CEntity::SetColor(color4 color)
+void IEntity::SetColor(color4 color)
 {
 	if(object != nullptr)
 	{
@@ -49,9 +49,11 @@ void CEntity::SetColor(color4 color)
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------
 
-CPlayer::CPlayer(PlatformEngine::CWorld *world) : CEntity(world)
+//----------------------------------------------------------------------------------------------------------
+
+CPlayer::CPlayer(PlatformEngine::CWorld *world) : IEntity(world)
 {
 	// Задаем параметры игрока
 
@@ -163,9 +165,11 @@ void CPlayer::UpdateScore(void)
 	score->Update(this);
 }
 
-////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------
 
-CBlock::CBlock(PlatformEngine::CWorld *world) : CEntity(world)
+//----------------------------------------------------------------------------------------------------------
+
+CBlock::CBlock(PlatformEngine::CWorld *world) : IEntity(world)
 {
 	// Задаем параметры объекта
 
@@ -181,6 +185,35 @@ CBlock::~CBlock()
 }
 
 void CBlock::Create(float posX, float posY)
+{
+	options.spawnPosX = posX;
+	options.spawnPosY = posY;
+
+	// Создаем объект и изменяем цвет на нужный
+	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	this->object->SetColor(this->options.color);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+CMiniPlatform::CMiniPlatform(PlatformEngine::CWorld *world) :IEntity(world)
+{
+	// Задаем параметры объекта
+
+	options.sizeX = 64;
+	options.sizeY = 24;
+	options.color = 0xffffffff;
+	options.sprite = world->GetApp()->spriteManager->Get("s_mplatform");
+}
+
+CMiniPlatform::~CMiniPlatform()
+{
+
+}
+
+void CMiniPlatform::Create(float posX, float posY)
 {
 	options.spawnPosX = posX;
 	options.spawnPosY = posY;

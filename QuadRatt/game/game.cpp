@@ -72,6 +72,7 @@ void CGame::LoadSprites()
 	app->spriteManager->Load("resources\\sprites\\loading.sprite", "s_loading");
 	app->spriteManager->Load("resources\\sprites\\gl.sprite", "s_gl");
 	app->spriteManager->Load("resources\\sprites\\column.sprite", COLUMN_SPRITE_NAME);
+	app->spriteManager->Load("resources\\sprites\\mini_platform.sprite", "s_mplatform");
 
 	// gui sprites
 	app->spriteManager->Load("resources\\sprites\\gui\\gui_icon_sound_off.sprite", "g_icon_sound_off");

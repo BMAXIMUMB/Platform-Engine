@@ -12,7 +12,7 @@ struct MapInfo
 	/**
 	*	Хранилище всех физических объектов
 	*/
-	std::vector<CEntity*> objectList;
+	std::vector<IEntity*> objectList;
 
 	/**
 	*	Конец сгенерированной карты
@@ -91,7 +91,7 @@ public:
 	/**
 	*	Генерирует объекты по заданному алгоритму
 	*/
-	virtual void Generate(std::vector<CEntity*> &objectList, float &mapEnd) = 0;
+	virtual void Generate(std::vector<IEntity*> &objectList, float &mapEnd) = 0;
 };
 
 class TowerHole :public IZone
@@ -102,7 +102,7 @@ public:
 	TowerHole(ZoneInfo zi);
 	~TowerHole();
 
-	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
+	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
 
 private:
 
@@ -134,7 +134,7 @@ public:
 	TowerStairs(ZoneInfo zi);
 	~TowerStairs();
 
-	void Generate(std::vector<CEntity*> &objectList, float &mapEnd);
+	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
 
 private:
 	
@@ -170,7 +170,24 @@ private:
 	*/
 	const int restTowerHeight = 8;
 
-	void TowerCreate(int holeLevel, float &mapEnd, std::vector<CEntity*> &objectList);
+	/**
+	*	Создать башню
+	*/
+	void TowerCreate(int holeLevel, float &mapEnd, std::vector<IEntity*> &objectList);
+};
+
+class PlatformStairs :public IZone
+{
+
+public:
+	PlatformStairs(ZoneInfo zi);
+	~PlatformStairs();
+
+	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
+
+private:
+
+
 };
 
 #endif // _ZONE_H_

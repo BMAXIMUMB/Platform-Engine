@@ -22,7 +22,7 @@ void CMapGenerator::Reset()
 	}
 }
 
-void CMapGenerator::Generate(std::vector<CEntity*> &objectList, float &mapEnd)
+void CMapGenerator::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
 {
 	if(currentZone == nullptr || currentZone->beginPos + currentZone->lenght < mapEnd)
 	{

@@ -21,9 +21,9 @@ private:
 	CGame *game;
 	CMap *map;
 
-	PE::CWorld *world;
-	PE::CApplication *app;
-	PE::CParticleEmitter *particleEmitter;
+	PlatformEngine::CWorld *world;
+	PlatformEngine::CApplication *app;
+	PlatformEngine::CParticleEmitter *particleEmitter;
 
 	float oldPosX;
 

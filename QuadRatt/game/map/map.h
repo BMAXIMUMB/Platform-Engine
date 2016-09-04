@@ -12,7 +12,7 @@ class CMap
 private:
 	 
 	// Хранилище всех физических объектов
-	std::vector <CEntity*> objectList;
+	std::vector <IEntity*> objectList;
 	
 	// Генератор карты
 	CMapGenerator *mapGenerator;

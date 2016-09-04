@@ -24,7 +24,14 @@ struct EntityOptions
 	color4 color					= Color(0xffffffff);
 };
 
-class CEntity
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Базовый класс любого оъекта
+*/
+class IEntity
 {
 protected:
 
@@ -35,8 +42,8 @@ protected:
 
 public:
 
-	CEntity(PlatformEngine::CWorld *world);
-	~CEntity();
+	IEntity(PlatformEngine::CWorld *world);
+	~IEntity();
 
 	void Delete(void);
 	PlatformEngine::CQuad* GetObjectID(void);
@@ -50,10 +57,14 @@ public:
 	virtual void Create(float posX, float posY) = 0;
 };
 
-////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------
 
-// Класс игрока
-class CPlayer :public CEntity
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Класс игрока
+*/
+class CPlayer :public IEntity
 {
 private:
 	float startPosX;
@@ -84,15 +95,44 @@ public:
 	void UpdateScore(void);
 };
 
-////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------
 
-class CBlock :public CEntity
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Квадратный блок
+*	размеры - 64х64 px
+*	текстура - s_block
+*/
+class CBlock :public IEntity
 {
+
 public:
 	CBlock(PlatformEngine::CWorld *world);
 	~CBlock();
 
 	void Create(float posX, float posY);
+};
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Мини платформа
+*	размеры - 64x24
+*	текстура - s_mplatform
+*/
+
+class CMiniPlatform :public IEntity
+{
+
+public:
+	CMiniPlatform(PlatformEngine::CWorld *world);
+	~CMiniPlatform();
+
+	void Create(float posX, float posY);
+
 };
 
 #endif /*_ENTITY_H_*/
