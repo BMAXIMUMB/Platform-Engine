@@ -19,7 +19,7 @@ CGame::CGame(PE::CApplication *App)
 	state			= new CGameState(this);
 
 
-	world->physics->SetGravity(23900);
+	world->physics->SetGravity(/*25120*/23900);
 	world->SetCollisionFunction(OnObjCollision);
 
 	gInterface->ShowLoadingImage();

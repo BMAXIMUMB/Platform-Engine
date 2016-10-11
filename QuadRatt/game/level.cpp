@@ -60,7 +60,7 @@ void CLevel::PlayerCreate()
 
 	GetPlayer()->Create(START_PLAYER_POSX, START_PLAYER_POSY);
 	GetPlayer()->Spawn();
-	GetPlayer()->Move(/*670.0*/660.0, OBJECT_CURRENT_VALUE);
+	GetPlayer()->Move(/*670.0*/PLAYER_X_SPEED, OBJECT_CURRENT_VALUE);
 
 	world->camera->AttachToObject(GetPlayer()->GetObjectID(), -200.0f, 0.0f, 0.0f, 376.0f);
 }
@@ -114,7 +114,7 @@ void CLevel::LoopFunction()
 	{
 		if(pos[1] < oldPosX)
 		{
-			player->Move(OBJECT_CURRENT_VALUE, -520.0f);
+			player->Move(OBJECT_CURRENT_VALUE, /*-520.0f*//*-490.0f*/-490.0f);
 			oldPosCheck = false;
 		}
 		else if(pos[1] > oldPosX) oldPosCheck = false;

@@ -7,6 +7,8 @@ IZone::IZone(ZoneInfo zi)
 	world = zi.world;
 	beginPos = zi.beginPos;
 	prevZoneID = zi.lastZoneID;
+
+	isCreated = false;
 }
 
 IZone::~IZone()
@@ -23,6 +25,7 @@ IZone::~IZone()
 TowerHole::TowerHole(ZoneInfo zi) :IZone(zi)
 {
 	lenght = RandomValue(1300, 1700);
+
 	lastTowerType = TowerType::Null;
 }
 
@@ -165,6 +168,7 @@ void TowerHole::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
 
 	}
 
+	if(!isCreated) isCreated = true;
 	mapEnd = posX;
 }
 
@@ -176,7 +180,6 @@ TowerStairs::TowerStairs(ZoneInfo zi) :IZone(zi)
 {
 	lenght = RandomValue(3700, 5000);
 
-	isCreated = false;
 	lastHoleLevel = -1;
 }
 
@@ -249,13 +252,14 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<IEntity*
 		default: offset = 4;
 	}
 	if(lastHoleLevel == -1) posX = mapEnd + restZoneDistance;
+
 	/**
 	*	TODO:
 	*	≈сли не прибавить 8, проходить будет очень сложно
 	*	или даже не возможно. Ќужно тестить и править физику
 	*	если нужно
 	*/
-	else posX = mapEnd + (restBlockSize*offset) + 8;
+	else posX = mapEnd + (restBlockSize*offset) + 5;
 
 	for(int i = 0; i < restTowerHeight; i++)
 	{
@@ -283,7 +287,11 @@ void TowerStairs::TowerCreate(int holeLevel, float &mapEnd, std::vector<IEntity*
 
 PlatformStairs::PlatformStairs(ZoneInfo zi) : IZone(zi)
 {
-		
+	int stage = RandomValue(10, 17);
+	logprintf("stage %d", stage);
+	lenght = stage * (int)(restStageDistance*restMiniPlatformSize);
+
+	lastLevel = -1;
 }
 
 PlatformStairs::~PlatformStairs()
@@ -295,4 +303,26 @@ void PlatformStairs::Generate(std::vector<IEntity*> &objectList, float &mapEnd)
 {
 	float posX = 0.0f;
 	float posY = 0.0f;
+
+	int direction=1;	// Ќаправление лестницы ( -1 - вниз, 0 - никуда, 1 - вверх)
+
+	if(lastLevel == -1)
+	{
+		posY = restStartPosY;
+		lastLevel = 0;
+	}
+	else
+	{
+		if(direction) posY = restStartPosY + ((++lastLevel)*restBlockSize);
+	}
+
+	posX = mapEnd + (restStageDistance*restMiniPlatformSize);
+
+	IEntity *object = new CMiniPlatform(world);
+	object->Create(posX, posY);
+
+	objectList.push_back(object);
+
+	if(!isCreated) isCreated = true;
+	mapEnd = posX;
 }

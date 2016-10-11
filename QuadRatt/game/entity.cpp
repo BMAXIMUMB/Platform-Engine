@@ -145,8 +145,12 @@ void CPlayer::Jump()
 {
 	if(onGround())
 	{
+		float pos[2];
+		GetPosition(pos[0], pos[1]);
+		d_jumpDistance = pos[0] - d_jumpPos;
 		//Object->SetAcceleration(OBJECT_CURRENT_VALUE, 300.0f);
 		Move(OBJECT_CURRENT_VALUE, PLAYER_JUMP_SPEED);
+		d_jumpPos = pos[0];
 	}
 }
 

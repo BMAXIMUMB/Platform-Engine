@@ -99,7 +99,7 @@ void CProgram::onKeyDown(int key)
 {
 	if(key == VK_ESCAPE)
 	{
-		if(MessageBoxA(app->GetHWND(), "Хотите выйти?", "Выход", MB_YESNO | MB_ICONWARNING) == IDYES)
+		if(MessageBoxA(app->GetHWND(), "Ты пидОр?", "Тест на пидОра", MB_YESNO | MB_ICONWARNING) == IDYES)
 		{
 			SendMessageA(app->GetHWND(), WM_CLOSE, NULL, NULL);
 			return;

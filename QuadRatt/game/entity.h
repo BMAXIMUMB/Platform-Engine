@@ -71,6 +71,12 @@ private:
 
 	CScore *score;
 
+	/**
+	*	debug
+	*/
+	float d_jumpPos;
+	float d_jumpDistance;
+
 public:
 
 	CPlayer(PlatformEngine::CWorld *world);

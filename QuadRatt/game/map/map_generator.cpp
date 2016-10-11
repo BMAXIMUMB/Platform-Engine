@@ -60,6 +60,7 @@ IZone* CMapGenerator::CreateZone(float beginPos)
 		case 1:
 			zone = new TowerHole(zoneInfo);
 			break;
+		//default: zone = new PlatformStairs(zoneInfo);
 	}
 	lastZoneID = rndVal;
 	
