@@ -20,7 +20,9 @@ private:
 	// Мир, в котором будут создаваться объекты
 	PlatformEngine::CWorld *world;
 
-	// Конец сгенерированной карты
+	/**
+	*	Конец сгенерированной карты
+	*/
 	float mapEnd;
 
 public:
@@ -36,6 +38,27 @@ public:
 
 	// Изменить стартовую позицию генерации карты
 	void SetGeneratePos(float position);
+
+	/**
+	*	Получить позицию X конца карты
+	*/
+	float GetMapEnd(void);
+
+	/**
+	*	Изменить позицию X конца карты
+	*/
+	void SetMapEnd(float value)
+	{
+		mapEnd = value;
+	}
+
+
+	/**
+	*	Фабричные методы создания объектов
+	*/
+
+	CBlock* CreateBlock(float posX, float posY);
+	CMiniPlatform* CreateMiniPlatform(float posX, float posY);
 };
 
 #endif //_MAP_H_

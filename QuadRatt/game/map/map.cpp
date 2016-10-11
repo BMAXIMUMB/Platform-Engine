@@ -7,7 +7,7 @@ CMap::CMap(PlatformEngine::CWorld *world)
 	this->world = world;
 
 	mapEnd = 0.0f;
-	mapGenerator = new CMapGenerator(world);
+	mapGenerator = new CMapGenerator(this);
 }
 
 CMap::~CMap()
@@ -38,7 +38,7 @@ void CMap::Check()
 	// Определяем, нужно ли сгенерировать новые объекты
 	if(mapEnd < cpos[0] - world->camera->offsetX + (wsize[0] / 2))
 	{
-		mapGenerator->Generate(objectList, mapEnd);
+		mapGenerator->Generate();
 	}
 
 	// Определяем, нужно ли удалить объекты, ушедшие за левую часть экрана
@@ -64,4 +64,29 @@ void CMap::Check()
 void CMap::SetGeneratePos(float position)
 {
 	mapEnd = position;
+}
+
+float CMap::GetMapEnd()
+{
+	return mapEnd;
+}
+
+CBlock* CMap::CreateBlock(float posX, float posY)
+{
+	CBlock *object = new CBlock(world);
+	
+	object->Create(posX, posY);
+	objectList.push_back(object);
+
+	return object;
+}
+
+CMiniPlatform* CMap::CreateMiniPlatform(float posX, float posY)
+{
+	CMiniPlatform *object = new CMiniPlatform(world);
+
+	object->Create(posX, posY);
+	objectList.push_back(object);
+
+	return object;
 }

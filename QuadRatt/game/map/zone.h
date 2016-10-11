@@ -5,6 +5,8 @@
 
 #include "../entity.h"
 
+class CMap;
+
 struct MapInfo
 {
 	// Информация о карте
@@ -23,7 +25,7 @@ struct MapInfo
 
 struct ZoneInfo
 {
-	PlatformEngine::CWorld *world;
+	CMap* map;
 
 	int beginPos;
 
@@ -40,6 +42,8 @@ class IZone
 	friend CMapGenerator;
 
 protected:
+
+	CMap* map;
 
 	/**
 	*	Длина зоны, принимает случайное значение в заданном диапазоне
@@ -101,7 +105,7 @@ public:
 	/**
 	*	Генерирует объекты по заданному алгоритму
 	*/
-	virtual void Generate(std::vector<IEntity*> &objectList, float &mapEnd) = 0;
+	virtual void Generate() = 0;
 };
 
 class TowerHole :public IZone
@@ -112,7 +116,7 @@ public:
 	TowerHole(ZoneInfo zi);
 	~TowerHole();
 
-	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
+	void Generate();
 
 private:
 
@@ -144,7 +148,7 @@ public:
 	TowerStairs(ZoneInfo zi);
 	~TowerStairs();
 
-	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
+	void Generate();
 
 private:
 	
@@ -180,7 +184,7 @@ private:
 	/**
 	*	Создать башню
 	*/
-	void TowerCreate(int holeLevel, float &mapEnd, std::vector<IEntity*> &objectList);
+	void TowerCreate(int holeLevel);
 };
 
 class PlatformStairs :public IZone
@@ -190,7 +194,7 @@ public:
 	PlatformStairs(ZoneInfo zi);
 	~PlatformStairs();
 
-	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
+	void Generate();
 
 private:
 

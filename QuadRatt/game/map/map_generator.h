@@ -7,6 +7,8 @@
 
 #include "zone.h"
 
+class CMap;
+
 class CMapGenerator
 {
 	/**
@@ -17,10 +19,14 @@ class CMapGenerator
 
 private:
 
-	// Мир, в котором будут создаваться объекты
-	PlatformEngine::CWorld *world;
+	/**
+	*	Карта, к которой относится генератор
+	*/
+	CMap* map;
 
-	// Текущая зона
+	/**
+	*	Текущая зона
+	*/
 	IZone * currentZone = nullptr;
 
 	/**
@@ -30,25 +36,31 @@ private:
 
 public:
 	
-	// Конструктор. world - указатель на объект мира
-	CMapGenerator(PlatformEngine::CWorld *world);
+	/**
+	*	Конструктор. map - указатель на карту
+	*/
+	CMapGenerator(CMap *map);
 
-	// Деструктор. Нихуя не делает ( пока ) 
+	/**
+	*	Деструктор. Нихуя не делает ( пока ) 
+	*/
 	~CMapGenerator();
 
+	/**
+	*	Сброс зон
+	*/
 	void Reset(void);
 
 	/**
 	*	Функция генерации объектов. В качестве аргумента принимает
 	*	указатель на список объектов, куда нужно положить сгенерированные объекты
 	*/
-	void Generate(std::vector<IEntity*> &objectList, float &mapEnd);
+	void Generate(/*std::vector<IEntity*> &objectList, float &mapEnd*/);
 
 	/**
 	*	Создает новую зону
-	*	beginPos - позиция начала зоны по X
 	*/
-	IZone* CreateZone(float beginPos);
+	IZone* CreateZone();
 };
 
 #endif //_MAP_GENERATOR_H_
