@@ -54,14 +54,14 @@ IZone* CMapGenerator::CreateZone()
 
 	switch(rndVal)
 	{
-		/*case 0:
+		case 0:
 			zone = new TowerStairs(zoneInfo);
 			break;
 
 		case 1:
 			zone = new TowerHole(zoneInfo);
-			break;*/
-		default: zone = new PlatformStairs(zoneInfo);
+			break;
+		//default: zone = new PlatformStairs(zoneInfo);
 	}
 	lastZoneID = rndVal;
 	

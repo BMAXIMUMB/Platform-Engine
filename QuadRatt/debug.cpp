@@ -74,7 +74,8 @@ void CDebug::Update()
 		sprintf(str, "posX: %.1f, posY: %.1f (max %.1f)", x, y, maxY);
 		textPc->SetText(str);
 
-		sprintf(str, "FPS: %d", app->fpsMeter->GetFPS());
+		sprintf(str, "FPS: %d | Obj: %d", app->fpsMeter->GetFPS(),
+			game->GetLevel()->GetMap()->GetObjectCount());
 		textFps->SetText(str);
 	}
 }

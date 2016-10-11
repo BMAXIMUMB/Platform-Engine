@@ -71,6 +71,10 @@ float CMap::GetMapEnd()
 	return mapEnd;
 }
 
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
 CBlock* CMap::CreateBlock(float posX, float posY)
 {
 	CBlock *object = new CBlock(world);
@@ -89,4 +93,51 @@ CMiniPlatform* CMap::CreateMiniPlatform(float posX, float posY)
 	objectList.push_back(object);
 
 	return object;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool CMap::DeleteEntity(IEntity* entity)
+{
+	for(auto it = objectList.begin(); it != objectList.end(); it++)
+	{
+		if(*it == entity)
+		{
+			delete entity;
+			objectList.erase(it);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMap::DeleteBlock(CBlock *block)
+{
+	for(auto it = objectList.begin(); it != objectList.end(); it++)
+	{
+		if(*it == block)
+		{
+			delete block;
+			objectList.erase(it);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMap::DeleteMiniPlatform(CMiniPlatform *object)
+{
+	for(auto it = objectList.begin(); it != objectList.end(); it++)
+	{
+		if(*it == object)
+		{
+			delete object;
+			objectList.erase(it);
+
+			return true;
+		}
+	}
+	return false;
 }

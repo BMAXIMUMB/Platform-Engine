@@ -45,6 +45,7 @@ public:
 
 	CBackground* GetBackground(void);
 	CPlayer* GetPlayer(void);
+	CMap* GetMap(void);
 
 	void CreateBackground(void);
 	void CheckBackground(void);

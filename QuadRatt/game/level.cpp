@@ -23,14 +23,19 @@ CLevel::~CLevel()
 	delete player;
 }
 
-CBackground* CLevel::GetBackground(void)
+CBackground* CLevel::GetBackground()
 {
 	return background;
 }
 
-CPlayer* CLevel::GetPlayer(void)
+CPlayer* CLevel::GetPlayer()
 {
 	return player;
+}
+
+CMap* CLevel::GetMap()
+{
+	return map;
 }
 
 void CLevel::CreateBackground()

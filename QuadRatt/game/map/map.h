@@ -40,6 +40,14 @@ public:
 	void SetGeneratePos(float position);
 
 	/**
+	*	Посчитать все созданные объекты
+	*/
+	int GetObjectCount(void)
+	{
+		return objectList.size();
+	}
+
+	/**
 	*	Получить позицию X конца карты
 	*/
 	float GetMapEnd(void);
@@ -54,11 +62,26 @@ public:
 
 
 	/**
-	*	Фабричные методы создания объектов
+	*	Фабричные методы создания и удаления объектов
 	*/
 
 	CBlock* CreateBlock(float posX, float posY);
 	CMiniPlatform* CreateMiniPlatform(float posX, float posY);
+
+	/**
+	* Удаляет любой объект, наследованный от IEntity
+	*/
+	bool DeleteEntity(IEntity* entity);
+
+	/**
+	*	Удаляет объекты класса CBlock
+	*/
+	bool DeleteBlock(CBlock *block);
+
+	/**
+	*	Удаляет объекты класса CMiniPlatform
+	*/
+	bool DeleteMiniPlatform(CMiniPlatform *miniPlatform);
 };
 
 #endif //_MAP_H_
