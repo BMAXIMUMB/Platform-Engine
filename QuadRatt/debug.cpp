@@ -1,5 +1,8 @@
 // debug.cpp
 
+#include <Windows.h>
+#include <Psapi.h>
+
 #include "debug.h"
 #include "game\game.h"
 
@@ -73,6 +76,12 @@ void CDebug::Update()
 		
 		sprintf(str, "posX: %.1f, posY: %.1f (max %.1f)", x, y, maxY);
 		textPc->SetText(str);
+
+		/*
+		PROCESS_MEMORY_COUNTERS_EX pmc;
+		GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+		SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
+		*/
 
 		sprintf(str, "FPS: %d | Obj: %d", app->fpsMeter->GetFPS(),
 			game->GetLevel()->GetMap()->GetObjectCount());

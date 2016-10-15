@@ -253,10 +253,12 @@ void TowerStairs::TowerCreate(int holeLevel)
 PlatformStairs::PlatformStairs(ZoneInfo zi) : IZone(zi)
 {
 	int stage = RandomValue(10, 17);
-	logprintf("stage %d", stage);
 	lenght = stage * (int)(restStageDistance*restMiniPlatformSize);
 
 	lastLevel = -1;
+	lastDirection = -1;
+
+	directionCounter = 0;
 }
 
 PlatformStairs::~PlatformStairs()
@@ -269,19 +271,63 @@ void PlatformStairs::Generate()
 	float posX = 0.0f;
 	float posY = 0.0f;
 
-	int direction=1;	// Направление лестницы ( -1 - вниз, 0 - никуда, 1 - вверх)
+	// Направление лестницы ( -1 - вниз, 0 - никуда, 1 - вверх)
+	int direction;
+
+	// Определим направление лестницы
+
+	bool loop = true;
+	while(loop)
+	{
+		if(lastLevel < 1) direction = RandomValue(0, 1);
+		else
+		{
+			if(directionCounter > 4) direction = RandomValue(-1, 1);
+			else
+			{
+				int values[2] = { -1,1 };
+				direction = values[RandomValue(0, 1)];
+			}
+		}
+
+		if(direction != lastDirection || direction == 1) loop = false;
+	}
 
 	if(lastLevel == -1)
 	{
 		posY = restStartPosY;
 		lastLevel = 0;
+		lastDirection = -1;
+		posX = map->GetMapEnd() + (restStageDistance*restMiniPlatformSize);
 	}
 	else
 	{
-		if(direction) posY = restStartPosY + ((++lastLevel)*restBlockSize);
-	}
+		if(direction == 1)
+		{
+			posY = restStartPosY + ((++lastLevel)*restBlockSize);
+			posX = map->GetMapEnd() + (restStageDistance*restMiniPlatformSize);
 
-	posX = map->GetMapEnd() + (restStageDistance*restMiniPlatformSize);
+			directionCounter++;
+		}
+		else if(direction == -1)
+		{
+			posY = restStartPosY + ((--lastLevel)*restBlockSize);
+
+			int rndVal = RandomValue(0, 1);
+			int multiple[2] = { 3,5 };
+			posX = map->GetMapEnd() + (multiple[rndVal] * restMiniPlatformSize);
+
+			directionCounter++;
+		}
+		else // Если лестница остается на прежнем уровне
+		{
+			posY = restStartPosY + ((lastLevel)*restBlockSize);
+			posX = map->GetMapEnd() + (5 * restMiniPlatformSize);
+
+			directionCounter = 0;
+		}
+		lastDirection = direction;
+	}
 
 	map->CreateMiniPlatform(posX, posY);
 
