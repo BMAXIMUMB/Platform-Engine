@@ -110,6 +110,7 @@ public:
 *	размеры - 64х64 px
 *	текстура - s_block
 */
+
 class CBlock :public IEntity
 {
 
@@ -139,6 +140,44 @@ public:
 
 	void Create(float posX, float posY);
 
+};
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Треугольник
+*	размеры - 64x64
+*	текстура s_triangle
+*/
+
+class CTriangle :public IEntity
+{
+public:
+	CTriangle(PlatformEngine::CWorld *world);
+	~CTriangle();
+
+	void Create(float posX, float posY);
+};
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+/**
+*	Мини-треугольник
+*	размеры - 64x32
+*	текстура s_triangle
+*/
+
+class CMiniTriangle :public IEntity
+{
+public:
+	CMiniTriangle(PlatformEngine::CWorld *world);
+	~CMiniTriangle();
+
+	void Create(float posX, float posY);
 };
 
 #endif /*_ENTITY_H_*/

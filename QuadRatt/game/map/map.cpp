@@ -85,6 +85,26 @@ CBlock* CMap::CreateBlock(float posX, float posY)
 	return object;
 }
 
+CTriangle* CMap::CreateTriangle(float posX, float posY)
+{
+	CTriangle *object = new CTriangle(world);
+
+	object->Create(posX, posY);
+	objectList.push_back(object);
+
+	return object;
+}
+
+CMiniTriangle* CMap::CreateMiniTriangle(float posX, float posY)
+{
+	CMiniTriangle *object = new CMiniTriangle(world);
+
+	object->Create(posX, posY);
+	objectList.push_back(object);
+
+	return object;
+}
+
 CMiniPlatform* CMap::CreateMiniPlatform(float posX, float posY)
 {
 	CMiniPlatform *object = new CMiniPlatform(world);
@@ -128,6 +148,36 @@ bool CMap::DeleteBlock(CBlock *block)
 }
 
 bool CMap::DeleteMiniPlatform(CMiniPlatform *object)
+{
+	for(auto it = objectList.begin(); it != objectList.end(); it++)
+	{
+		if(*it == object)
+		{
+			delete object;
+			objectList.erase(it);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMap::DeleteTriangle(CTriangle *object)
+{
+	for(auto it = objectList.begin(); it != objectList.end(); it++)
+	{
+		if(*it == object)
+		{
+			delete object;
+			objectList.erase(it);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMap::DeleteMiniTriangle(CMiniTriangle *object)
 {
 	for(auto it = objectList.begin(); it != objectList.end(); it++)
 	{

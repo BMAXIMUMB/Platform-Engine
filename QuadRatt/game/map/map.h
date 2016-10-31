@@ -11,13 +11,19 @@ class CMap
 {
 private:
 	 
-	// Хранилище всех физических объектов
+	/**
+	*	Хранилище всех физических объектов
+	*/
 	std::vector <IEntity*> objectList;
 	
-	// Генератор карты
+	/**
+	*	Генератор карты
+	*/
 	CMapGenerator *mapGenerator;
 
-	// Мир, в котором будут создаваться объекты
+	/**
+	*	Мир, в котором будут создаваться объекты
+	*/
 	PlatformEngine::CWorld *world;
 
 	/**
@@ -30,13 +36,19 @@ public:
 	CMap(PlatformEngine::CWorld *world);
 	~CMap();
 	
-	// Удалить все объекты с карты
+	/**
+	*	Удалить все объекты с карты
+	*/
 	void Clear(void);
 
-	// Функция проверки объектов
+	/**
+	*	Функция проверки объектов
+	*/
 	void Check(void);
 
-	// Изменить стартовую позицию генерации карты
+	/**
+	*	Изменить стартовую позицию генерации карты
+	*/
 	void SetGeneratePos(float position);
 
 	/**
@@ -65,8 +77,11 @@ public:
 	*	Фабричные методы создания и удаления объектов
 	*/
 
-	CBlock* CreateBlock(float posX, float posY);
-	CMiniPlatform* CreateMiniPlatform(float posX, float posY);
+	CBlock*				CreateBlock(float posX, float posY);
+	CTriangle*			CreateTriangle(float posX, float posY);
+	CMiniPlatform*		CreateMiniPlatform(float posX, float posY);
+	CMiniTriangle*		CreateMiniTriangle(float posX, float posY);
+
 
 	/**
 	* Удаляет любой объект, наследованный от IEntity
@@ -82,6 +97,16 @@ public:
 	*	Удаляет объекты класса CMiniPlatform
 	*/
 	bool DeleteMiniPlatform(CMiniPlatform *miniPlatform);
+
+	/**
+	*	Удаляет объекты класса Triangle
+	*/
+	bool DeleteTriangle(CTriangle *triangle);
+
+	/**
+	*	Удаляет объекты класса MiniTriangle
+	*/
+	bool DeleteMiniTriangle(CMiniTriangle *triangle);
 };
 
 #endif //_MAP_H_

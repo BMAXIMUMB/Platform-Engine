@@ -226,3 +226,61 @@ void CMiniPlatform::Create(float posX, float posY)
 	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
 	this->object->SetColor(this->options.color);
 }
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+CTriangle::CTriangle(PlatformEngine::CWorld *world) :IEntity(world)
+{
+	// Задаем параметры объекта
+
+	options.sizeX = 64;
+	options.sizeY = 64;
+	options.color = 0xffffffff;
+	options.sprite = world->GetApp()->spriteManager->Get("s_triangle");
+}
+
+CTriangle::~CTriangle()
+{
+
+}
+
+void CTriangle::Create(float posX, float posY)
+{
+	options.spawnPosX = posX;
+	options.spawnPosY = posY;
+
+	// Создаем объект и изменяем цвет на нужный
+	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	this->object->SetColor(this->options.color);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------
+
+CMiniTriangle::CMiniTriangle(PlatformEngine::CWorld *world) :IEntity(world)
+{
+	// Задаем параметры объекта
+
+	options.sizeX = 64;
+	options.sizeY = 32;
+	options.color = 0xffffffff;
+	options.sprite = world->GetApp()->spriteManager->Get("s_triangle");
+}
+
+CMiniTriangle::~CMiniTriangle()
+{
+
+}
+
+void CMiniTriangle::Create(float posX, float posY)
+{
+	options.spawnPosX = posX;
+	options.spawnPosY = posY;
+
+	// Создаем объект и изменяем цвет на нужный
+	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	this->object->SetColor(this->options.color);
+}
