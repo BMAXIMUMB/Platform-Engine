@@ -25,6 +25,7 @@ namespace PlatformEngine
 
 	class CObject
 	{
+
 	protected:
 		float posX;						// Позиция объекта по X
 		float posY;						// Позиция объекта по Y
@@ -49,8 +50,8 @@ namespace PlatformEngine
 		color4 color;					// Object color
 
 		// Остальная информация об объекте
-		int objecttypeForm;
-		int objecttypeUpd;
+		int objectTypeForm;
+		int objectTypeUpd;
 
 	public:
 		CSprite *sprite;				// Спрайт объекта

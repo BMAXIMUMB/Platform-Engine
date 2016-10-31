@@ -60,6 +60,15 @@ public:
 	}
 
 	/**
+	*	Получить указатель на список объектов
+	*	Тип возвращаемого значения - std::vector<Entity*>
+	*/
+	std::vector <IEntity*>* GetObjectList(void)
+	{
+		return &objectList;
+	}
+
+	/**
 	*	Получить позицию X конца карты
 	*/
 	float GetMapEnd(void);

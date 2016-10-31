@@ -6,8 +6,8 @@
 #include "../../object/object.h"
 #include "../../object/quad.h"
 
-#define ROUT_PUSH_X							1
-#define ROUT_PUSH_Y							2
+#define DIRECTION_VERTICAL								1
+#define DIRECTION_HORIZONTAL							2
 
 struct contactinfo
 {
@@ -17,7 +17,7 @@ struct contactinfo
 	double overlap_x;
 	double overlap_y;
 
-	int rout_push;
+	int direction;
 };
 
 namespace PlatformEngine
@@ -33,7 +33,7 @@ namespace PlatformEngine
 		double overlapX;
 		double overlapY;
 		
-		int routPush;
+		int direction;
 
 	public:
 		CContact(contactinfo cinfo);

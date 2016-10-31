@@ -10,7 +10,7 @@ namespace PlatformEngine
 		object2 = cinfo.object2;
 		overlapX = cinfo.overlap_x;
 		overlapY = cinfo.overlap_y;
-		routPush = cinfo.rout_push;
+		direction = cinfo.direction;
 	}
 
 	void CContact::SetOverlap(double x, double y)

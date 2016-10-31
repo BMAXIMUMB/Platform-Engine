@@ -22,7 +22,7 @@ namespace PlatformEngine
 		CObject::sizeY = sizeY;
 		CObject::sprite = sprite;
 		CObject::rotate = 0.0f;
-		CObject::objecttypeForm = OBJECT_TYPE_QUAD;
+		CObject::objectTypeForm = OBJECT_TYPE_QUAD;
 		CObject::world = World;
 	}
 };

@@ -40,7 +40,7 @@ namespace PlatformEngine
 		this->sprite = sprite;
 		this->world = World;
 		this->rotate = 0.0f;
-		this->objecttypeUpd = OBJECT_TYPE_STATIC;
+		this->objectTypeUpd = OBJECT_TYPE_STATIC;
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@ namespace PlatformEngine
 
 	int CObject::GetObjectType()
 	{
-		return objecttypeUpd;
+		return objectTypeUpd;
 	}
 
 	void CObject::GetSpeed(float &x, float &y)
@@ -94,7 +94,7 @@ namespace PlatformEngine
 
 	void CObject::SetObjectType(int objtype)
 	{
-		objecttypeUpd = objtype;
+		objectTypeUpd = objtype;
 
 		Stop();
 	}

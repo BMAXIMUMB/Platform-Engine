@@ -243,7 +243,7 @@ namespace PlatformEngine
 							float x = 0, y = 0;
 							if(overlap_x < overlap_y)
 							{
-								ci.rout_push = ROUT_PUSH_X;
+								ci.direction = DIRECTION_VERTICAL;
 								x = (float)overlap_x;
 
 								if(objpos[0] < objpos[2])
@@ -253,7 +253,7 @@ namespace PlatformEngine
 							}
 							else
 							{
-								ci.rout_push = ROUT_PUSH_Y;
+								ci.direction = DIRECTION_HORIZONTAL;
 								objectList[i]->Move(OBJECT_CURRENT_VALUE, 0.0f);
 								//ObjectList[i]->SetAcceleration(OBJECT_CURRENT_VALUE, 0.0f);
 								y = (float)overlap_y;

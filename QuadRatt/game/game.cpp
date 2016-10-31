@@ -149,20 +149,24 @@ void CGame::onGameStateChange(IState *newState, IState *oldState)
 	}*/
 }
 
-void CGame::onObjectCollision(PE::CContact *Contact)
+void CGame::onObjectCollision(PlatformEngine::CContact *Contact)
 {
 	if(state->GetState() == state->StateGame)
 	{
 		if(Contact->object1 == GetLevel()->GetPlayer()->GetObjectID())
 		{
-			if(Contact->routPush != ROUT_PUSH_Y)
+			if(Contact->direction != DIRECTION_HORIZONTAL)
 			{
 				// Проебал
 				state->DispatchEvent(ON_PLAYER_FAIL);
 			}
 			else
 			{
-				level->oldPosCheck = true;
+				if(Contact->overlapY < 0)
+				{
+					state->DispatchEvent(ON_PLAYER_FAIL);
+				}
+				else level->oldPosCheck = true;
 			}
 		}
 	}
