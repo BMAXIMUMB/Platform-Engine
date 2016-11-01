@@ -162,11 +162,24 @@ void CGame::onObjectCollision(PlatformEngine::CContact *Contact)
 			}
 			else
 			{
-				if(Contact->overlapY < 0)
+				for(auto i : *GetLevel()->GetMap()->GetObjectList())
 				{
-					state->DispatchEvent(ON_PLAYER_FAIL);
+					if(Contact->object2 == i->GetObjectID())
+					{
+						if(!i->GetHorizontalCollisionState())
+						{
+							state->DispatchEvent(ON_PLAYER_FAIL);
+						}
+						else
+						{
+							if(Contact->overlapY < 0)
+							{
+								state->DispatchEvent(ON_PLAYER_FAIL);
+							}
+							else level->oldPosCheck = true;
+						}
+					}
 				}
-				else level->oldPosCheck = true;
 			}
 		}
 	}

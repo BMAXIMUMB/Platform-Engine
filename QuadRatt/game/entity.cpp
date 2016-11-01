@@ -39,6 +39,10 @@ void IEntity::GetSize(float &x, float &y)
 {
 	object->GetSize(x, y);
 }
+bool IEntity::GetHorizontalCollisionState()
+{
+	return options.disableHorizontalCollision;
+}
 
 void IEntity::SetColor(color4 color)
 {
@@ -181,6 +185,8 @@ CBlock::CBlock(PlatformEngine::CWorld *world) : IEntity(world)
 	options.sizeY = 64;
 	options.color = 0xffffffff;
 	options.sprite = world->GetApp()->spriteManager->Get("s_block");
+
+	options.disableHorizontalCollision = true;
 }
 
 CBlock::~CBlock()
@@ -210,6 +216,8 @@ CMiniPlatform::CMiniPlatform(PlatformEngine::CWorld *world) :IEntity(world)
 	options.sizeY = 24;
 	options.color = 0xffffffff;
 	options.sprite = world->GetApp()->spriteManager->Get("s_mplatform");
+
+	options.disableHorizontalCollision = true;
 }
 
 CMiniPlatform::~CMiniPlatform()

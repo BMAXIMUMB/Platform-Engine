@@ -9,19 +9,26 @@
 // Эта структура хранит параметры объекта
 struct EntityOptions
 {
-	// Стартовая позиция по X и Y
+	//	Стартовая позиция по X и Y
 	float spawnPosX					= NULL;
 	float spawnPosY					= NULL;
 
-	// Размеры по X и Y
+	//	Размеры по X и Y
 	float sizeX						= NULL;
 	float sizeY						= NULL;
 
-	// Спрайт объекта
+	//	Спрайт объекта
 	PlatformEngine::CSprite *sprite	= NULL;
 
-	// Цвет объекта. Изначально равен 255.255.255.255 (RGBA).
+	//	Цвет объекта. Изначально равен 255.255.255.255 (RGBA)
 	color4 color					= Color(0xffffffff);
+
+	/**
+	*	Отключить столкновения по горизонтали вниз ( возможность скользить
+	*	по предметам)
+	*	По умолчанию false
+	*/
+	bool disableHorizontalCollision = false;
 };
 
 //----------------------------------------------------------------------------------------------------------
@@ -53,6 +60,7 @@ public:
 
 	void GetPosition(float &x, float &y);
 	void GetSize(float &x, float &y);
+	bool GetHorizontalCollisionState(void);
 
 	virtual void Create(float posX, float posY) = 0;
 };
