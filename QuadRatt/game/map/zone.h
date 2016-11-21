@@ -251,12 +251,12 @@ private:
 *	Простые препятствия
 */
 
-class ShortObstacle : public IZone
+class ShortThorns : public IZone
 {
 
 public:
-	ShortObstacle(ZoneInfo zi);
-	~ShortObstacle();
+	ShortThorns(ZoneInfo zi);
+	~ShortThorns();
 
 	void Generate();
 
@@ -273,6 +273,8 @@ private:
 	*	Расстояние между препятствиями
 	*/
 	const float restObsDistance = 320.0f;
+
+	const int INVALID_OBS_TYPE = -1;
 };
 
 #endif // _ZONE_H_

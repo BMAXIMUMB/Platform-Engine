@@ -339,27 +339,29 @@ void PlatformStairs::Generate()
 
 //----------------------------------------------------------------------------------------------------------
 
-ShortObstacle::ShortObstacle(ZoneInfo zi) : IZone(zi)
+ShortThorns::ShortThorns(ZoneInfo zi) : IZone(zi)
 {
 	//	Определяем сколько препятствий будет сгенерировано
 	int obsAmount = RandomValue(1, 4);
 	
 	//	Определяем длину зоны
 	lenght = RandomValue(1000, 2000);
+
+	lastObsType = INVALID_OBS_TYPE;
 }
 
-ShortObstacle::~ShortObstacle()
+ShortThorns::~ShortThorns()
 {
 
 }
 
-void ShortObstacle::Generate()
+void ShortThorns::Generate()
 {
 	float posX = 0.0f;
 	float posY = 0.0f;
 
 	//	Определяем тип препятствия, которое будет сгенерировано
-	int obsType = /*RandomValue(0, 4)*/1;
+	int obsType = /*RandomValue(0, 4)*/2;
 
 	switch(obsType)
 	{
@@ -407,9 +409,19 @@ void ShortObstacle::Generate()
 			
 		case 1:
 		{
+			float offsetX = 0.0f;
 			posX = map->GetMapEnd() + restObsDistance;
 
+			// Первый дополнительный треугольник
+			if(RandomValue(0, 3) == 2)
+			{
+				offsetX = restBlockSize;
+				posY = restGroundLevel;
+				map->CreateTriangle(posX, posY);
+			}
+
 			// Первый блок
+			posX += offsetX;
 			posY = restGroundLevel;
 			map->CreateBlock(posX, posY);
 
@@ -425,10 +437,10 @@ void ShortObstacle::Generate()
 			// Второй и третий треугольники
 			posX += (restBlockSize * 2) +20;	// TODO: Тут прибавляем 20 что-бы игрок мог пройти. Пофиксить как-то
 			posY = restGroundLevel + (restBlockSize * 2);
-			map->CreateTriangle(posX, posY);
+			map->CreateTriangle(posX, posY)->SetRotate(90.0f);
 
 			posY = restGroundLevel + (restBlockSize * 3);
-			map->CreateTriangle(posX, posY);
+			map->CreateTriangle(posX, posY)->SetRotate(90.0f);
 
 			// Четвертый и пятый блоки
 			posX += restBlockSize;
@@ -437,18 +449,63 @@ void ShortObstacle::Generate()
 
 			posY = restGroundLevel + (restBlockSize * 3);
 			map->CreateBlock(posX, posY);
+
+			// Нижний дополнительный треугольник
+			if(RandomValue(0, 5) == 1)
+			{
+				posY = restGroundLevel + restBlockSize;
+				map->CreateTriangle(posX, posY)->SetRotate(180);
+			}
+
+			// Боковые дополнительные треугольнки
+			if(RandomValue(0, 3) == 2)
+			{
+				posX += restBlockSize;
+				posY = restGroundLevel + (restBlockSize * 2);
+				map->CreateTriangle(posX, posY)->SetRotate(-90.0f);
+
+				posY += restBlockSize;
+				map->CreateTriangle(posX, posY)->SetRotate(-90.0f);
+			}
+
+			// Завершающий дополнительный треугольник
+			if(RandomValue(0, 5) == 1)
+			{
+				posX += restBlockSize * 3;
+				posY = restGroundLevel;
+				map->CreateTriangle(posX, posY);
+			}
 		}
 		break;
 
 		case 2:
 		{
+			// TODO: Доделать
+			posX = map->GetMapEnd() + restObsDistance;
+			posY = restGroundLevel;
+
+			map->CreateTriangle(posX, posY);
+			map->CreateTriangle(posX += restBlockSize, posY);
+
+			posX += restBlockSize * 3;
+			posY = restGroundLevel + restBlockSize;
+			map->CreateTriangle(posX, posY)->SetRotate(180);
+			map->CreateBlock(posX, posY + restBlockSize);
+
+			posX += (restBlockSize * 2) + 32;
+			posY = restGroundLevel;
+			map->CreateTriangle(posX, posY);
 
 		}
 		break;
 
 		case 3:
 		{
+			posX = map->GetMapEnd() + restObsDistance*2;
+			posY = restGroundLevel;
 
+			map->CreateTriangle(posX, posY);
+			map->CreateTriangle(posX + restBlockSize, posY);
 		}
 		break;
 

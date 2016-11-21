@@ -65,7 +65,7 @@ IZone* CMapGenerator::CreateZone()
 		case 2:
 			zone = new PlatformStairs(zoneInfo);
 			break;*/
-		default: zone = new ShortObstacle(zoneInfo);
+		default: zone = new ShortThorns(zoneInfo);
 	}
 	lastZoneID = rndVal;
 	
