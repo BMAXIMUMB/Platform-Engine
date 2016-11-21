@@ -338,3 +338,124 @@ void PlatformStairs::Generate()
 //----------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------
+
+ShortObstacle::ShortObstacle(ZoneInfo zi) : IZone(zi)
+{
+	//	Определяем сколько препятствий будет сгенерировано
+	int obsAmount = RandomValue(1, 4);
+	
+	//	Определяем длину зоны
+	lenght = RandomValue(1000, 2000);
+}
+
+ShortObstacle::~ShortObstacle()
+{
+
+}
+
+void ShortObstacle::Generate()
+{
+	float posX = 0.0f;
+	float posY = 0.0f;
+
+	//	Определяем тип препятствия, которое будет сгенерировано
+	int obsType = /*RandomValue(0, 4)*/1;
+
+	switch(obsType)
+	{
+		case 0:
+		{
+			int subtype = RandomValue(0, 1);
+			if(!subtype)
+			{
+				posY = restGroundLevel;
+
+				// Первый квадрат
+				posX = map->GetMapEnd() + restObsDistance;
+				map->CreateBlock(posX, posY);
+
+				// Треугольник
+				posX += 3 * restBlockSize;
+				map->CreateTriangle(posX, posY);
+
+				// Последний квадрат
+				posX += restBlockSize;
+				map->CreateBlock(posX, posY);
+			}
+			else if(subtype == 1)
+			{
+				posY = restGroundLevel;
+
+				// Первый квадрат
+				posX = map->GetMapEnd() + restObsDistance;
+				map->CreateBlock(posX, posY);
+
+				// Второй квадрат
+				posX += 2 * restBlockSize;
+				map->CreateBlock(posX, posY);
+
+				// Треугольники
+				map->CreateTriangle(posX, posY + restBlockSize);
+				
+				posX += restBlockSize;
+				map->CreateTriangle(posX, posY);
+
+			}
+			
+		}
+		break;
+			
+		case 1:
+		{
+			posX = map->GetMapEnd() + restObsDistance;
+
+			// Первый блок
+			posY = restGroundLevel;
+			map->CreateBlock(posX, posY);
+
+			// Второй блок
+			posY = restGroundLevel+restBlockSize;
+			map->CreateBlock(posX, posY);
+
+			// Треугольник
+			posX += restBlockSize;
+			posY = restGroundLevel;
+			map->CreateTriangle(posX, posY);
+
+			// Второй и третий треугольники
+			posX += (restBlockSize * 2) +20;	// TODO: Тут прибавляем 20 что-бы игрок мог пройти. Пофиксить как-то
+			posY = restGroundLevel + (restBlockSize * 2);
+			map->CreateTriangle(posX, posY);
+
+			posY = restGroundLevel + (restBlockSize * 3);
+			map->CreateTriangle(posX, posY);
+
+			// Четвертый и пятый блоки
+			posX += restBlockSize;
+			posY = restGroundLevel + (restBlockSize * 2);
+			map->CreateBlock(posX, posY);
+
+			posY = restGroundLevel + (restBlockSize * 3);
+			map->CreateBlock(posX, posY);
+		}
+		break;
+
+		case 2:
+		{
+
+		}
+		break;
+
+		case 3:
+		{
+
+		}
+		break;
+
+	}
+
+	lastObsType = obsType;
+
+	if(!isCreated) isCreated = true;
+	map->SetMapEnd(posX);
+}
