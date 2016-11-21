@@ -57,6 +57,7 @@ public:
 
 	void SetPosition(float x, float y);
 	void SetColor(color4 color);
+	void SetRotate(float angle);
 
 	void GetPosition(float &x, float &y);
 	void GetSize(float &x, float &y);

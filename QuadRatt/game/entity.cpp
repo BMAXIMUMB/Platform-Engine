@@ -53,6 +53,11 @@ void IEntity::SetColor(color4 color)
 	}
 }
 
+void IEntity::SetRotate(float angle)
+{
+	object->SetRotate(angle);
+}
+
 //----------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------
@@ -114,7 +119,7 @@ void CPlayer::Respawn()
 	SetPosition(options.spawnPosX, options.spawnPosY);
 	score->Set(0);
 
-	this->startPosX = options.spawnPosX;
+	startPosX = options.spawnPosX;
 }
 
 bool CPlayer::onGround()
@@ -200,8 +205,8 @@ void CBlock::Create(float posX, float posY)
 	options.spawnPosY = posY;
 
 	// Создаем объект и изменяем цвет на нужный
-	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
-	this->object->SetColor(this->options.color);
+	object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	object->SetColor(this->options.color);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -231,8 +236,8 @@ void CMiniPlatform::Create(float posX, float posY)
 	options.spawnPosY = posY;
 
 	// Создаем объект и изменяем цвет на нужный
-	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
-	this->object->SetColor(this->options.color);
+	object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	object->SetColor(this->options.color);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -260,8 +265,8 @@ void CTriangle::Create(float posX, float posY)
 	options.spawnPosY = posY;
 
 	// Создаем объект и изменяем цвет на нужный
-	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
-	this->object->SetColor(this->options.color);
+	object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	object->SetColor(this->options.color);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -289,6 +294,6 @@ void CMiniTriangle::Create(float posX, float posY)
 	options.spawnPosY = posY;
 
 	// Создаем объект и изменяем цвет на нужный
-	this->object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
-	this->object->SetColor(this->options.color);
+	object = world->CreateObjectQuad(posX, posY, options.sizeX, options.sizeY, options.sprite, OBJECT_TYPE_STATIC);
+	object->SetColor(this->options.color);
 }
