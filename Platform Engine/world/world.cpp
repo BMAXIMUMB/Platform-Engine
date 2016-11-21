@@ -157,6 +157,7 @@ namespace PlatformEngine
 			sds.posY = objinfo[1];
 			sds.sizeX = objinfo[2];
 			sds.sizeY = objinfo[3];
+			sds.rot = objinfo[4];
 			sds.cmultiple[0] = color.r;
 			sds.cmultiple[1] = color.g;
 			sds.cmultiple[2] = color.b;
