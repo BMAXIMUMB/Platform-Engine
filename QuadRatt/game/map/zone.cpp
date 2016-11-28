@@ -26,7 +26,7 @@ IZone::~IZone()
 
 TowerHole::TowerHole(ZoneInfo zi) :IZone(zi)
 {
-	lenght = RandomValue(1300, 1700);
+	lenght = map->GetRandomDevice()->GetIntValue(1300, 1700);
 
 	lastTowerType = TowerType::Null;
 }
@@ -41,7 +41,7 @@ void TowerHole::Generate()
 	float posX = 0.0f;
 	float posY = 0.0f;
 
-	int rndVal = RandomValue(0, 5);
+	int rndVal = map->GetRandomDevice()->GetIntValue(0, 5);
 
 	switch(rndVal)
 	{
@@ -146,7 +146,7 @@ void TowerHole::Generate()
 
 TowerStairs::TowerStairs(ZoneInfo zi) :IZone(zi)
 {
-	lenght = RandomValue(3700, 5000);
+	lenght = map->GetRandomDevice()->GetIntValue(3700, 5000);
 
 	lastHoleLevel = -1;
 }
@@ -163,7 +163,7 @@ void TowerStairs::Generate()
 	if(!isCreated)	// Если ни одна башня еще не создана
 	{
 		// Зададим начальный уровень пролета (1, 2)
-		level = RandomValue(1, 2);
+		level = map->GetRandomDevice()->GetIntValue(1, 2);
 
 		isCreated = true;
 	}
@@ -174,12 +174,12 @@ void TowerStairs::Generate()
 		// Выберем, куда будет строиться лестница (вверх или вниз)
 
 		if(lastHoleLevel == 1) direction = 1;
-		else direction = RandomValue(0, 1);
+		else direction = map->GetRandomDevice()->GetIntValue(0, 1);
 
 		// Определим высоту следующего пролета
 
 		if(lastHoleLevel == 2 && direction == 0) level = 1;
-		else level = RandomValue(1, 2);
+		else level = map->GetRandomDevice()->GetIntValue(1, 2);
 		
 		if(direction == 1 && lastHoleLevel+level < 7) level += lastHoleLevel;
 		else level = lastHoleLevel - level;
@@ -252,7 +252,7 @@ void TowerStairs::TowerCreate(int holeLevel)
 
 PlatformStairs::PlatformStairs(ZoneInfo zi) : IZone(zi)
 {
-	int stage = RandomValue(10, 17);
+	int stage = map->GetRandomDevice()->GetIntValue(10, 17);
 	lenght = stage * (int)(restStageDistance*restMiniPlatformSize);
 
 	lastLevel = -1;
@@ -279,14 +279,14 @@ void PlatformStairs::Generate()
 	bool loop = true;
 	while(loop)
 	{
-		if(lastLevel < 1) direction = RandomValue(0, 1);
+		if(lastLevel < 1) direction = map->GetRandomDevice()->GetIntValue(0, 1);
 		else
 		{
-			if(directionCounter > 4) direction = RandomValue(-1, 1);
+			if(directionCounter > 4) direction = map->GetRandomDevice()->GetIntValue(-1, 1);
 			else
 			{
 				int values[2] = { -1,1 };
-				direction = values[RandomValue(0, 1)];
+				direction = values[map->GetRandomDevice()->GetIntValue(0, 1)];
 			}
 		}
 
@@ -313,7 +313,7 @@ void PlatformStairs::Generate()
 		{
 			posY = restStartPosY + ((--lastLevel)*restBlockSize);
 
-			int rndVal = RandomValue(0, 1);
+			int rndVal = map->GetRandomDevice()->GetIntValue(0, 1);
 			int multiple[2] = { 3,5 };
 			posX = map->GetMapEnd() + (multiple[rndVal] * restMiniPlatformSize);
 
@@ -342,10 +342,10 @@ void PlatformStairs::Generate()
 ShortThorns::ShortThorns(ZoneInfo zi) : IZone(zi)
 {
 	//	Определяем сколько препятствий будет сгенерировано
-	int obsAmount = RandomValue(1, 4);
+	int obsAmount = map->GetRandomDevice()->GetIntValue(1, 4);
 	
 	//	Определяем длину зоны
-	lenght = RandomValue(1000, 2000);
+	lenght = map->GetRandomDevice()->GetIntValue(1000, 2000);
 
 	lastObsType = INVALID_OBS_TYPE;
 }
@@ -361,13 +361,13 @@ void ShortThorns::Generate()
 	float posY = 0.0f;
 
 	//	Определяем тип препятствия, которое будет сгенерировано
-	int obsType = /*RandomValue(0, 4)*/2;
+	int obsType = map->GetRandomDevice()->GetIntValue(0, 2);
 
 	switch(obsType)
 	{
 		case 0:
 		{
-			int subtype = RandomValue(0, 1);
+			int subtype = map->GetRandomDevice()->GetIntValue(0, 1);
 			if(!subtype)
 			{
 				posY = restGroundLevel;
@@ -413,7 +413,7 @@ void ShortThorns::Generate()
 			posX = map->GetMapEnd() + restObsDistance;
 
 			// Первый дополнительный треугольник
-			if(RandomValue(0, 3) == 2)
+			if(map->GetRandomDevice()->GetIntValue(0, 3) == 2)
 			{
 				offsetX = restBlockSize;
 				posY = restGroundLevel;
@@ -451,14 +451,14 @@ void ShortThorns::Generate()
 			map->CreateBlock(posX, posY);
 
 			// Нижний дополнительный треугольник
-			if(RandomValue(0, 5) == 1)
+			if(map->GetRandomDevice()->GetIntValue(0, 5) == 1)
 			{
 				posY = restGroundLevel + restBlockSize;
 				map->CreateTriangle(posX, posY)->SetRotate(180);
 			}
 
 			// Боковые дополнительные треугольнки
-			if(RandomValue(0, 3) == 2)
+			if(map->GetRandomDevice()->GetIntValue(0, 3) == 2)
 			{
 				posX += restBlockSize;
 				posY = restGroundLevel + (restBlockSize * 2);
@@ -469,7 +469,7 @@ void ShortThorns::Generate()
 			}
 
 			// Завершающий дополнительный треугольник
-			if(RandomValue(0, 5) == 1)
+			if(map->GetRandomDevice()->GetIntValue(0, 5) == 1)
 			{
 				posX += restBlockSize * 3;
 				posY = restGroundLevel;

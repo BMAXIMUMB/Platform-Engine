@@ -8,6 +8,7 @@ CMap::CMap(PlatformEngine::CWorld *world)
 
 	mapEnd = 0.0f;
 	mapGenerator = new CMapGenerator(this);
+	randomDevice = new PlatformEngine::CRandomDevice;
 }
 
 CMap::~CMap()

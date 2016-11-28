@@ -27,6 +27,11 @@ private:
 	PlatformEngine::CWorld *world;
 
 	/**
+	*	ГПСЧ
+	*/
+	PlatformEngine::CRandomDevice *randomDevice;
+
+	/**
 	*	Конец сгенерированной карты
 	*/
 	float mapEnd;
@@ -81,6 +86,13 @@ public:
 		mapEnd = value;
 	}
 
+	/**
+	*	Возвращает указатель на CRandomDevice
+	*/
+	PlatformEngine::CRandomDevice * GetRandomDevice(void)
+	{
+		return randomDevice;
+	}
 
 	/**
 	*	Фабричные методы создания и удаления объектов

@@ -6,6 +6,7 @@
 #include <vector>
 #include "../graphics/sprite/sprite.h"
 #include "../graphics/color/color.h"
+#include "../application/math/random.h"
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -112,6 +113,7 @@ namespace PlatformEngine
 
 		CSprite *sprite;
 		CWorld *world;
+		CRandomDevice *randomDevice;
 		
 		// Инфа об объекте, к которому прикреплен объект
 		CObject *attachedObject;

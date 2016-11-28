@@ -6,6 +6,12 @@ CColumnManager::CColumnManager(PE::CWorld *world)
 {
 	isStarted = false;
 	this->world = world;
+	
+}
+
+CColumnManager::~CColumnManager()
+{
+	
 }
 
 void CColumnManager::Create()
@@ -23,17 +29,17 @@ ColumnSettings CColumnManager::ColumnSettingsGenerate()
 
 	if(!isStarted)
 	{
-		cs.depth = RandomValue(20, 100);
-		cs.posX = (float)RandomValue(0, 1300);
-		cs.sizeX = (float)RandomValue(100, 200);
-		cs.sizeY = (float)RandomValue(300, 500);
+		cs.depth = randomDevice.GetIntValue(20, 100);
+		cs.posX = (float)randomDevice.GetIntValue(0, 1300);
+		cs.sizeX = (float)randomDevice.GetIntValue(100, 200);
+		cs.sizeY = (float)randomDevice.GetIntValue(300, 500);
 	}
 	else
 	{
-		cs.depth = RandomValue(20, 100);
-		cs.posX = (float)RandomValue(1500, 2000);
-		cs.sizeX = (float)RandomValue(100, 200);
-		cs.sizeY = (float)RandomValue(300, 500);
+		cs.depth = randomDevice.GetIntValue(20, 100);
+		cs.posX = (float)randomDevice.GetIntValue(1500, 2000);
+		cs.sizeX = (float)randomDevice.GetIntValue(100, 200);
+		cs.sizeY = (float)randomDevice.GetIntValue(300, 500);
 	}
 
 	return cs;

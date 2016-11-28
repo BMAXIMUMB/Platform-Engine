@@ -103,7 +103,6 @@ void CLevel::Restart()
 
 	map->Clear();
 	map->SetGeneratePos(START_BARRIER_OFFSET);
-
 	background->Reset();
 }
 

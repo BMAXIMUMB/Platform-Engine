@@ -44,6 +44,7 @@ namespace PlatformEngine
 		this->velocityColor = ps.velocityColor;
 		this->color = ps.color;
 		this->time = ps.time;
+		
 	}
 
 	void CParticle::Update(float dTime)
@@ -80,13 +81,15 @@ namespace PlatformEngine
 		count = 0;
 		createdCount = 0;
 		timeInterval = 0;
-
+		
+		randomDevice = new CRandomDevice;
 		attachedObject = nullptr;
 	}
 
 	CParticleEmitter::~CParticleEmitter()
 	{
 		Release();
+		delete randomDevice;
 	}
 
 	void CParticleEmitter::AttachToObject(CObject *Object, float offsetx, float offsety)
@@ -203,19 +206,19 @@ namespace PlatformEngine
 			else
 			{
 				ParticleSettings ps;
-
-				ps.posX = this->posX + FloatRandomValue(-pes.posxRnd, pes.posxRnd);
-				ps.posY = this->posY + FloatRandomValue(-pes.posyRnd, pes.posyRnd);
-				ps.size = pes.size + FloatRandomValue(-pes.sizeRnd, pes.sizeRnd);
-				ps.angle = FloatRandomValue(-pes.angleRnd, pes.angleRnd);
+				
+				ps.posX = this->posX + randomDevice->GetRealValue<float>(-pes.posxRnd, pes.posxRnd);
+				ps.posY = this->posY + randomDevice->GetRealValue<float>(-pes.posyRnd, pes.posyRnd);
+				ps.size = pes.size + randomDevice->GetRealValue<float>(-pes.sizeRnd, pes.sizeRnd);
+				ps.angle = randomDevice->GetRealValue<float>(-pes.angleRnd, pes.angleRnd);
 				ps.color = pes.color;
 				ps.time = pes.time;
 
-				ps.velocityX = ATVC(pes.velX.a + pes.velX.a*FloatRandomValue(-pes.velXRnd.a, pes.velXRnd.a), pes.velX.b + pes.velX.b*FloatRandomValue(-pes.velXRnd.b, pes.velXRnd.b));
-				ps.velocityY = ATVS(pes.velY.a + pes.velY.a*FloatRandomValue(-pes.velYRnd.a, pes.velYRnd.a), pes.velY.b + pes.velX.b*FloatRandomValue(-pes.velYRnd.b, pes.velYRnd.b));
+				ps.velocityX = ATVC(pes.velX.a + pes.velX.a*randomDevice->GetRealValue<float>(-pes.velXRnd.a, pes.velXRnd.a), pes.velX.b + pes.velX.b*randomDevice->GetRealValue<float>(-pes.velXRnd.b, pes.velXRnd.b));
+				ps.velocityY = ATVS(pes.velY.a + pes.velY.a*randomDevice->GetRealValue<float>(-pes.velYRnd.a, pes.velYRnd.a), pes.velY.b + pes.velX.b*randomDevice->GetRealValue<float>(-pes.velYRnd.b, pes.velYRnd.b));
 				ps.velocityColor = pes.velColor;
 				ps.velocitySize = pes.velSizeRnd;
-				ps.velocityAngle = pes.velAngle + FloatRandomValue(-pes.velAngleRnd, pes.velAngleRnd);
+				ps.velocityAngle = pes.velAngle + randomDevice->GetRealValue<float>(-pes.velAngleRnd, pes.velAngleRnd);
 
 				particleList[i]->Reset(ps);
 			}
@@ -231,18 +234,18 @@ namespace PlatformEngine
 
 					ParticleSettings ps;
 
-					ps.posX = this->posX + FloatRandomValue(-pes.posxRnd, pes.posxRnd);
-					ps.posY = this->posY + FloatRandomValue(-pes.posyRnd, pes.posyRnd);
-					ps.size = pes.size + FloatRandomValue(-pes.sizeRnd, pes.sizeRnd);
-					ps.angle = FloatRandomValue(-pes.angleRnd, pes.angleRnd);
+					ps.posX = this->posX + randomDevice->GetRealValue<float>(-pes.posxRnd, pes.posxRnd);
+					ps.posY = this->posY + randomDevice->GetRealValue<float>(-pes.posyRnd, pes.posyRnd);
+					ps.size = pes.size + randomDevice->GetRealValue<float>(-pes.sizeRnd, pes.sizeRnd);
+					ps.angle = randomDevice->GetRealValue<float>(-pes.angleRnd, pes.angleRnd);
 					ps.color = pes.color;
 					ps.time = pes.time;
 
-					ps.velocityX = ATVC(pes.velX.a + pes.velX.a*FloatRandomValue(-pes.velXRnd.a, pes.velXRnd.a), pes.velX.b + pes.velX.b*FloatRandomValue(-pes.velXRnd.b, pes.velXRnd.b));
-					ps.velocityY = ATVS(pes.velY.a + pes.velY.a*FloatRandomValue(-pes.velYRnd.a, pes.velYRnd.a), pes.velY.b + pes.velX.b*FloatRandomValue(-pes.velYRnd.b, pes.velYRnd.b));
+					ps.velocityX = ATVC(pes.velX.a + pes.velX.a*randomDevice->GetRealValue<float>(-pes.velXRnd.a, pes.velXRnd.a), pes.velX.b + pes.velX.b*randomDevice->GetRealValue<float>(-pes.velXRnd.b, pes.velXRnd.b));
+					ps.velocityY = ATVS(pes.velY.a + pes.velY.a*randomDevice->GetRealValue<float>(-pes.velYRnd.a, pes.velYRnd.a), pes.velY.b + pes.velX.b*randomDevice->GetRealValue<float>(-pes.velYRnd.b, pes.velYRnd.b));
 					ps.velocityColor = pes.velColor;
 					ps.velocitySize = pes.velSizeRnd;
-					ps.velocityAngle = pes.velAngle + FloatRandomValue(-pes.velAngleRnd, pes.velAngleRnd);
+					ps.velocityAngle = pes.velAngle + randomDevice->GetRealValue<float>(-pes.velAngleRnd, pes.velAngleRnd);
 
 					ParticleCreate(ps);
 				}

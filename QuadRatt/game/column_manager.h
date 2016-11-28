@@ -13,7 +13,9 @@ class CColumnManager
 private:
 
 	std::vector<CColumn*> columnElementList;
-	PE::CWorld *world;
+	PlatformEngine::CWorld *world;
+
+	PlatformEngine::CRandomDevice randomDevice;
 
 	bool isStarted;
 
@@ -29,6 +31,7 @@ private:
 public:
 
 	CColumnManager(PE::CWorld *world);
+	~CColumnManager();
 
 	// Создает колонны на начальном этапе
 	void Create(void);

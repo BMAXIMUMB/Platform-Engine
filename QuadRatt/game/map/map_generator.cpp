@@ -43,7 +43,7 @@ IZone* CMapGenerator::CreateZone()
 	bool loop = true;
 	while(loop)
 	{
-		rndVal = RandomValue(0, 2);
+		rndVal = map->GetRandomDevice()->GetIntValue(0, 2);
 		if(rndVal != lastZoneID) loop = false;
 	}
 

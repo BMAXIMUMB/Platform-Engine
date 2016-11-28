@@ -28,7 +28,4 @@
 #define PLATFORMENGINE_VERSION_STR			"0.0.1"
 #define PLATFORMENGINE_VERSION_API_STR		"0.0.1"
 
-PLATFORMENGINE_API int RandomValue(int min, int max);
-float FloatRandomValue(float min, float max);
-
 #endif //_PLATFORMENGINE_H_
