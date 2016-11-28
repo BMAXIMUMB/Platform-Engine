@@ -6,6 +6,7 @@
 #include "../platform_engine.h"
 #include "mouse\mouse.h"
 #include "keyboard\keyboard.h"
+#include "math\random.h"
 #include "../graphics/shader/shader.h"
 #include "../object/quad.h"
 #include "../world/world.h"
