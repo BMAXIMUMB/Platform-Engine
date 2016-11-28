@@ -3,6 +3,8 @@
 #include "program.h"
 #include "input\input.h"
 
+#include <iomanip>
+
 //----------------------------------------------------------------------------------------------------------
 
 CProgram::CProgram(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -38,6 +40,23 @@ void CProgram::InitGL()
 	//glEnable(GL_MULTISAMPLE);
 	/*glEnable(GL_POLYGON_SMOOTH);
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);*/
+
+	//=============================================================================================================
+	/*реярш*/
+	/* TEST RANDOM DEVICE 
+	PlatformEngine::CRandomDevice rd;
+
+	std::map<int, int> histogram;
+	for(int i = 0; i < 100; ++i) {
+		++histogram[rd.GetRealValue<double>(1,10)];
+	}
+
+	// print results  
+	std::cout << "Distribution for " << 100 << " samples:" << std::endl;
+	for(const auto& elem : histogram) {
+		std::cout << std::setw(5) << elem.first << ' ' << std::string(elem.second, ':') << std::endl;
+	}
+	std::cout << std::endl;*/
 }
 
 bool CProgram::Start()
