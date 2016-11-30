@@ -35,4 +35,16 @@ namespace PlatformEngine
 		std::discrete_distribution<T> dd(list);
 		return dd(gen);
 	}
+
+	template <typename T>
+	void CRandomDevice::Generate(std::vector<T> &vec, int amount, T min, T max)
+	{
+		std::uniform_int_distribution<T> ud(min, max);
+		std::generate(vec.begin(), 
+			vec.begin() + amount, 
+			[&ud, this]()
+		{
+			return ud(gen); 
+		});
+	}
 }

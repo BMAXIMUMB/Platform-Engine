@@ -6,6 +6,7 @@
 #include "../../platform_engine.h"
 
 #include <random>
+#include <algorithm> 
 
 namespace PlatformEngine
 {
@@ -44,6 +45,12 @@ namespace PlatformEngine
 		*/
 		template <typename T = int>
 		PLATFORMENGINE_API T DiscreteDistribution(std::initializer_list<double> list);
+
+		/**
+		*	Генерирует несколько случайных значений
+		*/
+		template <typename T = int>
+		PLATFORMENGINE_API void Generate(std::vector<T> &vec, int amount, T min, T max);
 	};
 	
 	// Для использования вне dll
@@ -60,5 +67,10 @@ namespace PlatformEngine
 	template PLATFORMENGINE_API float CRandomDevice::GetRealValue<float>(float, float);
 	template PLATFORMENGINE_API double CRandomDevice::GetRealValue<double>(double, double);
 	template PLATFORMENGINE_API long double CRandomDevice::GetRealValue<long double>(long double, long double);
+
+	template PLATFORMENGINE_API void CRandomDevice::Generate(std::vector<int> &vec, int amount, int min, int max);
+	template PLATFORMENGINE_API void CRandomDevice::Generate(std::vector<short> &vec, int amount, short min, short max);
+	template PLATFORMENGINE_API void CRandomDevice::Generate(std::vector<long> &vec, int amount, long min, long max);
+	template PLATFORMENGINE_API void CRandomDevice::Generate(std::vector<long long> &vec, int amount, long long min, long long max);
 }
 #endif /*_RANDOM_H_*/
